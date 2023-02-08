@@ -1,3 +1,3 @@
 # Software Engineering Project: Dog Show
 
-Authors: [Sylphrena Kleinsasser](https://github.com/sylphrena0), Dominick Garcia
+Authors: [Dominick Garcia](https://github.com/DomG06), [Sylphrena Kleinsasser](https://github.com/sylphrena0)
