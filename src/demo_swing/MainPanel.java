@@ -11,7 +11,10 @@ public class MainPanel extends JFrame implements ActionListener {
     private ButtonPanel buttonPanel;
     private ImagePanel imagePanel;
     private ContentPanel contentPanel;
-    public MainPanel(String title) {
+    private static MainPanel instance;
+    private MainPanel(String title) {
+        //init setup
+        instance = this;
         setTitle(title);
         //setPreferredSize(new Dimension(WIDTH, HEIGHT));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -28,10 +31,23 @@ public class MainPanel extends JFrame implements ActionListener {
         setVisible(true);
     }
 
+    public static MainPanel getInstance() {
+        return getInstance("Demo");
+    }
+
+    public static MainPanel getInstance(String title) {
+        if (instance == null) {
+            new MainPanel(title); //constructor sets instance variable
+        } else if (!instance.getTitle().equals(title)) {
+            instance.setTitle(title);
+        }
+        return instance;
+    }
+
     private void addComponents() {
         containerPanel = new JPanel();
         containerPanel.setLayout(new BorderLayout());
-        buttonPanel = new ButtonPanel(this);
+        buttonPanel = new ButtonPanel();
         containerPanel.add(buttonPanel, BorderLayout.LINE_END);
 
         cardPanel = new JPanel();
@@ -59,7 +75,7 @@ public class MainPanel extends JFrame implements ActionListener {
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new MainPanel("Demo"));
+        SwingUtilities.invokeLater(() -> MainPanel.getInstance("Test Demo"));
     }
 
 }

@@ -7,8 +7,8 @@ public class ButtonPanel extends JPanel {
     private MainPanel mainPanel;
     private final int WIDTH=200, HEIGHT=600;
 
-    public ButtonPanel(MainPanel mainPanel) {
-        this.mainPanel = mainPanel;
+    public ButtonPanel() {
+        this.mainPanel = MainPanel.getInstance();
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
         setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
