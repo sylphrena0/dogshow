@@ -23,7 +23,7 @@ public class DragAndDrop extends JFrame {
 	}
 
 	private void addComponents() {
-		ImagePanel panel = new ImagePanel("images/coyoteSad.png");
+		ImagePanel panel = new ImagePanel("/home/sylphrena/Pictures/SPS Internship (1).JPG");
 		
 		add(new JScrollPane(panel), BorderLayout.CENTER);
 
