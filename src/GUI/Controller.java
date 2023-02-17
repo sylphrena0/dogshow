@@ -6,7 +6,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Controller extends JFrame implements ActionListener {
-    private final int WIDTH=800, HEIGHT=600;
     private JPanel containerPanel, headerPanel, navPanel;
     private static Controller instance;
     private static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -31,7 +30,7 @@ public class Controller extends JFrame implements ActionListener {
     }
 
     public static Controller getInstance() {
-        return getInstance("Demo");
+        return getInstance("Dog Show");
     }
 
     public static Controller getInstance(String title) {
@@ -50,6 +49,7 @@ public class Controller extends JFrame implements ActionListener {
         button.setFont(new Font("Caveat",1, 75));
         button.setFocusPainted(false);
         button.setBorderPainted(false);
+        button.addActionListener(this);
     }
     private void addComponents() {
 
@@ -81,6 +81,13 @@ public class Controller extends JFrame implements ActionListener {
         configureNavButton(contest, button);
 
         home.setBackground(backgroundColor);
+
+        home.setActionCommand("HOME");
+        records.setActionCommand("RECORDS");
+        registration.setActionCommand("REGISTRATION");
+        contest.setActionCommand("CONTEST");
+
+
 
         navPanel = new JPanel();
         navPanel.setLayout(new BorderLayout());
@@ -119,13 +126,24 @@ public class Controller extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
         String actionCommand = actionEvent.getActionCommand();
-        containerPanel.invalidate();
-        containerPanel.repaint();
-
+        switch (actionCommand) {
+            case "HOME":
+                //CALL HOME
+                HomeFrame home = new HomeFrame();
+                containerPanel.add(home, FlowLayout.CENTER);
+                break;
+            case "RECORDS":
+                //CALL RECORDS
+                System.out.println("RECORDS");
+                break;
+            case "REGISTRATION":
+                //CALL REGISTRATION
+                System.out.println("REGISTRATION");
+                break;
+            case "CONTEST":
+                //CALL CONTEST
+                System.out.println("CONTEST");
+                break;
+        }
     }
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> Controller.getInstance("Home"));
-    }
-
 }
