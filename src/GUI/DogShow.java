@@ -1,7 +1,5 @@
 package GUI;
 
-import demo_structure.ControllingFrame;
-
 import javax.swing.*;
 
 public class DogShow {

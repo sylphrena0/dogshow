@@ -1,4 +1,4 @@
-package demo_absfac;
+package demos.demo_absfac;
 
 import java.awt.Font;
 

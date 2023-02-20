@@ -1,4 +1,4 @@
-package demo_dnd;
+package demos.demo_dnd;
 
 import java.awt.Image;
 import java.awt.datatransfer.DataFlavor;

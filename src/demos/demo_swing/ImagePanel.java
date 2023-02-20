@@ -1,4 +1,4 @@
-package demo_swing;
+package demos.demo_swing;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;

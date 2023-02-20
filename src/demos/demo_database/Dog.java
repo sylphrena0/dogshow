@@ -1,4 +1,4 @@
-package demo_database;
+package demos.demo_database;
 
 import java.io.Serializable;
 import java.util.Objects;

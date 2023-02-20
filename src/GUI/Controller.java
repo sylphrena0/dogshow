@@ -1,16 +1,16 @@
 package GUI;
 
+import config.ConfigParameters;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Controller extends JFrame implements ActionListener {
-    private JPanel containerPanel, headerPanel, navPanel;
+public class Controller extends JFrame implements ActionListener, ConfigParameters {
+    private JPanel containerPanel, navPanel, titlePanel, bodyPanel;
     private static Controller instance;
-    private static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-    private static Color backgroundColor = new Color(0x212121);
-    private static Color headerColor = new Color(0x303030);
+
     private Controller(String title) {
         //init setup
         instance = this;
@@ -56,12 +56,12 @@ public class Controller extends JFrame implements ActionListener {
 
 
         containerPanel = new JPanel();
-        containerPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
+        containerPanel.setLayout(new BorderLayout());
         containerPanel.setBackground(backgroundColor);
 
-        headerPanel = new JPanel();
-        headerPanel.setPreferredSize(new Dimension(screenSize.width, 120));
-        headerPanel.setBackground(headerColor);
+        navPanel = new JPanel();
+        navPanel.setPreferredSize(new Dimension(screenSize.width, 120));
+        navPanel.setBackground(headerColor);
 
         JLabel header = new JLabel("  Williamsport Area Kennel Club");
         header.setFont(new Font("Caveat",1, 75));
@@ -89,17 +89,17 @@ public class Controller extends JFrame implements ActionListener {
 
 
 
-        navPanel = new JPanel();
-        navPanel.setLayout(new BorderLayout());
-        navPanel.setBackground(headerColor);
-        navPanel.add(header);
+        titlePanel = new JPanel();
+        titlePanel.setLayout(new BorderLayout());
+        titlePanel.setBackground(headerColor);
+        titlePanel.add(header);
 
-        GroupLayout navLayout = new GroupLayout(headerPanel);
+        GroupLayout navLayout = new GroupLayout(navPanel);
         navLayout.setAutoCreateGaps(false);
         navLayout.setAutoCreateContainerGaps(false);
         navLayout.setHorizontalGroup(
                 navLayout.createSequentialGroup()
-                        .addComponent(navPanel)
+                        .addComponent(titlePanel)
                         .addComponent(home)
                         .addComponent(records)
                         .addComponent(registration)
@@ -108,7 +108,7 @@ public class Controller extends JFrame implements ActionListener {
         navLayout.setVerticalGroup(
                 navLayout.createSequentialGroup()
                         .addGroup(navLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                .addComponent(navPanel)
+                                .addComponent(titlePanel)
                                 .addComponent(home)
                                 .addComponent(records)
                                 .addComponent(registration)
@@ -116,9 +116,16 @@ public class Controller extends JFrame implements ActionListener {
                         )
         );
 
-        headerPanel.setLayout(navLayout);
-        containerPanel.add(headerPanel);
+        navPanel.setLayout(navLayout);
+        containerPanel.add(navPanel, BorderLayout.NORTH);
         containerPanel.add(home);
+
+        bodyPanel = new JPanel();
+        bodyPanel.setLayout(new CardLayout());
+
+
+//        HomeFrame homePanel = new HomeFrame();
+//        containerPanel.add(homePanel, FlowLayout.CENTER);
 
         add(containerPanel);
     }
@@ -129,8 +136,7 @@ public class Controller extends JFrame implements ActionListener {
         switch (actionCommand) {
             case "HOME":
                 //CALL HOME
-                HomeFrame home = new HomeFrame();
-                containerPanel.add(home, FlowLayout.CENTER);
+                System.out.println("HOME");
                 break;
             case "RECORDS":
                 //CALL RECORDS

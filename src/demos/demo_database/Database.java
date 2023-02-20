@@ -1,4 +1,4 @@
-package demo_database;
+package demos.demo_database;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
