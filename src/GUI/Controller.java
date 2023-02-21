@@ -10,7 +10,7 @@ import java.awt.event.ActionListener;
 public class Controller extends JFrame implements ActionListener, ConfigParameters {
     private JPanel containerPanel, navPanel, titlePanel, bodyPanel;
     private JButton home, records, registration, contest;
-    private HomePanel homePanel;
+    private HomePage homePage;
     private static Controller instance;
 
     private Controller(String title) {
@@ -121,7 +121,7 @@ public class Controller extends JFrame implements ActionListener, ConfigParamete
         containerPanel.add(navPanel, BorderLayout.NORTH);
 
         bodyPanel = new JPanel(new CardLayout());
-        bodyPanel.add(new HomePanel());
+        bodyPanel.add(new HomePage());
 
         containerPanel.add(bodyPanel, BorderLayout.CENTER);
 

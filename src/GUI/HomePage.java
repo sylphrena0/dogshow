@@ -5,13 +5,13 @@ import config.ConfigParameters;
 import javax.swing.*;
 import java.awt.*;
 
-public class HomePanel extends JPanel implements ConfigParameters {
+public class HomePage extends JPanel implements ConfigParameters {
     private Controller controller;
     private JPanel homePanel, authPanel, loginPanel, registrationPanel, dogImagePanel;
     private JPasswordField passwordField;
     private JTextField usernameField;
 
-    public HomePanel() {
+    public HomePage() {
         this.controller = Controller.getInstance("Home - Dog Show");
         addComponents();
     }
