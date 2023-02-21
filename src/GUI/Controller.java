@@ -9,6 +9,8 @@ import java.awt.event.ActionListener;
 
 public class Controller extends JFrame implements ActionListener, ConfigParameters {
     private JPanel containerPanel, navPanel, titlePanel, bodyPanel;
+    private JButton home, records, registration, contest;
+    private HomePanel homePanel;
     private static Controller instance;
 
     private Controller(String title) {
@@ -21,7 +23,7 @@ public class Controller extends JFrame implements ActionListener, ConfigParamete
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         addComponents();
         try {
-            UIManager.setLookAndFeel("com.sun.java.swing.plaf.motif.MotifLookAndFeel");
+            UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
         } catch (Exception e) {
             System.out.println("Error setting UI look and feel!");
             System.exit(0);
@@ -62,16 +64,17 @@ public class Controller extends JFrame implements ActionListener, ConfigParamete
         navPanel = new JPanel();
         navPanel.setPreferredSize(new Dimension(screenSize.width, 120));
         navPanel.setBackground(headerColor);
+        navPanel.setForeground(Color.WHITE);
 
         JLabel header = new JLabel("  Williamsport Area Kennel Club");
         header.setFont(new Font("Caveat",1, 75));
         header.setForeground(Color.WHITE);
         header.setHorizontalAlignment(SwingConstants.LEFT);
 
-        JButton home  = new JButton(" Home ");
-        JButton records = new JButton(" Records ");
-        JButton registration = new JButton(" Registration ");
-        JButton contest = new JButton(" Contest ");
+        home  = new JButton(" Home ");
+        records = new JButton(" Records ");
+        registration = new JButton(" Registration ");
+        contest = new JButton(" Contest ");
 
         Dimension button = new Dimension(200, 120);
 
@@ -86,8 +89,6 @@ public class Controller extends JFrame implements ActionListener, ConfigParamete
         records.setActionCommand("RECORDS");
         registration.setActionCommand("REGISTRATION");
         contest.setActionCommand("CONTEST");
-
-
 
         titlePanel = new JPanel();
         titlePanel.setLayout(new BorderLayout());
@@ -118,14 +119,11 @@ public class Controller extends JFrame implements ActionListener, ConfigParamete
 
         navPanel.setLayout(navLayout);
         containerPanel.add(navPanel, BorderLayout.NORTH);
-        containerPanel.add(home);
 
-        bodyPanel = new JPanel();
-        bodyPanel.setLayout(new CardLayout());
+        bodyPanel = new JPanel(new CardLayout());
+        bodyPanel.add(new HomePanel());
 
-
-//        HomeFrame homePanel = new HomeFrame();
-//        containerPanel.add(homePanel, FlowLayout.CENTER);
+        containerPanel.add(bodyPanel, BorderLayout.CENTER);
 
         add(containerPanel);
     }
@@ -137,19 +135,40 @@ public class Controller extends JFrame implements ActionListener, ConfigParamete
             case "HOME":
                 //CALL HOME
                 System.out.println("HOME");
+                home.setBackground(backgroundColor);
+                records.setBackground(headerColor);
+                registration.setBackground(headerColor);
+                contest.setBackground(headerColor);
                 break;
             case "RECORDS":
                 //CALL RECORDS
                 System.out.println("RECORDS");
+                records.setBackground(backgroundColor);
+                home.setBackground(headerColor);
+                registration.setBackground(headerColor);
+                contest.setBackground(headerColor);
                 break;
             case "REGISTRATION":
                 //CALL REGISTRATION
                 System.out.println("REGISTRATION");
+                registration.setBackground(backgroundColor);
+                home.setBackground(headerColor);
+                records.setBackground(headerColor);
+                contest.setBackground(headerColor);
                 break;
             case "CONTEST":
                 //CALL CONTEST
                 System.out.println("CONTEST");
+                contest.setBackground(backgroundColor);
+                home.setBackground(headerColor);
+                records.setBackground(headerColor);
+                registration.setBackground(headerColor);
                 break;
         }
     }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(()-> Controller.getInstance("Dog Show"));
+    }
+
 }

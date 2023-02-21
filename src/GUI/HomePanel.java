@@ -1,20 +1,45 @@
 package GUI;
 
-import javax.swing.*;
+import config.ConfigParameters;
 
-public class HomeFrame extends JPanel {
+import javax.swing.*;
+import java.awt.*;
+
+public class HomePanel extends JPanel implements ConfigParameters {
     private Controller controller;
-    private JPanel loginPanel, registrationPanel, dogImagePanel;
+    private JPanel homePanel, authPanel, loginPanel, registrationPanel, dogImagePanel;
     private JPasswordField passwordField;
     private JTextField usernameField;
 
-    public HomeFrame() {
+    public HomePanel() {
         this.controller = Controller.getInstance("Home - Dog Show");
         addComponents();
     }
 
     private void addComponents() {
-        loginPanel = new JPanel();
+        //"this" is the JPanel we are adding to the super, as this class extend JPanel
+        this.setBackground(backgroundColor);
+        this.setPreferredSize(pageSize);
+        this.setLayout(new BorderLayout());
+
+
+        CardLayout authLayout = new CardLayout();
+        authPanel = new JPanel(authLayout);
+        authPanel.setPreferredSize(new Dimension((int) (0.7*screenSize.width), (int) (0.5*screenSize.height)));
+
+        authPanel.setBorder(BorderFactory.createEmptyBorder(80, 80, 80, 600));
+        authPanel.setBackground(backgroundColor);
+
+//        authPanel.setUndecorated(true);
+//        authPanel.setShape(new RoundRectangle2D.Double(x, y, 100, 100, 50, 50));
+
+
+        loginPanel = new RoundedPanel();
+        registrationPanel = new JPanel();
+
+        loginPanel.setBackground(headerColor);
+        registrationPanel.setBackground(headerColor);
+
 
         JLabel usernameLabel = new JLabel("Enter your login: ", JLabel.CENTER);
         usernameLabel.setLabelFor(usernameField);
@@ -66,5 +91,14 @@ public class HomeFrame extends JPanel {
 
         loginPanel.setLayout(loginLayout);
 
+
+        authPanel.add(loginPanel);
+        authPanel.add(registrationPanel);
+
+        authLayout.first(authPanel);
+
+        this.add(authPanel, BorderLayout.NORTH);
     }
+
+
 }
