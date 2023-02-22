@@ -11,6 +11,11 @@ public class Controller extends JFrame implements ActionListener, ConfigParamete
     private JButton home, records, registration, contest;
     private static Controller instance;
     private HomePage homePage;
+    private RecordsPage recordsPage;
+    private RegistrationPage registrationPage;
+    private ContestPage contestPage;
+    private CardLayout pageLayout;
+    private JPanel pagePanel;
 
     private Controller(String title) {
         //init setup
@@ -53,8 +58,6 @@ public class Controller extends JFrame implements ActionListener, ConfigParamete
         button.addActionListener(this);
     }
     private void addComponents() {
-
-
         JPanel containerPanel = new JPanel();
         containerPanel.setLayout(new BorderLayout());
         containerPanel.setBackground(backgroundColor);
@@ -118,11 +121,20 @@ public class Controller extends JFrame implements ActionListener, ConfigParamete
         navPanel.setLayout(navLayout);
         containerPanel.add(navPanel, BorderLayout.NORTH);
 
-        homePage = new HomePage();
-        JPanel bodyPanel = new JPanel(new CardLayout());
-        bodyPanel.add(homePage);
+        pageLayout = new CardLayout();
+        pagePanel = new JPanel(pageLayout);
 
-        containerPanel.add(bodyPanel, BorderLayout.CENTER);
+        homePage = new HomePage();
+        recordsPage = new RecordsPage();
+        registrationPage = new RegistrationPage();
+        contestPage = new ContestPage();
+
+        pagePanel.add("HOME", homePage);
+        pagePanel.add("RECORDS", recordsPage);
+        pagePanel.add("REGISTRATION", registrationPage);
+        pagePanel.add("CONTEST", contestPage);
+
+        containerPanel.add(pagePanel, BorderLayout.CENTER);
 
         add(containerPanel);
     }
@@ -132,36 +144,36 @@ public class Controller extends JFrame implements ActionListener, ConfigParamete
         String actionCommand = actionEvent.getActionCommand();
         switch (actionCommand) {
             case "HOME" -> {
-                //CALL HOME
-                System.out.println("HOME");
                 home.setBackground(backgroundColor);
                 records.setBackground(headerColor);
                 registration.setBackground(headerColor);
                 contest.setBackground(headerColor);
+
+                pageLayout.show(pagePanel, "HOME");
             }
             case "RECORDS" -> {
-                //CALL RECORDS
-                System.out.println("RECORDS");
                 records.setBackground(backgroundColor);
                 home.setBackground(headerColor);
                 registration.setBackground(headerColor);
                 contest.setBackground(headerColor);
+
+                pageLayout.show(pagePanel, "RECORDS");
             }
             case "REGISTRATION" -> {
-                //CALL REGISTRATION
-                System.out.println("REGISTRATION");
                 registration.setBackground(backgroundColor);
                 home.setBackground(headerColor);
                 records.setBackground(headerColor);
                 contest.setBackground(headerColor);
+
+                pageLayout.show(pagePanel, "REGISTRATION");
             }
             case "CONTEST" -> {
-                //CALL CONTEST
-                System.out.println("CONTEST");
                 contest.setBackground(backgroundColor);
                 home.setBackground(headerColor);
                 records.setBackground(headerColor);
                 registration.setBackground(headerColor);
+
+                pageLayout.show(pagePanel, "CONTEST");
             }
             case "LOGIN" -> {
                 System.out.println("LOGIN");
