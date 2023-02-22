@@ -11,9 +11,6 @@ public class Controller extends JFrame implements ActionListener, ConfigParamete
     private JButton home, records, registration, contest;
     private static Controller instance;
     private HomePage homePage;
-    private RecordsPage recordsPage;
-    private RegistrationPage registrationPage;
-    private ContestPage contestPage;
     private CardLayout pageLayout;
     private JPanel pagePanel;
 
@@ -125,9 +122,9 @@ public class Controller extends JFrame implements ActionListener, ConfigParamete
         pagePanel = new JPanel(pageLayout);
 
         homePage = new HomePage();
-        recordsPage = new RecordsPage();
-        registrationPage = new RegistrationPage();
-        contestPage = new ContestPage();
+        RecordsPage recordsPage = new RecordsPage();
+        RegistrationPage registrationPage = new RegistrationPage();
+        ContestPage contestPage = new ContestPage();
 
         pagePanel.add("HOME", homePage);
         pagePanel.add("RECORDS", recordsPage);
