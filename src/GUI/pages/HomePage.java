@@ -19,7 +19,7 @@ public class HomePage extends JPanel implements ConfigParameters {
     private final Dimension authPanelSize = new Dimension((int) (0.7*screenSize.width), (int) (0.5*screenSize.height));
 
     public HomePage() {
-        this.controller = Controller.getInstance("Home - Dog Show");
+        this.controller = Controller.getInstance();
         addComponents();
     }
 

@@ -10,7 +10,7 @@ public class ContestPage extends JPanel implements ConfigParameters {
     private Controller controller;
 
     public ContestPage() {
-        this.controller = Controller.getInstance("Registration - Dog Show");
+        this.controller = Controller.getInstance();
         addComponents();
     }
 

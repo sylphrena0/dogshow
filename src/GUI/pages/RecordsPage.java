@@ -10,7 +10,7 @@ public class RecordsPage extends JPanel implements ConfigParameters {
     private Controller controller;
 
     public RecordsPage() {
-        this.controller = Controller.getInstance("Records - Dog Show");
+        this.controller = Controller.getInstance();
         addComponents();
     }
 

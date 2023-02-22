@@ -19,7 +19,6 @@ public class Controller extends JFrame implements ActionListener, ConfigParamete
     private JPanel pagePanel;
 
     private Controller(String title) {
-        //init setup
         instance = this;
         setTitle(title);
         setResizable(false);
@@ -37,7 +36,7 @@ public class Controller extends JFrame implements ActionListener, ConfigParamete
     }
 
     public static Controller getInstance() {
-        return getInstance("Dog Show");
+        return getInstance("Home - Dog Show");
     }
 
     public static Controller getInstance(String title) {
@@ -150,6 +149,7 @@ public class Controller extends JFrame implements ActionListener, ConfigParamete
                 registration.setBackground(headerColor);
                 contest.setBackground(headerColor);
 
+                setTitle("Home - Dog Show");
                 pageLayout.show(pagePanel, "HOME");
             }
             case "RECORDS" -> {
@@ -158,6 +158,7 @@ public class Controller extends JFrame implements ActionListener, ConfigParamete
                 registration.setBackground(headerColor);
                 contest.setBackground(headerColor);
 
+                setTitle("Records - Dog Show");
                 pageLayout.show(pagePanel, "RECORDS");
             }
             case "REGISTRATION" -> {
@@ -166,6 +167,7 @@ public class Controller extends JFrame implements ActionListener, ConfigParamete
                 records.setBackground(headerColor);
                 contest.setBackground(headerColor);
 
+                setTitle("Registration - Dog Show");
                 pageLayout.show(pagePanel, "REGISTRATION");
             }
             case "CONTEST" -> {
@@ -174,6 +176,7 @@ public class Controller extends JFrame implements ActionListener, ConfigParamete
                 records.setBackground(headerColor);
                 registration.setBackground(headerColor);
 
+                setTitle("Contest - Dog Show");
                 pageLayout.show(pagePanel, "CONTEST");
             }
             case "LOGIN" -> {
