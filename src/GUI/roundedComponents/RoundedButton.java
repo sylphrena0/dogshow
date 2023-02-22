@@ -1,17 +1,13 @@
-package GUI;
+package GUI.roundedComponents;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.RoundRectangle2D;
 
-// Author: Graywolf
-// Source: https://stackoverflow.com/questions/16213836/java-swing-jtextfield-set-placeholder
-
-public class RoundedPasswordField extends JPasswordField {
+public class RoundedButton extends JButton {
     private Shape shape;
     private Color color;
-    public RoundedPasswordField(Color color) {
-//        super(10);
+    public RoundedButton(Color color) {
         this.color = color;
         setOpaque(false); // As suggested by @AVD in comment.
 

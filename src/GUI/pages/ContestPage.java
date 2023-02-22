@@ -1,5 +1,6 @@
-package GUI;
+package GUI.pages;
 
+import GUI.Controller;
 import config.ConfigParameters;
 
 import javax.swing.*;

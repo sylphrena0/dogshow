@@ -1,5 +1,10 @@
-package GUI;
+package GUI.pages;
 
+import GUI.*;
+import GUI.roundedComponents.RoundedButton;
+import GUI.roundedComponents.RoundedPanel;
+import GUI.roundedComponents.RoundedPasswordField;
+import GUI.roundedComponents.RoundedTextField;
 import config.ConfigParameters;
 
 import javax.swing.*;
