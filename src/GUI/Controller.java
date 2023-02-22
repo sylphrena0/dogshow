@@ -8,10 +8,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Controller extends JFrame implements ActionListener, ConfigParameters {
-    private JPanel containerPanel, navPanel, titlePanel, bodyPanel;
     private JButton home, records, registration, contest;
-    private HomePage homePage;
     private static Controller instance;
+    private HomePage homePage;
 
     private Controller(String title) {
         //init setup
@@ -48,7 +47,7 @@ public class Controller extends JFrame implements ActionListener, ConfigParamete
         button.setMinimumSize(size);
         button.setBackground(headerColor);
         button.setForeground(Color.WHITE);
-        button.setFont(new Font("Caveat",1, 75));
+        button.setFont(new Font("Caveat", Font.BOLD, 75));
         button.setFocusPainted(false);
         button.setBorderPainted(false);
         button.addActionListener(this);
@@ -56,18 +55,17 @@ public class Controller extends JFrame implements ActionListener, ConfigParamete
     private void addComponents() {
 
 
-
-        containerPanel = new JPanel();
+        JPanel containerPanel = new JPanel();
         containerPanel.setLayout(new BorderLayout());
         containerPanel.setBackground(backgroundColor);
 
-        navPanel = new JPanel();
+        JPanel navPanel = new JPanel();
         navPanel.setPreferredSize(new Dimension(screenSize.width, 120));
         navPanel.setBackground(headerColor);
         navPanel.setForeground(Color.WHITE);
 
         JLabel header = new JLabel("  Williamsport Area Kennel Club");
-        header.setFont(new Font("Caveat",1, 75));
+        header.setFont(new Font("Caveat", Font.BOLD, 75));
         header.setForeground(Color.WHITE);
         header.setHorizontalAlignment(SwingConstants.LEFT);
 
@@ -90,7 +88,7 @@ public class Controller extends JFrame implements ActionListener, ConfigParamete
         registration.setActionCommand("REGISTRATION");
         contest.setActionCommand("CONTEST");
 
-        titlePanel = new JPanel();
+        JPanel titlePanel = new JPanel();
         titlePanel.setLayout(new BorderLayout());
         titlePanel.setBackground(headerColor);
         titlePanel.add(header);
@@ -120,8 +118,9 @@ public class Controller extends JFrame implements ActionListener, ConfigParamete
         navPanel.setLayout(navLayout);
         containerPanel.add(navPanel, BorderLayout.NORTH);
 
-        bodyPanel = new JPanel(new CardLayout());
-        bodyPanel.add(new HomePage());
+        homePage = new HomePage();
+        JPanel bodyPanel = new JPanel(new CardLayout());
+        bodyPanel.add(homePage);
 
         containerPanel.add(bodyPanel, BorderLayout.CENTER);
 
@@ -132,38 +131,52 @@ public class Controller extends JFrame implements ActionListener, ConfigParamete
     public void actionPerformed(ActionEvent actionEvent) {
         String actionCommand = actionEvent.getActionCommand();
         switch (actionCommand) {
-            case "HOME":
+            case "HOME" -> {
                 //CALL HOME
                 System.out.println("HOME");
                 home.setBackground(backgroundColor);
                 records.setBackground(headerColor);
                 registration.setBackground(headerColor);
                 contest.setBackground(headerColor);
-                break;
-            case "RECORDS":
+            }
+            case "RECORDS" -> {
                 //CALL RECORDS
                 System.out.println("RECORDS");
                 records.setBackground(backgroundColor);
                 home.setBackground(headerColor);
                 registration.setBackground(headerColor);
                 contest.setBackground(headerColor);
-                break;
-            case "REGISTRATION":
+            }
+            case "REGISTRATION" -> {
                 //CALL REGISTRATION
                 System.out.println("REGISTRATION");
                 registration.setBackground(backgroundColor);
                 home.setBackground(headerColor);
                 records.setBackground(headerColor);
                 contest.setBackground(headerColor);
-                break;
-            case "CONTEST":
+            }
+            case "CONTEST" -> {
                 //CALL CONTEST
                 System.out.println("CONTEST");
                 contest.setBackground(backgroundColor);
                 home.setBackground(headerColor);
                 records.setBackground(headerColor);
                 registration.setBackground(headerColor);
-                break;
+            }
+            case "LOGIN" -> {
+                System.out.println("LOGIN");
+            }
+            case "REGISTER" -> {
+                System.out.println("REGISTER");
+            }
+            case "LOGIN_PAGE" -> {
+                System.out.println("LOGIN_PAGE");
+                homePage.switchAuthPanel();
+            }
+            case "REGISTER_PAGE" -> {
+                System.out.println("REGISTER_PAGE");
+                homePage.switchAuthPanel();
+            }
         }
     }
 
