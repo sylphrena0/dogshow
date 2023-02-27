@@ -10,4 +10,6 @@ public interface ConfigParameters {
     Color inputColor = new Color(0x434343);
     String separator = System.getProperty("file.separator");
     String path = System.getProperty("user.dir") + separator;
+
+    Font headerFont = new Font("Caveat", Font.BOLD, 75);
 }

@@ -25,65 +25,7 @@ public class HomePage extends JPanel implements ConfigParameters {
         this.controller = Controller.getInstance();
         addComponents();
     }
-    private void configureInputField(JTextField textField, String placeholder) {
-        textField.addActionListener(controller);
-        textField.setForeground(Color.WHITE);
-        textField.setCaretColor(Color.WHITE);
-        textField.setBorder(BorderFactory.createEmptyBorder(10,20,10,20));
-        textField.setSize(new Dimension((int) (0.5*authPanelSize.width), (int) (0.25*authPanelSize.height)));
-        textField.setFont(new Font("Arial", Font.PLAIN, 24));
-        textField.setText(placeholder);
 
-        textField.addFocusListener(new FocusListener() {
-            @Override
-            public void focusGained(FocusEvent e) {
-                if (textField.getText().equals(placeholder)) {
-                    textField.setText("");
-                }
-            }
-            @Override
-            public void focusLost(FocusEvent e) {
-                if (textField.getText().isEmpty()) {
-                    textField.setText(placeholder);
-                }
-            }
-        });
-    }
-    private void configurePasswordField(JPasswordField passwordField, String placeholder) {
-        passwordField.addActionListener(controller);
-        passwordField.setForeground(Color.WHITE);
-        passwordField.setCaretColor(Color.WHITE);
-        passwordField.setBorder(BorderFactory.createEmptyBorder(10,20,10,20));
-        passwordField.setSize(new Dimension((int) (0.5*authPanelSize.width), (int) (0.25*authPanelSize.height)));
-        passwordField.setFont(new Font("Arial", Font.PLAIN, 24));
-        passwordField.setEchoChar((char) 0); //sets password to visible
-        passwordField.setText(placeholder);
-
-        passwordField.addFocusListener(new FocusListener() {
-            @Override
-            public void focusGained(FocusEvent e) {
-                if (new String(passwordField.getPassword()).equals(placeholder)) {
-                    passwordField.setText("");
-                    passwordField.setEchoChar('*'); //sets password to invisible
-                }
-            }
-            @Override
-            public void focusLost(FocusEvent e) {
-                if (new String(passwordField.getPassword()).isEmpty()) {
-                    passwordField.setText(placeholder);
-                    passwordField.setEchoChar((char) 0); //sets password to visible
-                }
-            }
-        });
-    }
-    private void configureButton(JButton button, String text, Color textColor) {
-        button.setText(text);
-        button.addActionListener(controller);
-        button.setForeground(textColor);
-        button.setFont(new Font("Caveat",Font.BOLD, 35));
-        button.setFocusPainted(false);
-        button.setBorderPainted(false);
-    }
     private void addComponents() {
 
         //"this" is the JPanel we are adding to the super, as this class extends JPanel
@@ -105,16 +47,16 @@ public class HomePage extends JPanel implements ConfigParameters {
         loginPanel.setBackground(headerColor);
 
         JLabel loginHeader = new JLabel("Welcome! Please Login:");
-        loginHeader.setFont(new Font("Caveat", Font.BOLD, 75));
+        loginHeader.setFont(headerFont);
         loginHeader.setForeground(Color.WHITE);
         loginHeader.setHorizontalAlignment(SwingConstants.LEFT);
 
-        JButton loginButton = new RoundedButton(new Color(0x93c47d));
-        configureButton(loginButton, "Login", Color.BLACK);
+        RoundedButton loginButton = new RoundedButton(new Color(0x93c47d));
+        loginButton.configureButton("Login", Color.BLACK, controller);
         loginButton.setActionCommand("LOGIN");
 
-        JButton registerPageButton = new RoundedButton(new Color(0x7c50e2));
-        configureButton(registerPageButton, "Register", Color.WHITE);
+        RoundedButton registerPageButton = new RoundedButton(new Color(0x7c50e2));
+        registerPageButton.configureButton("Register", Color.WHITE, controller);
         registerPageButton.setActionCommand("REGISTER_PAGE");
 
         GridLayout buttonLayout = new GridLayout(1,2, 40,40);
@@ -124,11 +66,11 @@ public class HomePage extends JPanel implements ConfigParameters {
         loginButtonPanel.add(registerPageButton);
         loginButtonPanel.setOpaque(false);
 
-        JTextField loginUsername = new RoundedTextField(inputColor);
-        configureInputField(loginUsername, "Username");
+        RoundedTextField loginUsername = new RoundedTextField(inputColor);
+        loginUsername.configureInputField("Username", controller);
 
-        JPasswordField loginPassword = new RoundedPasswordField(inputColor);
-        configurePasswordField(loginPassword, "Password");
+        RoundedPasswordField loginPassword = new RoundedPasswordField(inputColor);
+        loginPassword.configurePasswordField("Password", controller);
 
         GridLayout loginContentLayout = new GridLayout(3,1,40,40);
         JPanel loginContent = new JPanel(loginContentLayout);
@@ -173,16 +115,16 @@ public class HomePage extends JPanel implements ConfigParameters {
         registerPanel.setBackground(headerColor);
 
         JLabel registerHeader = new JLabel("Welcome! Please Register:");
-        registerHeader.setFont(new Font("Caveat", Font.BOLD, 75));
+        registerHeader.setFont(headerFont);
         registerHeader.setForeground(Color.WHITE);
         registerHeader.setHorizontalAlignment(SwingConstants.LEFT);
 
-        JButton registerButton = new RoundedButton(new Color(0x93c47d));
-        configureButton(registerButton, "Register", Color.BLACK);
+        RoundedButton registerButton = new RoundedButton(new Color(0x93c47d));
+        registerButton.configureButton("Register", Color.BLACK, controller);
         registerButton.setActionCommand("REGISTER");
 
-        JButton loginPageButton = new RoundedButton(new Color(0x7c50e2));
-        configureButton(loginPageButton, "Login", Color.WHITE);
+        RoundedButton loginPageButton = new RoundedButton(new Color(0x7c50e2));
+        loginPageButton.configureButton("Login", Color.WHITE, controller);
         loginPageButton.setActionCommand("LOGIN_PAGE");
 
         JPanel registerButtonPanel = new JPanel(buttonLayout); //used buttonLayout from loginPanel
@@ -191,20 +133,20 @@ public class HomePage extends JPanel implements ConfigParameters {
         registerButtonPanel.add(loginPageButton);
         registerButtonPanel.setOpaque(false);
 
-        JTextField registerName = new RoundedTextField(inputColor);
-        configureInputField(registerName, "Name");
+        RoundedTextField registerName = new RoundedTextField();
+        registerName.configureInputField("Name", controller);
 
-        JTextField registerEmail = new RoundedTextField(inputColor);
-        configureInputField(registerEmail, "Email");
+        RoundedTextField registerEmail = new RoundedTextField();
+        registerEmail.configureInputField("Email", controller);
 
-        JTextField registerUsername = new RoundedTextField(inputColor);
-        configureInputField(registerUsername, "Username");
+        RoundedTextField registerUsername = new RoundedTextField();
+        registerUsername.configureInputField("Username", controller);
 
-        JPasswordField registerPassword = new RoundedPasswordField(inputColor);
-        configurePasswordField(registerPassword, "Password");
+        RoundedPasswordField registerPassword = new RoundedPasswordField();
+        registerPassword.configurePasswordField("Password", controller);
 
-        JPasswordField registerConfirmPassword = new RoundedPasswordField(inputColor);
-        configurePasswordField(registerConfirmPassword, "Confirm Password");
+        RoundedPasswordField registerConfirmPassword = new RoundedPasswordField();
+        registerConfirmPassword.configurePasswordField("Confirm Password", controller);
 
         GridLayout registerContentLayout = new GridLayout(3,2,40,40);
         JPanel registerContent = new JPanel(registerContentLayout);

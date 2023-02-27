@@ -2,6 +2,7 @@ package GUI.pages;
 
 import GUI.Controller;
 import GUI.roundedComponents.RoundedPanel;
+import GUI.roundedComponents.RoundedTextField;
 import config.ConfigParameters;
 
 import javax.swing.*;
@@ -26,12 +27,20 @@ public class RegistrationPage extends JPanel implements ConfigParameters {
         registrationPanel.setBackground(headerColor);
         this.add(registrationPanel);
 
-        GridLayout registrationGridLayout = new GridLayout(1,3,40,40);
-        JPanel registrationGridPanel = new JPanel(registrationGridLayout);
+        JLabel registrationHeader = new JLabel("Register a contestant:");
+        registrationHeader.setFont(headerFont);
+        registrationHeader.setForeground(Color.WHITE);
+        registrationHeader.setHorizontalAlignment(SwingConstants.LEFT);
 
-        GridLayout registrationGridColumnLayout = new GridLayout(5, 1, 40,40);
-        JPanel registrationGridColumnPanel1 = new JPanel(registrationGridColumnLayout);
-        JPanel registrationGridColumnPanel2 = new JPanel(registrationGridColumnLayout);
+        GridLayout gridLayout = new GridLayout(1,3,40,40);
+        JPanel gridPanel = new JPanel(gridLayout);
+
+        GridLayout gridColumnLayout = new GridLayout(5, 1, 40,40);
+        JPanel gridColumnPanel1 = new JPanel(gridColumnLayout);
+        JPanel gridColumnPanel2 = new JPanel(gridColumnLayout);
+
+        RoundedTextField familyName = new RoundedTextField();
+//        familyName.configureInputField();
 
 
     }

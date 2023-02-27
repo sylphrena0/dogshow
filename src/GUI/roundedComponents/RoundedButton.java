@@ -1,5 +1,7 @@
 package GUI.roundedComponents;
 
+import GUI.Controller;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.RoundRectangle2D;
@@ -26,5 +28,15 @@ public class RoundedButton extends JButton {
             shape = new RoundRectangle2D.Float(0, 0, getWidth()-1, getHeight()-1, 15, 15);
         }
         return shape.contains(x, y);
+    }
+
+    public void configureButton(String text, Color textColor, Controller controller) {
+        JButton button = this;
+        button.setText(text);
+        button.addActionListener(controller);
+        button.setForeground(textColor);
+        button.setFont(new Font("Caveat",Font.BOLD, 35));
+        button.setFocusPainted(false);
+        button.setBorderPainted(false);
     }
 }

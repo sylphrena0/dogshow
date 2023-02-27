@@ -52,7 +52,7 @@ public class Controller extends JFrame implements ActionListener, ConfigParamete
         button.setMinimumSize(size);
         button.setBackground(headerColor);
         button.setForeground(Color.WHITE);
-        button.setFont(new Font("Caveat", Font.BOLD, 75));
+        button.setFont(headerFont);
         button.setFocusPainted(false);
         button.setBorderPainted(false);
         button.addActionListener(this);
@@ -68,7 +68,7 @@ public class Controller extends JFrame implements ActionListener, ConfigParamete
         navPanel.setForeground(Color.WHITE);
 
         JLabel header = new JLabel("  Williamsport Area Kennel Club");
-        header.setFont(new Font("Caveat", Font.BOLD, 75));
+        header.setFont(headerFont);
         header.setForeground(Color.WHITE);
         header.setHorizontalAlignment(SwingConstants.LEFT);
 
