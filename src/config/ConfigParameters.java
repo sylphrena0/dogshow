@@ -8,4 +8,6 @@ public interface ConfigParameters {
     Color backgroundColor = new Color(0x212121);
     Color headerColor = new Color(0x303030);
     Color inputColor = new Color(0x434343);
+    String separator = System.getProperty("file.separator");
+    String path = System.getProperty("user.dir") + separator;
 }
