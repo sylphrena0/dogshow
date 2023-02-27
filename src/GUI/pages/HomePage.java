@@ -93,11 +93,10 @@ public class HomePage extends JPanel implements ConfigParameters {
 
         authLayout = new CardLayout();
         authPanel = new JPanel(authLayout);
-//        authPanel.setPreferredSize(authPanelSize);
         authPanel.setMaximumSize(authPanelSize);
 
         authPanel.setBorder(BorderFactory.createEmptyBorder(80, 80, 80, 80));
-        authPanel.setBackground(backgroundColor);
+        authPanel.setOpaque(false);
 
         ///////////////////////////////////
         /////////// Login Panel ///////////
