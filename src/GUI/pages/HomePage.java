@@ -51,12 +51,10 @@ public class HomePage extends JPanel implements ConfigParameters {
         loginHeader.setForeground(Color.WHITE);
         loginHeader.setHorizontalAlignment(SwingConstants.LEFT);
 
-        RoundedButton loginButton = new RoundedButton(new Color(0x93c47d));
-        loginButton.configureButton("Login", Color.BLACK, controller);
+        RoundedButton loginButton = new RoundedButton("Login", new Color(0x93c47d), Color.BLACK, controller);
         loginButton.setActionCommand("LOGIN");
 
-        RoundedButton registerPageButton = new RoundedButton(new Color(0x7c50e2));
-        registerPageButton.configureButton("Register", Color.WHITE, controller);
+        RoundedButton registerPageButton = new RoundedButton("Register", new Color(0x7c50e2), Color.WHITE, controller);
         registerPageButton.setActionCommand("REGISTER_PAGE");
 
         GridLayout buttonLayout = new GridLayout(1,2, 40,40);
@@ -66,11 +64,8 @@ public class HomePage extends JPanel implements ConfigParameters {
         loginButtonPanel.add(registerPageButton);
         loginButtonPanel.setOpaque(false);
 
-        RoundedTextField loginUsername = new RoundedTextField(inputColor);
-        loginUsername.configureInputField("Username", controller);
-
-        RoundedPasswordField loginPassword = new RoundedPasswordField(inputColor);
-        loginPassword.configurePasswordField("Password", controller);
+        RoundedTextField loginUsername = new RoundedTextField("Username", controller);
+        RoundedPasswordField loginPassword = new RoundedPasswordField("Password", controller);
 
         GridLayout loginContentLayout = new GridLayout(3,1,40,40);
         JPanel loginContent = new JPanel(loginContentLayout);
@@ -119,12 +114,10 @@ public class HomePage extends JPanel implements ConfigParameters {
         registerHeader.setForeground(Color.WHITE);
         registerHeader.setHorizontalAlignment(SwingConstants.LEFT);
 
-        RoundedButton registerButton = new RoundedButton(new Color(0x93c47d));
-        registerButton.configureButton("Register", Color.BLACK, controller);
+        RoundedButton registerButton = new RoundedButton("Register", new Color(0x93c47d), Color.BLACK, controller);
         registerButton.setActionCommand("REGISTER");
 
-        RoundedButton loginPageButton = new RoundedButton(new Color(0x7c50e2));
-        loginPageButton.configureButton("Login", Color.WHITE, controller);
+        RoundedButton loginPageButton = new RoundedButton("Login", new Color(0x7c50e2), Color.WHITE, controller);
         loginPageButton.setActionCommand("LOGIN_PAGE");
 
         JPanel registerButtonPanel = new JPanel(buttonLayout); //used buttonLayout from loginPanel
@@ -133,20 +126,11 @@ public class HomePage extends JPanel implements ConfigParameters {
         registerButtonPanel.add(loginPageButton);
         registerButtonPanel.setOpaque(false);
 
-        RoundedTextField registerName = new RoundedTextField();
-        registerName.configureInputField("Name", controller);
-
-        RoundedTextField registerEmail = new RoundedTextField();
-        registerEmail.configureInputField("Email", controller);
-
-        RoundedTextField registerUsername = new RoundedTextField();
-        registerUsername.configureInputField("Username", controller);
-
-        RoundedPasswordField registerPassword = new RoundedPasswordField();
-        registerPassword.configurePasswordField("Password", controller);
-
-        RoundedPasswordField registerConfirmPassword = new RoundedPasswordField();
-        registerConfirmPassword.configurePasswordField("Confirm Password", controller);
+        RoundedTextField registerName = new RoundedTextField("Name", controller);
+        RoundedTextField registerEmail = new RoundedTextField("Email", controller);
+        RoundedTextField registerUsername = new RoundedTextField("Username", controller);
+        RoundedPasswordField registerPassword = new RoundedPasswordField("Password", controller);
+        RoundedPasswordField registerConfirmPassword = new RoundedPasswordField("Confirm Password", controller);
 
         GridLayout registerContentLayout = new GridLayout(3,2,40,40);
         JPanel registerContent = new JPanel(registerContentLayout);

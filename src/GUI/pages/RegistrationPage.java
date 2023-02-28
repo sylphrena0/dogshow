@@ -1,6 +1,7 @@
 package GUI.pages;
 
 import GUI.Controller;
+import GUI.roundedComponents.RoundedCheckbox;
 import GUI.roundedComponents.RoundedPanel;
 import GUI.roundedComponents.RoundedTextField;
 import config.ConfigParameters;
@@ -32,15 +33,32 @@ public class RegistrationPage extends JPanel implements ConfigParameters {
         registrationHeader.setForeground(Color.WHITE);
         registrationHeader.setHorizontalAlignment(SwingConstants.LEFT);
 
-        GridLayout gridLayout = new GridLayout(1,3,40,40);
+        GridLayout gridLayout = new GridLayout(5, 2, 40,40);
         JPanel gridPanel = new JPanel(gridLayout);
+        gridPanel.setOpaque(false);
 
-        GridLayout gridColumnLayout = new GridLayout(5, 1, 40,40);
-        JPanel gridColumnPanel1 = new JPanel(gridColumnLayout);
-        JPanel gridColumnPanel2 = new JPanel(gridColumnLayout);
 
-        RoundedTextField familyName = new RoundedTextField();
-//        familyName.configureInputField();
+
+        RoundedTextField familyName = new RoundedTextField("Family Name", controller);
+        RoundedTextField familyEmail = new RoundedTextField("Family Email", controller);
+        RoundedTextField name = new RoundedTextField("Dog Name", controller);
+        RoundedTextField breed = new RoundedTextField("Breed", controller);
+        RoundedTextField age = new RoundedTextField("Age", controller);
+        RoundedTextField color = new RoundedTextField("Color", controller);
+        RoundedCheckbox obedience = new RoundedCheckbox("Register for Obedience Contest", controller);
+
+        gridPanel.add(familyName);
+        gridPanel.add(familyEmail);
+        gridPanel.add(name);
+        gridPanel.add(breed);
+        gridPanel.add(age);
+        gridPanel.add(color);
+        gridPanel.add(obedience);
+
+        RoundedTextField markings = new RoundedTextField("Identifiable Markings", controller);
+
+        registrationPanel.add(gridPanel);
+
 
 
     }

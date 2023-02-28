@@ -14,42 +14,15 @@ import java.awt.geom.RoundRectangle2D;
 public class RoundedTextField extends JTextField implements ConfigParameters {
     private Shape shape;
     private Color color;
-    public RoundedTextField(Color color) {
-//        super(10);
-        this.color = color;
-        setOpaque(false); // As suggested by @AVD in comment.
-
-    }
-    public RoundedTextField() {
-//        super(10);
+    public RoundedTextField(String placeholder, Controller controller) {
         this.color = inputColor;
         setOpaque(false); // As suggested by @AVD in comment.
-
-    }
-    protected void paintComponent(Graphics g) {
-        g.setColor(color);
-        g.fillRoundRect(0, 0, getWidth()-1, getHeight()-1, 15, 15);
-        super.paintComponent(g);
-    }
-    protected void paintBorder(Graphics g) {
-        g.setColor(color);
-        g.drawRoundRect(0, 0, getWidth()-1, getHeight()-1, 15, 15);
-    }
-    public boolean contains(int x, int y) {
-        if (shape == null || !shape.getBounds().equals(getBounds())) {
-            shape = new RoundRectangle2D.Float(0, 0, getWidth()-1, getHeight()-1, 15, 15);
-        }
-        return shape.contains(x, y);
-    }
-
-
-    public void configureInputField(String placeholder, Controller controller) {
         JTextField textField = this;
         textField.addActionListener(controller);
         textField.setForeground(Color.WHITE);
         textField.setCaretColor(Color.WHITE);
         textField.setBorder(BorderFactory.createEmptyBorder(10,20,10,20));
-        textField.setFont(new Font("Arial", Font.PLAIN, 24));
+        textField.setFont(inputFont);
         textField.setText(placeholder);
 
         textField.addFocusListener(new FocusListener() {
@@ -66,5 +39,21 @@ public class RoundedTextField extends JTextField implements ConfigParameters {
                 }
             }
         });
+
+    }
+    protected void paintComponent(Graphics g) {
+        g.setColor(color);
+        g.fillRoundRect(0, 0, getWidth()-1, getHeight()-1, 15, 15);
+        super.paintComponent(g);
+    }
+    protected void paintBorder(Graphics g) {
+        g.setColor(color);
+        g.drawRoundRect(0, 0, getWidth()-1, getHeight()-1, 15, 15);
+    }
+    public boolean contains(int x, int y) {
+        if (shape == null || !shape.getBounds().equals(getBounds())) {
+            shape = new RoundRectangle2D.Float(0, 0, getWidth()-1, getHeight()-1, 15, 15);
+        }
+        return shape.contains(x, y);
     }
 }
