@@ -16,7 +16,7 @@ public class RoundedCheckbox extends JCheckBox implements ConfigParameters{
         private Shape shape;
         private Color color;
         public RoundedCheckbox(String text, Controller controller) {
-            super(text, false);
+            super(text, true);
             this.color = inputColor;
             setOpaque(false); // As suggested by @AVD in comment.
             RoundedCheckbox RoundedCheckbox = this;
