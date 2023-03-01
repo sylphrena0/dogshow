@@ -177,8 +177,7 @@ public class HomePage extends JPanel implements ConfigParameters {
 
         try {
             //scaling solution from https://stackoverflow.com/questions/6714045/how-to-resize-jlabel-imageicon
-            BufferedImage dogImage = ImageIO.read(new File("images/dogs.png"));
-            ImageIcon imageIcon = new ImageIcon(dogImage); // load the image to a imageIcon
+            ImageIcon imageIcon = new ImageIcon(ImageIO.read(new File("images/dogs.png"))); // load the image to a imageIcon
             Image scaledImage = imageIcon.getImage().getScaledInstance(screenSize.width, (int) (screenSize.width*15/64),  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
             imageIcon = new ImageIcon(scaledImage);  // transform it back
 
