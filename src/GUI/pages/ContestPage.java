@@ -1,7 +1,7 @@
 package GUI.pages;
 
 import GUI.Controller;
-import GUI.roundedComponents.RoundedPanel;
+import GUI.components.RoundedPanel;
 import config.ConfigParameters;
 
 import javax.swing.*;

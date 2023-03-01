@@ -1,4 +1,4 @@
-package GUI.roundedComponents;
+package GUI.components;
 
 import GUI.Controller;
 import config.ConfigParameters;
@@ -6,8 +6,6 @@ import config.ConfigParameters;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 import java.awt.geom.RoundRectangle2D;
 import java.io.File;
 import java.io.IOException;
@@ -27,9 +25,9 @@ public class RoundedCheckbox extends JCheckBox implements ConfigParameters{
 
             try {
                 // Set default icon for checkbox
-                this.setIcon(new ImageIcon(ImageIO.read(new File(path + "images/unchecked.png"))));
+                this.setIcon(new ImageIcon(ImageIO.read(new File("images/unchecked.png"))));
                 // Set selected icon when checkbox state is selected
-                this.setSelectedIcon(new ImageIcon(ImageIO.read(new File(path + "images/checked.png"))));
+                this.setSelectedIcon(new ImageIcon(ImageIO.read(new File("images/checked.png"))));
 
 
             } catch (IOException e) {

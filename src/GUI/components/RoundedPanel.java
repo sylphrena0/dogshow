@@ -1,4 +1,4 @@
-package GUI.roundedComponents;
+package GUI.components;
 
 import javax.swing.*;
 import java.awt.*;

@@ -1,4 +1,4 @@
-package GUI.roundedComponents;
+package GUI.components;
 
 import GUI.Controller;
 import config.ConfigParameters;
@@ -11,34 +11,42 @@ import java.awt.geom.RoundRectangle2D;
 
 // Author: Graywolf
 // Source: https://stackoverflow.com/questions/16213836/java-swing-jtextfield-set-placeholder
-public class RoundedTextField extends JTextField implements ConfigParameters {
+
+public class RoundedPasswordField extends JPasswordField implements ConfigParameters {
     private Shape shape;
     private Color color;
-    public RoundedTextField(String placeholder, Controller controller) {
-        this.color = inputColor;
+    public RoundedPasswordField(String placeholder, Controller controller) {
         setOpaque(false); // As suggested by @AVD in comment.
-        JTextField textField = this;
-        textField.addActionListener(controller);
-        textField.setForeground(Color.WHITE);
-        textField.setCaretColor(Color.WHITE);
-        textField.setBorder(BorderFactory.createEmptyBorder(10,20,10,20));
-        textField.setFont(inputFont);
-        textField.setText(placeholder);
+        this.color = inputColor;
+        this.addActionListener(controller);
+        this.setForeground(Color.WHITE);
+        this.setCaretColor(Color.WHITE);
+        this.setBorder(BorderFactory.createEmptyBorder(10,20,10,20));
+        this.setFont(inputFont);
+        this.setEchoChar((char) 0); //sets password to visible
+        this.setText(placeholder);
 
-        textField.addFocusListener(new FocusListener() {
+        RoundedPasswordField passwordField = this;
+        passwordField.addFocusListener(new FocusListener() {
             @Override
             public void focusGained(FocusEvent e) {
-                if (textField.getText().equals(placeholder)) {
-                    textField.setText("");
+                if (new String(passwordField.getPassword()).equals(placeholder)) {
+                    passwordField.setText("");
+                    passwordField.setEchoChar('*'); //sets password to invisible
                 }
             }
             @Override
             public void focusLost(FocusEvent e) {
-                if (textField.getText().isEmpty()) {
-                    textField.setText(placeholder);
+                if (new String(passwordField.getPassword()).isEmpty()) {
+                    passwordField.setText(placeholder);
+                    passwordField.setEchoChar((char) 0); //sets password to visible
                 }
             }
         });
+    }
+    public RoundedPasswordField() {
+        this.color = inputColor;
+        setOpaque(false); // As suggested by @AVD in comment.
 
     }
     protected void paintComponent(Graphics g) {
@@ -56,4 +64,5 @@ public class RoundedTextField extends JTextField implements ConfigParameters {
         }
         return shape.contains(x, y);
     }
+
 }

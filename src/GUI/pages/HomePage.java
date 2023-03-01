@@ -1,17 +1,15 @@
 package GUI.pages;
 
 import GUI.*;
-import GUI.roundedComponents.RoundedButton;
-import GUI.roundedComponents.RoundedPanel;
-import GUI.roundedComponents.RoundedPasswordField;
-import GUI.roundedComponents.RoundedTextField;
+import GUI.components.RoundedButton;
+import GUI.components.RoundedPanel;
+import GUI.components.RoundedPasswordField;
+import GUI.components.RoundedTextField;
 import config.ConfigParameters;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -51,10 +49,10 @@ public class HomePage extends JPanel implements ConfigParameters {
         loginHeader.setForeground(Color.WHITE);
         loginHeader.setHorizontalAlignment(SwingConstants.LEFT);
 
-        RoundedButton loginButton = new RoundedButton("Login", new Color(0x93c47d), Color.BLACK, controller);
+        RoundedButton loginButton = new RoundedButton("Login", greenButtonColor, Color.BLACK, controller);
         loginButton.setActionCommand("LOGIN");
 
-        RoundedButton registerPageButton = new RoundedButton("Register", new Color(0x7c50e2), Color.WHITE, controller);
+        RoundedButton registerPageButton = new RoundedButton("Register", purpleButtonColor, Color.WHITE, controller);
         registerPageButton.setActionCommand("REGISTER_PAGE");
 
         GridLayout buttonLayout = new GridLayout(1,2, 40,40);
@@ -95,7 +93,7 @@ public class HomePage extends JPanel implements ConfigParameters {
                         .addGap(40)
                         .addComponent(loginHeader)
                         .addGap(40)
-                        .addComponent(loginContent, 300, 300, 300)
+                        .addComponent(loginContent, 305, 305, 305) //rows are 75 tall, three rows and two spaces of 40 = 305
                         .addGap(100)
 
 
@@ -114,10 +112,10 @@ public class HomePage extends JPanel implements ConfigParameters {
         registerHeader.setForeground(Color.WHITE);
         registerHeader.setHorizontalAlignment(SwingConstants.LEFT);
 
-        RoundedButton registerButton = new RoundedButton("Register", new Color(0x93c47d), Color.BLACK, controller);
+        RoundedButton registerButton = new RoundedButton("Register", greenButtonColor, Color.BLACK, controller);
         registerButton.setActionCommand("REGISTER");
 
-        RoundedButton loginPageButton = new RoundedButton("Login", new Color(0x7c50e2), Color.WHITE, controller);
+        RoundedButton loginPageButton = new RoundedButton("Login", purpleButtonColor, Color.WHITE, controller);
         loginPageButton.setActionCommand("LOGIN_PAGE");
 
         JPanel registerButtonPanel = new JPanel(buttonLayout); //used buttonLayout from loginPanel
@@ -166,7 +164,7 @@ public class HomePage extends JPanel implements ConfigParameters {
                         .addGap(40)
                         .addComponent(registerHeader)
                         .addGap(40)
-                        .addComponent(registerContent, 300, 300, 300)
+                        .addComponent(registerContent, 305, 305, 305)
                         .addGap(100)
 
         );
@@ -179,7 +177,7 @@ public class HomePage extends JPanel implements ConfigParameters {
 
         try {
             //scaling solution from https://stackoverflow.com/questions/6714045/how-to-resize-jlabel-imageicon
-            BufferedImage dogImage = ImageIO.read(new File(path + "images/dogs.png"));
+            BufferedImage dogImage = ImageIO.read(new File("images/dogs.png"));
             ImageIcon imageIcon = new ImageIcon(dogImage); // load the image to a imageIcon
             Image scaledImage = imageIcon.getImage().getScaledInstance(screenSize.width, (int) (screenSize.width*15/64),  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
             imageIcon = new ImageIcon(scaledImage);  // transform it back
