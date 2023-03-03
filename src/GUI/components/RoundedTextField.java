@@ -1,7 +1,7 @@
 package GUI.components;
 
 import GUI.Controller;
-import config.ConfigParameters;
+import utilities.ConfigParameters;
 
 import javax.swing.*;
 import java.awt.*;

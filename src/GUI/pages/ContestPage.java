@@ -2,7 +2,7 @@ package GUI.pages;
 
 import GUI.Controller;
 import GUI.components.RoundedPanel;
-import config.ConfigParameters;
+import utilities.ConfigParameters;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,7 +20,7 @@ public class ContestPage extends JPanel implements ConfigParameters {
         this.setBackground(backgroundColor);
         this.setPreferredSize(pageSize);
         this.setLayout(new BorderLayout());
-        this.setBorder(BorderFactory.createEmptyBorder(80,80,160,80));
+        this.setBorder(BorderFactory.createEmptyBorder(pagePadding, pagePadding,2*pagePadding, pagePadding));
 
         JPanel contestPanel = new RoundedPanel();
         contestPanel.setBackground(headerColor);

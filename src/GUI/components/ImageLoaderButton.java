@@ -1,6 +1,6 @@
 package GUI.components;
 
-import config.ConfigParameters;
+import utilities.ConfigParameters;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;

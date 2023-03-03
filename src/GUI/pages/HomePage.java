@@ -5,12 +5,13 @@ import GUI.components.RoundedButton;
 import GUI.components.RoundedPanel;
 import GUI.components.RoundedPasswordField;
 import GUI.components.RoundedTextField;
-import config.ConfigParameters;
+import utilities.ConfigParameters;
+import utilities.Scaling;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.text.Utilities;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
@@ -18,13 +19,14 @@ public class HomePage extends JPanel implements ConfigParameters {
     private Controller controller;
     private CardLayout authLayout;
     private JPanel authPanel;
-    private final Dimension authPanelSize = new Dimension((int) (0.7*screenSize.width), 730);
     public HomePage() {
         this.controller = Controller.getInstance();
         addComponents();
     }
 
     private void addComponents() {
+
+        int authContentHeight = Scaling.relativeHeight(17);
 
         //"this" is the JPanel we are adding to the super, as this class extends JPanel
         this.setBackground(backgroundColor);
@@ -33,9 +35,8 @@ public class HomePage extends JPanel implements ConfigParameters {
 
         authLayout = new CardLayout();
         authPanel = new JPanel(authLayout);
-        authPanel.setMaximumSize(authPanelSize);
 
-        authPanel.setBorder(BorderFactory.createEmptyBorder(80, 80, 80, 80));
+        authPanel.setBorder(BorderFactory.createEmptyBorder(pagePadding, pagePadding, pagePadding, pagePadding));
         authPanel.setOpaque(false);
 
         ///////////////////////////////////
@@ -55,7 +56,7 @@ public class HomePage extends JPanel implements ConfigParameters {
         RoundedButton registerPageButton = new RoundedButton("Register", purpleButtonColor, Color.WHITE, controller);
         registerPageButton.setActionCommand("REGISTER_PAGE");
 
-        GridLayout buttonLayout = new GridLayout(1,2, 40,40);
+        GridLayout buttonLayout = new GridLayout(1,2, gridPadding, gridPadding);
         JPanel loginButtonPanel = new JPanel(buttonLayout);
 
         loginButtonPanel.add(loginButton);
@@ -65,7 +66,7 @@ public class HomePage extends JPanel implements ConfigParameters {
         RoundedTextField loginUsername = new RoundedTextField("Username", controller);
         RoundedPasswordField loginPassword = new RoundedPasswordField("Password", controller);
 
-        GridLayout loginContentLayout = new GridLayout(3,1,40,40);
+        GridLayout loginContentLayout = new GridLayout(3,1, gridPadding,gridPadding);
         JPanel loginContent = new JPanel(loginContentLayout);
 
         loginContent.add(loginUsername);
@@ -80,21 +81,21 @@ public class HomePage extends JPanel implements ConfigParameters {
         loginLayout.setHorizontalGroup(
                 loginLayout.createParallelGroup(GroupLayout.Alignment.CENTER)
                         .addGroup(GroupLayout.Alignment.LEADING, loginLayout.createSequentialGroup()
-                                .addGap(60)
+                                .addGap(Scaling.relativeWidth(2.1))
                                 .addComponent(loginHeader)
                         )
                         .addGroup(GroupLayout.Alignment.LEADING, loginLayout.createSequentialGroup()
-                                .addGap(120)
-                                .addComponent(loginContent, 500, 500, 500)
+                                .addGap(Scaling.relativeWidth(4.2))
+                                .addComponent(loginContent, Scaling.relativeWidth(17.4), Scaling.relativeWidth(17.4), Scaling.relativeWidth(17.4))
                         )
         );
         loginLayout.setVerticalGroup(
                 loginLayout.createSequentialGroup()
-                        .addGap(40)
+                        .addGap(gridPadding)
                         .addComponent(loginHeader)
-                        .addGap(40)
-                        .addComponent(loginContent, 305, 305, 305) //rows are 75 tall, three rows and two spaces of 40 = 305
-                        .addGap(100)
+                        .addGap(gridPadding)
+                        .addComponent(loginContent, authContentHeight, authContentHeight, authContentHeight)
+                        .addGap(Scaling.relativeHeight(5.5))
 
 
         );
@@ -130,7 +131,7 @@ public class HomePage extends JPanel implements ConfigParameters {
         RoundedPasswordField registerPassword = new RoundedPasswordField("Password", controller);
         RoundedPasswordField registerConfirmPassword = new RoundedPasswordField("Confirm Password", controller);
 
-        GridLayout registerContentLayout = new GridLayout(3,2,40,40);
+        GridLayout registerContentLayout = new GridLayout(3,2, gridPadding, gridPadding);
         JPanel registerContent = new JPanel(registerContentLayout);
 
         registerContent.add(registerName);
@@ -151,24 +152,23 @@ public class HomePage extends JPanel implements ConfigParameters {
         registerLayout.setHorizontalGroup(
                 registerLayout.createParallelGroup(GroupLayout.Alignment.CENTER)
                         .addGroup(GroupLayout.Alignment.LEADING, registerLayout.createSequentialGroup()
-                                .addGap(60)
+                                .addGap(Scaling.relativeWidth(2.1))
                                 .addComponent(registerHeader)
                         )
                         .addGroup(GroupLayout.Alignment.LEADING, registerLayout.createSequentialGroup()
-                                .addGap(120)
-                                .addComponent(registerContent, 840, 1040, 1240)
+                                .addGap(Scaling.relativeWidth(4.2))
+                                .addComponent(registerContent, Scaling.relativeWidth(36), Scaling.relativeWidth(36), Scaling.relativeWidth(36))
                         )
         );
         registerLayout.setVerticalGroup(
                 registerLayout.createSequentialGroup()
-                        .addGap(40)
+                        .addGap(gridPadding)
                         .addComponent(registerHeader)
-                        .addGap(40)
-                        .addComponent(registerContent, 305, 305, 305)
-                        .addGap(100)
+                        .addGap(gridPadding) //40
+                        .addComponent(registerContent, authContentHeight, authContentHeight, authContentHeight)
+                        .addGap(Scaling.relativeHeight(5.5))
 
         );
-
         registerPanel.setLayout(registerLayout);
 
         authPanel.add(loginPanel);
@@ -189,6 +189,7 @@ public class HomePage extends JPanel implements ConfigParameters {
         }
         this.add(authPanel, BorderLayout.NORTH);
     }
+
     public void switchAuthPanel() {
         authLayout.next(authPanel);
     }

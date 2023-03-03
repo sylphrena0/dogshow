@@ -4,7 +4,7 @@ import GUI.pages.HomePage;
 import GUI.pages.RecordsPage;
 import GUI.pages.RegistrationPage;
 import GUI.pages.ContestPage;
-import config.ConfigParameters;
+import utilities.ConfigParameters;
 
 import javax.swing.*;
 import java.awt.*;

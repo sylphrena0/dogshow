@@ -1,4 +1,4 @@
-package config;
+package utilities;
 
 import java.awt.*;
 
@@ -12,4 +12,6 @@ public interface ConfigParameters {
     Color inputColor = new Color(0x434343);
     Font inputFont = new Font("Arial", Font.PLAIN, 24);
     Font headerFont = new Font("Caveat", Font.BOLD, 75);
+    int gridPadding = Scaling.relativeHeight(2.2);
+    int pagePadding = Scaling.relativeHeight(4.5);
 }

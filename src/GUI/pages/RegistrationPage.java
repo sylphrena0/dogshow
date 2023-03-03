@@ -2,13 +2,11 @@ package GUI.pages;
 
 import GUI.Controller;
 import GUI.components.*;
-import config.ConfigParameters;
+import utilities.ConfigParameters;
+import utilities.Scaling;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.io.File;
-import java.io.IOException;
 
 public class RegistrationPage extends JPanel implements ConfigParameters {
     private Controller controller;
@@ -25,7 +23,7 @@ public class RegistrationPage extends JPanel implements ConfigParameters {
         this.setBackground(backgroundColor);
         this.setPreferredSize(pageSize);
         this.setLayout(new BorderLayout());
-        this.setBorder(BorderFactory.createEmptyBorder(80,80,160,80));
+        this.setBorder(BorderFactory.createEmptyBorder(pagePadding, pagePadding,2*pagePadding, pagePadding));
 
         JPanel registrationPanel = new RoundedPanel();
         registrationPanel.setLayout(new BorderLayout());
@@ -36,10 +34,10 @@ public class RegistrationPage extends JPanel implements ConfigParameters {
         registrationHeader.setForeground(Color.WHITE);
         registrationHeader.setHorizontalAlignment(SwingConstants.LEFT);
 
-        JPanel gridPanel = new JPanel(new GridLayout(5, 2, 40,40));
+        JPanel gridPanel = new JPanel(new GridLayout(5, 2, gridPadding,gridPadding));
         gridPanel.setOpaque(false);
 
-        JPanel ageAndColor = new JPanel(new GridLayout(1, 2, 40, 40));
+        JPanel ageAndColor = new JPanel(new GridLayout(1, 2, gridPadding, gridPadding));
         ageAndColor.setOpaque(false);
 
         RoundedTextField familyName = new RoundedTextField("Family Name", controller);
@@ -87,30 +85,35 @@ public class RegistrationPage extends JPanel implements ConfigParameters {
         contentLayout.setAutoCreateContainerGaps(true);
 
 
+        int group1width = Scaling.relativeWidth(36);
+        int group2width = Scaling.relativeWidth(17.4);
         contentLayout.setHorizontalGroup(
                 contentLayout.createSequentialGroup()
                         .addGroup(contentLayout.createParallelGroup()
                                 .addComponent(registrationHeader)
-                                .addComponent(gridPanel, 1040, 1040, 1040)
-                                .addComponent(registerButton, 1040, 1040, 1040)
+                                .addComponent(gridPanel, group1width, group1width, group1width)
+                                .addComponent(registerButton, group1width, group1width, group1width)
                         )
-                        .addGap(40)
+                        .addGap(gridPadding)
                         .addGroup(contentLayout.createParallelGroup()
-                                .addComponent(imageLoaderButton, 500, 500, 500)
-                                .addComponent(uploadButton, 500, 500, 500)
+                                .addComponent(imageLoaderButton, group2width, group2width, group2width)
+                                .addComponent(uploadButton, group2width, group2width, group2width)
                         )
         );
+
+        int group1height = Scaling.relativeHeight(30);
+        int group2height = Scaling.relativeHeight(4);
         contentLayout.setVerticalGroup(
                 contentLayout.createSequentialGroup()
                         .addComponent(registrationHeader)
                         .addGroup(contentLayout.createParallelGroup()
-                                .addComponent(gridPanel, 535, 535, 535)
-                                .addComponent(imageLoaderButton, 535, 535, 535)
+                                .addComponent(gridPanel, group1height, group1height, group1height)
+                                .addComponent(imageLoaderButton, group1height, group1height, group1height)
                         )
-                        .addGap(40)
+                        .addGap(gridPadding)
                         .addGroup(contentLayout.createParallelGroup()
-                                .addComponent(registerButton, 75, 75, 75)
-                                .addComponent(uploadButton, 75, 75, 75)
+                                .addComponent(registerButton, group2height, group2height, group2height)
+                                .addComponent(uploadButton, group2height, group2height, group2height)
                         )
 
         );
