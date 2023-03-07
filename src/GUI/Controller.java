@@ -1,10 +1,12 @@
 package GUI;
 
+import GUI.components.IconButton;
 import GUI.pages.HomePage;
 import GUI.pages.RecordsPage;
 import GUI.pages.RegistrationPage;
 import GUI.pages.ContestPage;
 import utilities.ConfigParameters;
+import utilities.Scaling;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,13 +21,11 @@ public class Controller extends JFrame implements ActionListener, ConfigParamete
     private JPanel pagePanel;
 
     private Controller(String title) {
-        GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
         instance = this;
         setTitle(title);
         setResizable(false);
         setUndecorated(true);
-        setSize(screenSize());
-
+        setSize(screenSize);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         addComponents();
         try {
@@ -65,7 +65,7 @@ public class Controller extends JFrame implements ActionListener, ConfigParamete
         containerPanel.setBackground(backgroundColor);
 
         JPanel navPanel = new JPanel();
-        navPanel.setPreferredSize(new Dimension(screenSize.width, 120));
+        navPanel.setPreferredSize(new Dimension(screenSize.width, Scaling.relativeHeight(6.5)));
         navPanel.setBackground(headerColor);
         navPanel.setForeground(Color.WHITE);
 
@@ -79,7 +79,7 @@ public class Controller extends JFrame implements ActionListener, ConfigParamete
         registration = new JButton(" Registration ");
         contest = new JButton(" Contest ");
 
-        Dimension button = new Dimension(200, 120);
+        Dimension button = new Dimension(Scaling.relativeHeight(7), Scaling.relativeHeight(6.5));
 
         configureNavButton(home, button);
         configureNavButton(records, button);
@@ -98,6 +98,9 @@ public class Controller extends JFrame implements ActionListener, ConfigParamete
         titlePanel.setBackground(headerColor);
         titlePanel.add(header);
 
+        IconButton closeButton = new IconButton("close.png", 0.75);
+        closeButton.addActionListener(actionEvent -> Controller.super.dispose());
+
         GroupLayout navLayout = new GroupLayout(navPanel);
         navLayout.setAutoCreateGaps(false);
         navLayout.setAutoCreateContainerGaps(false);
@@ -108,6 +111,7 @@ public class Controller extends JFrame implements ActionListener, ConfigParamete
                         .addComponent(records)
                         .addComponent(registration)
                         .addComponent(contest)
+                        .addComponent(closeButton)
         );
         navLayout.setVerticalGroup(
                 navLayout.createSequentialGroup()
@@ -117,6 +121,7 @@ public class Controller extends JFrame implements ActionListener, ConfigParamete
                                 .addComponent(records)
                                 .addComponent(registration)
                                 .addComponent(contest)
+                                .addComponent(closeButton, Scaling.relativeHeight(6.5), Scaling.relativeHeight(6.5), Scaling.relativeHeight(6.5))
                         )
         );
 

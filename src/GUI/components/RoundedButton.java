@@ -1,6 +1,7 @@
 package GUI.components;
 
 import GUI.Controller;
+import utilities.Scaling;
 
 import javax.swing.*;
 import java.awt.*;
@@ -21,7 +22,7 @@ public class RoundedButton extends JButton {
         button.setText(text);
         button.addActionListener(controller);
         button.setForeground(textColor);
-        button.setFont(new Font("Caveat", Font.BOLD, 35));
+        button.setFont(new Font("Caveat", Font.BOLD, Scaling.relativeHeight(2)));
         button.setFocusPainted(false);
         button.setBorderPainted(false);
 

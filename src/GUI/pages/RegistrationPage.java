@@ -101,8 +101,8 @@ public class RegistrationPage extends JPanel implements ConfigParameters {
                         )
         );
 
-        int group1height = Scaling.relativeHeight(30);
-        int group2height = Scaling.relativeHeight(4);
+        int group1height = Scaling.relativeHeight(33.8);
+        int group2height = Scaling.relativeHeight(5);
         contentLayout.setVerticalGroup(
                 contentLayout.createSequentialGroup()
                         .addComponent(registrationHeader)
