@@ -19,11 +19,13 @@ public class Controller extends JFrame implements ActionListener, ConfigParamete
     private JPanel pagePanel;
 
     private Controller(String title) {
+        GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
         instance = this;
         setTitle(title);
         setResizable(false);
-        setExtendedState(JFrame.MAXIMIZED_BOTH);
-        setSize(screenSize);
+        setUndecorated(true);
+        setSize(screenSize());
+
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         addComponents();
         try {
@@ -195,6 +197,14 @@ public class Controller extends JFrame implements ActionListener, ConfigParamete
             }
         }
     }
+    public static Dimension screenSize() {
+        Controller controller = Controller.getInstance();
+            Insets screenInsets = controller.getToolkit().getScreenInsets(controller.getGraphicsConfiguration());
+            Rectangle screenSize = controller.getGraphicsConfiguration().getBounds();
+            return new Dimension(screenSize.width - screenInsets.right - screenInsets.left,
+                                  screenSize.height - screenInsets.bottom - screenInsets.top);
+    }
+
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(()-> Controller.getInstance("Dog Show"));

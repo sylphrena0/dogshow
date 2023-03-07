@@ -73,7 +73,7 @@ public class RegistrationPage extends JPanel implements ConfigParameters {
 
         RoundedButton registerButton = new RoundedButton("Register", greenButtonColor, Color.BLACK, controller);
 
-        ImageLoaderButton imageLoaderButton = new ImageLoaderButton();
+        IconButton imageLoaderButton = new ImageLoaderButton();
 
         RoundedButton uploadButton = new RoundedButton("Upload Dog Picture", purpleButtonColor, Color.WHITE, controller);
 
