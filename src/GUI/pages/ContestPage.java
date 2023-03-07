@@ -8,7 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class ContestPage extends JPanel implements ConfigParameters {
-    private Controller controller;
+    private final Controller controller;
 
     public ContestPage() {
         this.controller = Controller.getInstance();

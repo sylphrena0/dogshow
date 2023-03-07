@@ -9,7 +9,7 @@ import java.awt.geom.RoundRectangle2D;
 
 public class RoundedButton extends JButton {
     private Shape shape;
-    private Color color;
+    private final Color color;
     public RoundedButton(Color color) {
         this.color = color;
         setOpaque(false); // As suggested by @AVD in comment.

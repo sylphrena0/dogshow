@@ -1,6 +1,6 @@
 package GUI.pages;
 
-import GUI.*;
+import GUI.Controller;
 import GUI.components.RoundedButton;
 import GUI.components.RoundedPanel;
 import GUI.components.RoundedPasswordField;
@@ -10,13 +10,12 @@ import utilities.Scaling;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.text.Utilities;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 
 public class HomePage extends JPanel implements ConfigParameters {
-    private Controller controller;
+    private final Controller controller;
     private CardLayout authLayout;
     private JPanel authPanel;
     public HomePage() {
@@ -178,7 +177,7 @@ public class HomePage extends JPanel implements ConfigParameters {
         try {
             //scaling solution from https://stackoverflow.com/questions/6714045/how-to-resize-jlabel-imageicon
             ImageIcon imageIcon = new ImageIcon(ImageIO.read(new File("images/dogs.png"))); // load the image to a imageIcon
-            Image scaledImage = imageIcon.getImage().getScaledInstance(screenSize.width, (int) (screenSize.width*15/64),  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
+            Image scaledImage = imageIcon.getImage().getScaledInstance(screenSize.width, (int) (screenSize.width*15.0/64.0),  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
             imageIcon = new ImageIcon(scaledImage);  // transform it back
 
             JLabel dogImageLabel = new JLabel(imageIcon);

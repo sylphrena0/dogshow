@@ -8,10 +8,9 @@ import javax.swing.*;
 import java.awt.*;
 
 public class RecordsPage extends JPanel implements ConfigParameters {
-    private Controller controller;
 
     public RecordsPage() {
-        this.controller = Controller.getInstance();
+        Controller controller = Controller.getInstance();
         addComponents();
     }
 

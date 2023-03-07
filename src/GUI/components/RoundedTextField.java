@@ -13,7 +13,7 @@ import java.awt.geom.RoundRectangle2D;
 // Source: https://stackoverflow.com/questions/16213836/java-swing-jtextfield-set-placeholder
 public class RoundedTextField extends JTextField implements ConfigParameters {
     private Shape shape;
-    private Color color;
+    private final Color color;
     public RoundedTextField(String placeholder, Controller controller) {
         this.color = inputColor;
         setOpaque(false); // As suggested by @AVD in comment.

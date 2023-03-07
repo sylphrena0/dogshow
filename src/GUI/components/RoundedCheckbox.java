@@ -12,7 +12,7 @@ import java.io.IOException;
 
 public class RoundedCheckbox extends JCheckBox implements ConfigParameters{
         private Shape shape;
-        private Color color;
+        private final Color color;
         public RoundedCheckbox(String text, Controller controller) {
             super(text, true);
             this.color = inputColor;
@@ -33,9 +33,6 @@ public class RoundedCheckbox extends JCheckBox implements ConfigParameters{
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-//            this.setIcon(new ImageIcon(ImageIO.read(...)));
-//            this.setBackground(Color.RED);
-//            this.setOpaque(true);
         }
         protected void paintComponent(Graphics g) {
             g.setColor(color);

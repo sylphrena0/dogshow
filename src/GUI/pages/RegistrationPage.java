@@ -9,7 +9,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class RegistrationPage extends JPanel implements ConfigParameters {
-    private Controller controller;
+    private final Controller controller;
 
     public RegistrationPage() {
         this.controller = Controller.getInstance();

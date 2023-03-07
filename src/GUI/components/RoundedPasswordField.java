@@ -14,7 +14,7 @@ import java.awt.geom.RoundRectangle2D;
 
 public class RoundedPasswordField extends JPasswordField implements ConfigParameters {
     private Shape shape;
-    private Color color;
+    private final Color color;
     public RoundedPasswordField(String placeholder, Controller controller) {
         setOpaque(false); // As suggested by @AVD in comment.
         this.color = inputColor;
@@ -43,11 +43,6 @@ public class RoundedPasswordField extends JPasswordField implements ConfigParame
                 }
             }
         });
-    }
-    public RoundedPasswordField() {
-        this.color = inputColor;
-        setOpaque(false); // As suggested by @AVD in comment.
-
     }
     protected void paintComponent(Graphics g) {
         g.setColor(color);
