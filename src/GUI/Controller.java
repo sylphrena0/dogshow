@@ -98,7 +98,7 @@ public class Controller extends JFrame implements ActionListener, ConfigParamete
         titlePanel.setBackground(headerColor);
         titlePanel.add(header);
 
-        IconButton closeButton = new IconButton("close.png", 0.75);
+        IconButton closeButton = new IconButton("close.png", (int) (Scaling.relativeHeight(6.5)*0.75), (int) (Scaling.relativeHeight(6.5)*0.75));
         closeButton.addActionListener(actionEvent -> Controller.super.dispose());
 
         GroupLayout navLayout = new GroupLayout(navPanel);
