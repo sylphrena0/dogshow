@@ -21,10 +21,10 @@ public class IconButton extends JButton implements ConfigParameters {
         }
     }
 
-    public IconButton(String imageName, Double scaleToHeader) {
+    public IconButton(String imageName, int iconWidth, int iconHeight) {
         try {
             ImageIcon imageIcon = new ImageIcon(ImageIO.read(new File("images/" + imageName))); // load the image to a imageIcon
-            Image scaledImage = imageIcon.getImage().getScaledInstance((int) (Scaling.relativeHeight(6.5)*scaleToHeader), (int) (Scaling.relativeHeight(6.5)*scaleToHeader),  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
+            Image scaledImage = imageIcon.getImage().getScaledInstance(iconWidth, iconHeight,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
             this.setIcon(new ImageIcon(scaledImage));
             this.setBorderPainted(false);
             this.setOpaque(false);
