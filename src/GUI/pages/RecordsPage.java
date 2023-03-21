@@ -1,28 +1,57 @@
 package GUI.pages;
 
 import GUI.Controller;
-import GUI.components.RoundedPanel;
+import GUI.components.*;
 import utilities.ConfigParameters;
+import utilities.Scaling;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class RecordsPage extends JPanel implements ConfigParameters {
+public class RecordsPage extends TableLayout {
 
     public RecordsPage() {
         Controller controller = Controller.getInstance();
-        addComponents();
+
+        JLabel registrationHeader = new JLabel("Register a contestant:");
+        registrationHeader.setFont(new Font("Caveat", Font.BOLD, Scaling.relativeHeight(4.2)));
+        registrationHeader.setForeground(Color.WHITE);
+        registrationHeader.setHorizontalAlignment(SwingConstants.LEFT);
+
+        RoundedTextField familyName = new RoundedTextField("Family Name", controller);
+        RoundedTextField familyEmail = new RoundedTextField("Family Email", controller);
+        RoundedTextField name = new RoundedTextField("Dog Name", controller);
+        RoundedTextField breed = new RoundedTextField("Breed", controller);
+        RoundedTextField age = new RoundedTextField("Age", controller);
+        RoundedTextField color = new RoundedTextField("Color", controller);
+
+        JPanel ageAndColor = new JPanel(new GridLayout(1, 2, gridPaddingRegistration, gridPaddingRegistration));
+        ageAndColor.setOpaque(false);
+        ageAndColor.add(age);
+        ageAndColor.add(color);
+
+        RoundedTextField markings = new RoundedTextField("Identifiable Markings", controller);
+        RoundedCheckbox obedience = new RoundedCheckbox("Register for Obedience Contest", controller);
+        RoundedCheckbox socialization = new RoundedCheckbox("Register for Socialization Contest", controller);
+        RoundedCheckbox grooming = new RoundedCheckbox("Register for Grooming Contest", controller);
+        RoundedCheckbox fetch = new RoundedCheckbox("Register for Play Fetch Contest", controller);
+
+        RoundedButton registerButton = new RoundedButton("Register", greenButtonColor, Color.BLACK, controller);
+
+        IconButton imageLoaderButton = new ImageLoaderButton();
+
+        RoundedButton uploadButton = new RoundedButton("Upload Dog Picture", purpleButtonColor, Color.WHITE, controller);
+
+        addComponents(registrationHeader,
+                familyName, markings,
+                familyEmail, obedience,
+                name, socialization,
+                breed, grooming,
+                ageAndColor, fetch,
+                registerButton,
+                imageLoaderButton,
+                uploadButton);
     }
 
-    private void addComponents() {
-        //"this" is the JPanel we are adding to the super, as this class extends JPanel
-        this.setBackground(backgroundColor);
-        this.setPreferredSize(pageSize);
-        this.setLayout(new BorderLayout());
-        this.setBorder(BorderFactory.createEmptyBorder(pagePadding, pagePadding,2*pagePadding, pagePadding));
 
-        JPanel recordsPanel = new RoundedPanel();
-        recordsPanel.setBackground(headerColor);
-        this.add(recordsPanel);
-    }
 }
