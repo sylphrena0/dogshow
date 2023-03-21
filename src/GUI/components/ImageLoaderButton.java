@@ -1,7 +1,9 @@
 package GUI.components;
 
+import demos.demo_dnd.ImagePanel;
 import utilities.Scaling;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.RoundRectangle2D;
 
@@ -26,4 +28,9 @@ public class ImageLoaderButton extends IconButton{
         }
         return shape.contains(x, y);
     }
+
+    public void setImage(Icon image) {
+        this.setIcon(image);
+    }
+
 }
