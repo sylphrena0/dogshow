@@ -1,5 +1,6 @@
 package GUI.components;
 
+import GUI.Controller;
 import demos.demo_dnd.ImagePanel;
 import utilities.Scaling;
 
@@ -9,8 +10,8 @@ import java.awt.geom.RoundRectangle2D;
 
 public class ImageLoaderButton extends IconButton{
     private Shape shape;
-    public ImageLoaderButton() {
-        super("noImageIcon.png", Scaling.relativeHeight(20), Scaling.relativeHeight(20));
+    public ImageLoaderButton(Controller controller) {
+        super("noImageIcon.png", Scaling.relativeHeight(20), Scaling.relativeHeight(20), controller);
     }
 
     protected void paintComponent(Graphics g) {

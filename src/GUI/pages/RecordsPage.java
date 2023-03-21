@@ -38,7 +38,7 @@ public class RecordsPage extends TableLayout {
 
         RoundedButton registerButton = new RoundedButton("Register", greenButtonColor, Color.BLACK, controller);
 
-        IconButton imageLoaderButton = new ImageLoaderButton();
+        IconButton imageLoaderButton = new ImageLoaderButton(controller);
 
         RoundedButton uploadButton = new RoundedButton("Upload Dog Picture", purpleButtonColor, Color.WHITE, controller);
 

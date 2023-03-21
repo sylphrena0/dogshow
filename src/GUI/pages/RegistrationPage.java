@@ -37,9 +37,11 @@ public class RegistrationPage extends TableLayout {
 
         RoundedButton registerButton = new RoundedButton("Register", greenButtonColor, Color.BLACK, controller);
 
-        IconButton imageLoaderButton = new ImageLoaderButton();
+        IconButton imageLoaderButton = new ImageLoaderButton(controller);
+        imageLoaderButton.setActionCommand("SET_ICON");
 
         RoundedButton uploadButton = new RoundedButton("Upload Dog Picture", purpleButtonColor, Color.WHITE, controller);
+        uploadButton.setActionCommand("SET_ICON");
 
         addComponents(registrationHeader,
                         familyName, markings,

@@ -9,6 +9,7 @@ import utilities.ConfigParameters;
 import utilities.Scaling;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -98,7 +99,7 @@ public class Controller extends JFrame implements ActionListener, ConfigParamete
         titlePanel.setBackground(headerColor);
         titlePanel.add(header);
 
-        IconButton closeButton = new IconButton("close.png", (int) (Scaling.relativeHeight(6.5)*0.75), (int) (Scaling.relativeHeight(6.5)*0.75));
+        IconButton closeButton = new IconButton("close.png", (int) (Scaling.relativeHeight(6.5)*0.75), (int) (Scaling.relativeHeight(6.5)*0.75), getInstance());
         closeButton.addActionListener(actionEvent -> Controller.super.dispose());
 
         GroupLayout navLayout = new GroupLayout(navPanel);
@@ -149,6 +150,7 @@ public class Controller extends JFrame implements ActionListener, ConfigParamete
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
         String actionCommand = actionEvent.getActionCommand();
+        System.out.println("from " + actionEvent.getSource());
         switch (actionCommand) {
             case "HOME" -> {
                 home.setBackground(backgroundColor);
@@ -199,6 +201,18 @@ public class Controller extends JFrame implements ActionListener, ConfigParamete
             case "REGISTER_PAGE" -> {
                 System.out.println("REGISTER_PAGE");
                 homePage.switchAuthPanel();
+            }
+            case "SET_ICON" -> {
+                JFileChooser chooser = new JFileChooser(System.getProperty("user.home"));
+                FileNameExtensionFilter filter = new FileNameExtensionFilter("PNG, JPG, & GIF Images", "png", "jpg", "gif" );
+                chooser.setFileFilter(filter);
+
+                int returnValue = chooser.showOpenDialog(this);
+                String selectedFile = "";
+                if (returnValue == JFileChooser.APPROVE_OPTION) {
+                    selectedFile = chooser.getSelectedFile().getAbsolutePath();
+                    //loadImage(selectedFile);
+                }
             }
         }
     }
