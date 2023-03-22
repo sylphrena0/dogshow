@@ -26,7 +26,7 @@ public class Scaling implements ConfigParameters {
      * @param frame
      * @return
      */
-    private Dimension letterboxImage(Dimension image, Dimension frame) {
+    public static Dimension letterboxImage(Dimension image, Dimension frame) {
         int original_width = image.width;
         int original_height = image.height;
         int new_width = original_width;
