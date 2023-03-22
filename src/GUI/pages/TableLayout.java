@@ -11,6 +11,10 @@ import java.awt.*;
 public class TableLayout extends JPanel implements ConfigParameters {
     private final Controller controller;
 
+    protected int group2width;
+
+    protected int group1height;
+
     protected int gridPaddingRegistration = Scaling.relativeHeight(4);;
 
     public TableLayout() {
@@ -65,7 +69,7 @@ public class TableLayout extends JPanel implements ConfigParameters {
         contentLayout.setAutoCreateContainerGaps(true);
 
         int group1width = Scaling.relativeWidth(2.0*((100.0 - 4 * Scaling.heightToWidth(4.5) - Scaling.heightToWidth(4))/3.0));
-        int group2width = Scaling.relativeWidth((100.0 - 4 * Scaling.heightToWidth(4.5) - Scaling.heightToWidth(4))/3);
+        group2width = Scaling.relativeWidth((100.0 - 4 * Scaling.heightToWidth(4.5) - Scaling.heightToWidth(4))/3);
         contentLayout.setHorizontalGroup(
                 contentLayout.createSequentialGroup()
                         .addGap(pagePadding)
@@ -82,8 +86,9 @@ public class TableLayout extends JPanel implements ConfigParameters {
                         .addGap(pagePadding)
 
         );
+
         double contentHeight = 75.5 - 2.0*4.5 - 2.0*4 - 4.2;
-        int group1height = Scaling.relativeHeight(56.4/64.48 * contentHeight);
+        group1height = Scaling.relativeHeight(56.4/64.48 * contentHeight);
         int group2height = Scaling.relativeHeight(8.08/64.48 * contentHeight);
 
         contentLayout.setVerticalGroup(
