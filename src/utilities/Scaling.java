@@ -20,31 +20,36 @@ public class Scaling implements ConfigParameters {
         return 100 * ((percent/100.0) * (double) (screenSize.width) / (double) (screenSize.height));
     }
 
-    private int[] letterboxImage(int imageWidth, int imageHeight, int frameWidth, int frameHeight) {
-        double scaleFactor = 1.0;
+    /**
+     * Letterboxing method from https://stackoverflow.com/questions/10245220/resize-image-maintain-aspect-ratio
+     * @param image
+     * @param frame
+     * @return
+     */
+    private Dimension letterboxImage(Dimension image, Dimension frame) {
+        int original_width = image.width;
+        int original_height = image.height;
+        int new_width = original_width;
+        int new_height = original_height;
 
-        // Scale by the longer edge
-        if (frameWidth > frameHeight) {
-            scaleFactor = imageWidth/(double)frameWidth;
-        } else {
-            scaleFactor = imageHeight/(double)frameHeight;
+        // first check if we need to scale width
+        if (original_width > frame.width) {
+            //scale width to fit
+            new_width = frame.width;
+            //scale height to maintain aspect ratio
+            new_height = (new_width * original_height) / original_width;
         }
 
-        int sx1 = 0;
-        int sy1 = 0;
-        int sx2 = frameWidth;
-        int sy2 = frameHeight;
+        // then check if we need to scale even with the new height
+        if (new_height > frame.height) {
+            //scale height to fit instead
+            new_height = frame.height;
+            //scale width to maintain aspect ratio
+            new_width = (new_height * original_width) / original_height;
+        }
 
-        int dx1 = (imageWidth-(int)(frameWidth*scaleFactor))/2;
-        int dy1 = (imageHeight-(int)(frameHeight*scaleFactor))/2;
-        int dx2 = (imageWidth+(int)(frameWidth*scaleFactor))/2;
-        int dy2 = (imageHeight+(int)(frameHeight*scaleFactor))/2;
-
-
-        gc.fillRect(0, 0, imageWidth, imageHeight);
-        gc.drawImage(srcImage, dx1, dy1, dx2, dy2, sx1, sy1, sx2, sy2, null);
-        gc.dispose();
-        return new int[] {2, 2};
+        return new Dimension(new_width, new_height);
     }
+
 
 }
