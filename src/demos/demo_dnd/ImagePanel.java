@@ -117,7 +117,7 @@ public class ImagePanel extends JPanel{
 		
 
 		gc.setColor(Color.BLACK);
-		gc.clearRect(0, 0, width, height);
+		gc.fillRect(0, 0, width, height);
 		gc.drawImage(srcImage, dx1, dy1, dx2, dy2, sx1, sy1, sx2, sy2, null);
 		gc.dispose();
 		return img;

@@ -5,10 +5,14 @@ import GUI.components.*;
 import utilities.ConfigParameters;
 import utilities.Scaling;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 
 public class RegistrationPage extends TableLayout {
+    private ImageLoaderButton imageLoaderButton;
     public RegistrationPage() {
         Controller controller = Controller.getInstance();
 
@@ -37,7 +41,7 @@ public class RegistrationPage extends TableLayout {
 
         RoundedButton registerButton = new RoundedButton("Register", greenButtonColor, Color.BLACK, controller);
 
-        IconButton imageLoaderButton = new ImageLoaderButton(controller);
+        imageLoaderButton = new ImageLoaderButton(controller);
         imageLoaderButton.setActionCommand("SET_ICON");
 
         RoundedButton uploadButton = new RoundedButton("Upload Dog Picture", purpleButtonColor, Color.WHITE, controller);
@@ -52,5 +56,25 @@ public class RegistrationPage extends TableLayout {
                         registerButton,
                         imageLoaderButton,
                         uploadButton);
+
+
+    }
+
+    public void setDogImage(String file) {
+        try {
+            //scaling solution from https://stackoverflow.com/questions/6714045/how-to-resize-jlabel-imageicon
+            ImageIcon imageIcon = new ImageIcon(ImageIO.read(new File(file))); // load the image to a imageIcon
+            Image scaledImage = imageIcon.getImage().getScaledInstance(Scaling.relativeHeight(20), (int) (screenSize.width*15.0/64.0),  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
+            imageIcon = new ImageIcon(scaledImage);  // transform it back
+
+            JLabel dogImageLabel = new JLabel(imageIcon);
+            this.add(dogImageLabel, BorderLayout.CENTER);
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+            System.exit(0);
+        }
+        Icon image = null;
+        imageLoaderButton.setImage(image);
+
     }
 }

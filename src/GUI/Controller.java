@@ -16,6 +16,7 @@ import java.awt.event.ActionListener;
 
 public class Controller extends JFrame implements ActionListener, ConfigParameters {
     private JButton home, records, registration, contest;
+    private RegistrationPage registrationPage;
     private static Controller instance;
     private HomePage homePage;
     private CardLayout pageLayout;
@@ -134,7 +135,7 @@ public class Controller extends JFrame implements ActionListener, ConfigParamete
 
         homePage = new HomePage();
         RecordsPage recordsPage = new RecordsPage();
-        RegistrationPage registrationPage = new RegistrationPage();
+        registrationPage = new RegistrationPage();
         ContestPage contestPage = new ContestPage();
 
         pagePanel.add("HOME", homePage);
@@ -149,6 +150,7 @@ public class Controller extends JFrame implements ActionListener, ConfigParamete
 
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
+
         String actionCommand = actionEvent.getActionCommand();
         System.out.println("from " + actionEvent.getSource());
         switch (actionCommand) {
@@ -211,7 +213,9 @@ public class Controller extends JFrame implements ActionListener, ConfigParamete
                 String selectedFile = "";
                 if (returnValue == JFileChooser.APPROVE_OPTION) {
                     selectedFile = chooser.getSelectedFile().getAbsolutePath();
-                    //loadImage(selectedFile);
+                    registrationPage.setDogImage(selectedFile);
+
+
                 }
             }
         }
