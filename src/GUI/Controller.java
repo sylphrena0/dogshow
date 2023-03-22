@@ -152,7 +152,6 @@ public class Controller extends JFrame implements ActionListener, ConfigParamete
     public void actionPerformed(ActionEvent actionEvent) {
 
         String actionCommand = actionEvent.getActionCommand();
-        System.out.println("from " + actionEvent.getSource());
         switch (actionCommand) {
             case "HOME" -> {
                 home.setBackground(backgroundColor);

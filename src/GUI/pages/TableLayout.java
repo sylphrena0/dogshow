@@ -86,8 +86,6 @@ public class TableLayout extends JPanel implements ConfigParameters {
         int group1height = Scaling.relativeHeight(56.4/64.48 * contentHeight);
         int group2height = Scaling.relativeHeight(8.08/64.48 * contentHeight);
 
-        System.out.println(contentHeight);
-
         contentLayout.setVerticalGroup(
                 contentLayout.createSequentialGroup()
                         .addGap(pagePadding)
