@@ -9,6 +9,7 @@ import java.awt.*;
 
 public class ContestPage extends JPanel implements ConfigParameters {
     private final Controller controller;
+    public static JList b;
 
     public ContestPage() {
         this.controller = Controller.getInstance();
@@ -25,6 +26,26 @@ public class ContestPage extends JPanel implements ConfigParameters {
         JPanel contestPanel = new RoundedPanel();
         contestPanel.setBackground(headerColor);
         this.add(contestPanel);
+
+        //create a new label
+        JLabel l= new JLabel("select year");
+
+        //String array to store weekdays
+        String dogs[]= { " "};
+
+        //create list
+        b= new JList(dogs);
+
+        //set a selected index
+        b.setSelectedIndex(2);
+
+        //add list to panel
+        contestPanel.add(b);
+
+        //set the size of frame
+        contestPanel.setSize(400,400);
+
+        contestPanel.show();
 
     }
 }
