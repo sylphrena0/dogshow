@@ -39,13 +39,17 @@ public class RegistrationPage extends TableLayout {
         RoundedCheckbox grooming = new RoundedCheckbox("Register for Grooming Contest", controller);
         RoundedCheckbox fetch = new RoundedCheckbox("Register for Play Fetch Contest", controller);
 
-        RoundedButton registerButton = new RoundedButton("Register", greenButtonColor, Color.BLACK, controller);
-
         imageLoaderButton = new ImageLoaderButton(controller);
         imageLoaderButton.setActionCommand("SET_ICON");
 
+        RoundedButton registerButton = new RoundedButton("Register", greenButtonColor, Color.BLACK, controller);
+
         RoundedButton uploadButton = new RoundedButton("Upload Dog Picture", purpleButtonColor, Color.WHITE, controller);
         uploadButton.setActionCommand("SET_ICON");
+
+        JPanel buttons = new JPanel(new GridLayout(1,2, gridPaddingRegistration, gridPaddingRegistration));
+        buttons.add(registerButton);
+        buttons.add(uploadButton);
 
         addComponents(registrationHeader,
                         familyName, markings,
@@ -56,15 +60,13 @@ public class RegistrationPage extends TableLayout {
                         registerButton,
                         imageLoaderButton,
                         uploadButton);
-
-
     }
 
     public void setDogImage(String file) {
         try {
             //scaling solution from https://stackoverflow.com/questions/6714045/how-to-resize-jlabel-imageicon
             ImageIcon imageIcon = new ImageIcon(ImageIO.read(new File(file))); // load the image to a imageIcon
-            Dimension letterboxed = Scaling.letterboxImage(new Dimension(imageIcon.getIconWidth(), imageIcon.getIconHeight()), new Dimension(group2width, group1height)); // group2width and group1height are protected ints in TableLayout.java
+            Dimension letterboxed = Scaling.letterboxImage(new Dimension(imageIcon.getIconWidth(), imageIcon.getIconHeight()), new Dimension(Scaling.relativeWidth((100.0 - 4 * Scaling.heightToWidth(4.5) - Scaling.heightToWidth(4))/3), Scaling.relativeHeight(8.08/64.48 * 75.5 - 2.0*4.5 - 2.0*4 - 4.2))); // group2width and group1height are protected ints in TableLayout.java
             Image scaledImage = imageIcon.getImage().getScaledInstance(letterboxed.width, letterboxed.height,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
             imageLoaderButton.setImage(new ImageIcon(scaledImage));
         } catch (IOException e) {

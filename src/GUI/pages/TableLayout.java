@@ -7,13 +7,12 @@ import utilities.Scaling;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Arrays;
 
 public class TableLayout extends JPanel implements ConfigParameters {
     private final Controller controller;
 
-    protected int group2width;
-
-    protected int group1height;
+    protected JComponent imagePanel;
 
     protected int gridPaddingRegistration = Scaling.relativeHeight(4);;
 
@@ -21,15 +20,19 @@ public class TableLayout extends JPanel implements ConfigParameters {
         this.controller = Controller.getInstance();
     }
 
-    protected void addComponents(JComponent headerRow,
-                               JComponent gridPanel00, JComponent gridPanel01,
-                               JComponent gridPanel10, JComponent gridPanel11,
-                               JComponent gridPanel20, JComponent gridPanel21,
-                               JComponent gridPanel30, JComponent gridPanel31,
-                               JComponent gridPanel40, JComponent gridPanel41,
-                               JComponent gridButton,
-                               JComponent imageLoader,
-                               JComponent uploadButton) {
+    protected void addComponents(JComponent header,
+                               JComponent inputPanel00, JComponent inputPanel01,
+                               JComponent inputPanel10, JComponent inputPanel11,
+                               JComponent inputPanel20, JComponent inputPanel21,
+                               JComponent inputPanel30, JComponent inputPanel31,
+                               JComponent inputPanel40, JComponent inputPanel41,
+                               JComponent register,
+                               JComponent imageLoaderButton,
+                               JComponent upload) {
+
+        this.imagePanel = imageLoaderButton;
+        imagePanel.setSize(new Dimension(Scaling.relativeWidth((100.0 - 4 * Scaling.heightToWidth(4.5) - Scaling.heightToWidth(4))/3), Scaling.relativeHeight(8.08/64.48 * 75.5 - 2.0*4.5 - 2.0*4 - 4.2)));
+
 
         //"this" is the JPanel we are adding to the super, as this class extends JPanel
         this.setBackground(backgroundColor);
@@ -41,79 +44,50 @@ public class TableLayout extends JPanel implements ConfigParameters {
         registrationPanel.setLayout(new BorderLayout());
         registrationPanel.setBackground(headerColor);
 
-        JPanel gridPanel = new JPanel(new GridLayout(5, 2, gridPaddingRegistration,gridPaddingRegistration));
-        gridPanel.setOpaque(false);
 
+        JPanel inputPanel = new JPanel(new GridLayout(5, 2, gridPaddingRegistration, gridPaddingRegistration));
+        inputPanel.setOpaque(false);
 
-        gridPanel.add(gridPanel00);
-        gridPanel.add(gridPanel01);
-
-        gridPanel.add(gridPanel10);
-        gridPanel.add(gridPanel11);
-
-        gridPanel.add(gridPanel20);
-        gridPanel.add(gridPanel21);
-
-        gridPanel.add(gridPanel30);
-        gridPanel.add(gridPanel31);
-
-        gridPanel.add(gridPanel40);
-        gridPanel.add(gridPanel41);
-
+        inputPanel.add(inputPanel00); inputPanel.add(inputPanel01);
+        inputPanel.add(inputPanel10); inputPanel.add(inputPanel11);
+        inputPanel.add(inputPanel20); inputPanel.add(inputPanel21);
+        inputPanel.add(inputPanel30); inputPanel.add(inputPanel31);
+        inputPanel.add(inputPanel40); inputPanel.add(inputPanel41);
 
         JPanel contentPanel = new JPanel();
         contentPanel.setOpaque(false);
 
-        GroupLayout contentLayout = new GroupLayout(contentPanel);
-        contentLayout.setAutoCreateGaps(true);
-        contentLayout.setAutoCreateContainerGaps(true);
-
-        int group1width = Scaling.relativeWidth(2.0*((100.0 - 4 * Scaling.heightToWidth(4.5) - Scaling.heightToWidth(4))/3.0));
-        group2width = Scaling.relativeWidth((100.0 - 4 * Scaling.heightToWidth(4.5) - Scaling.heightToWidth(4))/3);
-        contentLayout.setHorizontalGroup(
-                contentLayout.createSequentialGroup()
-                        .addGap(pagePadding)
-                        .addGroup(contentLayout.createParallelGroup()
-                                .addComponent(headerRow)
-                                .addComponent(gridPanel, group1width, group1width, group1width)
-                                .addComponent(gridButton, group1width, group1width, group1width)
-                        )
-                        .addGap(gridPaddingRegistration)
-                        .addGroup(contentLayout.createParallelGroup()
-                                .addComponent(imageLoader, group2width, group2width, group2width)
-                                .addComponent(uploadButton, group2width, group2width, group2width)
-                        )
-                        .addGap(pagePadding)
-
-        );
-
-        double contentHeight = 75.5 - 2.0*4.5 - 2.0*4 - 4.2;
-        group1height = Scaling.relativeHeight(56.4/64.48 * contentHeight);
-        int group2height = Scaling.relativeHeight(8.08/64.48 * contentHeight);
-
-        contentLayout.setVerticalGroup(
-                contentLayout.createSequentialGroup()
-                        .addGap(pagePadding)
-                        .addComponent(headerRow)
-                        .addGap(gridPaddingRegistration)
-                        .addGroup(contentLayout.createParallelGroup()
-                                .addComponent(gridPanel, group1height, group1height, group1height)
-                                .addComponent(imageLoader, group1height, group1height, group1height)
-                        )
-                        .addGap(gridPaddingRegistration)
-                        .addGroup(contentLayout.createParallelGroup()
-                                .addComponent(gridButton, group2height, group2height, group2height)
-                                .addComponent(uploadButton, group2height, group2height, group2height)
-                        )
-                        .addGap(pagePadding)
-
-        );
-
+        GridBagLayout contentLayout = new GridBagLayout();
         contentPanel.setLayout(contentLayout);
+        contentPanel.setSize(new Dimension(Scaling.relativeWidth(100.0 - 4 * Scaling.heightToWidth(4.5) - Scaling.heightToWidth(4)), Scaling.relativeHeight(75.5 - 2.0*4.5 - 2.0*4 - 4.2)));
+
+        GridBagConstraints twoColumnConstraints = new GridBagConstraints(0, 0, 2, 1, 0.0, 0.0, 10, GridBagConstraints.BOTH, new Insets(pagePadding,pagePadding,gridPaddingRegistration,pagePadding), 0, 0);
+        contentPanel.add(header,twoColumnConstraints);
+
+        GridBagConstraints oneColumnConstraints = new GridBagConstraints(0, 1, 1, 1, 1.0, 1.0, 10, GridBagConstraints.BOTH, new Insets(0,pagePadding,gridPaddingRegistration,gridPaddingRegistration), 0, 0);
+        contentPanel.add(inputPanel, oneColumnConstraints);
+
+        oneColumnConstraints.gridx = 1;
+        oneColumnConstraints.insets = new Insets(0,0, gridPaddingRegistration, pagePadding);
+        oneColumnConstraints.weightx = 0.0;
+        oneColumnConstraints.weighty = 0.0;
+        oneColumnConstraints.fill = GridBagConstraints.NONE;
+        contentPanel.add(imageLoaderButton, oneColumnConstraints);
+
+        twoColumnConstraints.gridy = 2;
+        twoColumnConstraints.insets = new Insets(0, pagePadding, pagePadding, pagePadding);
+        twoColumnConstraints.weightx = 1.0;
+        twoColumnConstraints.weighty = 1.0;
+        contentPanel.add(register, twoColumnConstraints);
+
         registrationPanel.add(contentPanel, BorderLayout.CENTER);
 
-        this.add(registrationPanel);
+//        System.out.println(Scaling.absHeight(contentPanel.getHeight()));
+        System.out.println(Scaling.absHeight(register.getHeight()));
 
+        this.add(registrationPanel);
+    }
+    private void configureGBC() {
 
     }
 }
