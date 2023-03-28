@@ -9,13 +9,18 @@ import java.awt.geom.RoundRectangle2D;
 
 public class ImageLoaderButton extends IconButton {
     private Shape shape;
+    private Image image;
     public ImageLoaderButton(Controller controller) {
         super("noImageIcon.png", Scaling.relativeHeight(20), Scaling.relativeHeight(20), controller);
     }
 
     protected void paintComponent(Graphics g) {
 //        g.setColor(backgroundColor);
+
         g.fillRoundRect(0, 0, getWidth()-1, getHeight()-1, 15, 15);
+        if (image != null) {
+            g.drawImage(image, (this.getWidth() - image.getWidth(null))/2, (this.getHeight() - image.getHeight(null))/2, null);
+        }
         super.paintComponent(g);
     }
     protected void paintBorder(Graphics g) {
@@ -29,8 +34,10 @@ public class ImageLoaderButton extends IconButton {
         return shape.contains(x, y);
     }
 
-    public void setImage(Icon image) {
-        this.setIcon(image);
+    public void setImage(Image image) {
+        this.image = image;
+        setIcon(null);
+        this.repaint();
     }
 
 }

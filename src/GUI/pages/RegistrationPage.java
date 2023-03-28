@@ -66,9 +66,11 @@ public class RegistrationPage extends TableLayout {
         try {
             //scaling solution from https://stackoverflow.com/questions/6714045/how-to-resize-jlabel-imageicon
             ImageIcon imageIcon = new ImageIcon(ImageIO.read(new File(file))); // load the image to a imageIcon
-            Dimension letterboxed = Scaling.letterboxImage(new Dimension(imageIcon.getIconWidth(), imageIcon.getIconHeight()), new Dimension(Scaling.relativeWidth((100.0 - 4 * Scaling.heightToWidth(4.5) - Scaling.heightToWidth(4))/3), Scaling.relativeHeight(8.08/64.48 * 75.5 - 2.0*4.5 - 2.0*4 - 4.2))); // group2width and group1height are protected ints in TableLayout.java
+            System.out.println(new Dimension(imagePanel.getWidth(), imagePanel.getHeight()));
+            Dimension letterboxed = Scaling.letterboxImage(new Dimension(imageIcon.getIconWidth(), imageIcon.getIconHeight()), new Dimension(imagePanel.getWidth(), imagePanel.getHeight())); // group2width and group1height are protected ints in TableLayout.java
+            System.out.println(letterboxed);
             Image scaledImage = imageIcon.getImage().getScaledInstance(letterboxed.width, letterboxed.height,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
-            imageLoaderButton.setImage(new ImageIcon(scaledImage));
+            imageLoaderButton.setImage(scaledImage);
         } catch (IOException e) {
             System.out.println(e.getMessage());
             System.exit(0);

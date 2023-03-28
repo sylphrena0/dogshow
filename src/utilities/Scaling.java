@@ -34,6 +34,7 @@ public class Scaling implements ConfigParameters {
      */
     public static Dimension letterboxImage(Dimension image, Dimension frame) {
         double aspectRatio = (double) image.width / (double) image.height;
-        return aspectRatio >= 1 ? new Dimension(frame.width, (int) (frame.height*aspectRatio)) : new Dimension((int) (frame.width*aspectRatio), frame.height);
+        System.out.println(aspectRatio);
+        return aspectRatio >= 1 ? new Dimension(frame.width, (int) (frame.height/aspectRatio)) : new Dimension((int) (frame.width*aspectRatio), frame.height);
     }
 }
