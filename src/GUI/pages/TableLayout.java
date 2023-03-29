@@ -49,7 +49,6 @@ public class TableLayout extends JPanel implements ConfigParameters {
 
         JPanel contentPanel = new JPanel();
         contentPanel.setMaximumSize(new Dimension(Scaling.relativeWidth(100.0 - 4 * Scaling.heightToWidth(4.5) - Scaling.heightToWidth(4)), Scaling.relativeHeight(75.5 - 2.0*4.5 - 2.0*4 - 4.2)));
-
         contentPanel.setOpaque(false);
 
         contentPanel.setLayout(new MigLayout(
@@ -64,8 +63,12 @@ public class TableLayout extends JPanel implements ConfigParameters {
         contentPanel.add(inputPanel20); contentPanel.add(inputPanel21, "wrap");
         contentPanel.add(inputPanel30); contentPanel.add(inputPanel31, "wrap");
         contentPanel.add(inputPanel40); contentPanel.add(inputPanel41, "wrap");
-        contentPanel.add(register, "span 2");
-        contentPanel.add(upload);
+        if (upload != null) {
+            contentPanel.add(register, "span 2");
+            contentPanel.add(upload);
+        } else {
+            contentPanel.add(register, "span 3");
+        }
 
         registrationPanel.add(contentPanel, BorderLayout.CENTER);
 
