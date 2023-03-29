@@ -13,10 +13,18 @@ public class RecordsPage extends TableLayout {
     public RecordsPage() {
         Controller controller = Controller.getInstance();
 
-        JLabel registrationHeader = new JLabel("Balto:");
-        registrationHeader.setFont(new Font("Caveat", Font.BOLD, Scaling.relativeHeight(4.2)));
-        registrationHeader.setForeground(Color.WHITE);
-        registrationHeader.setHorizontalAlignment(SwingConstants.LEFT);
+        JLabel recordsHeader = new JLabel("Balto:");
+        recordsHeader.setFont(new Font("Caveat", Font.BOLD, Scaling.relativeHeight(4.2)));
+        recordsHeader.setForeground(Color.WHITE);
+        recordsHeader.setHorizontalAlignment(SwingConstants.LEFT);
+
+        RoundedDropdown year = new RoundedDropdown(new String[] {"2023 Constestants", "2022 Constestants"}, null, controller);
+        RoundedDropdown names = new RoundedDropdown(new String[] {"Sylphrena", "Dom"}, null, controller);
+
+        JPanel dropdowns = new JPanel(new GridLayout(1, 2, gridPaddingRegistration, gridPaddingRegistration));
+        dropdowns.setOpaque(false);
+        dropdowns.add(year);
+        dropdowns.add(names);
 
         RoundedTextField familyName = new RoundedTextField("Family Name", controller);
         RoundedTextField familyEmail = new RoundedTextField("Family Email", controller);
@@ -40,7 +48,7 @@ public class RecordsPage extends TableLayout {
 
         IconButton imageLoaderButton = new ImageLoaderButton(controller);
 
-        addComponents(registrationHeader,
+        addComponents(recordsHeader, dropdowns,
                 familyName, markings,
                 familyEmail, obedience,
                 name, socialization,

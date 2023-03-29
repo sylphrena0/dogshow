@@ -20,7 +20,7 @@ public class TableLayout extends JPanel implements ConfigParameters {
         this.controller = Controller.getInstance();
     }
 
-    protected void addComponents(JComponent header,
+    protected void addComponents(JComponent header, JComponent dropdowns,
                                  JComponent inputPanel00, JComponent inputPanel01,
                                  JComponent inputPanel10, JComponent inputPanel11,
                                  JComponent inputPanel20, JComponent inputPanel21,
@@ -54,10 +54,14 @@ public class TableLayout extends JPanel implements ConfigParameters {
         contentPanel.setLayout(new MigLayout(
                 "insets %d, gap %d, fill".formatted(gridPaddingRegistration, gridPaddingRegistration), // Layout Constraints
                 "[fill, sg][fill, sg][fill, sg]", // Column constraints (fill makes components grow to row size, sg constrains each row/column to be the same size)
-                "[fill, sg][fill, sg][fill, sg][fill, sg][fill, sg][fill, sg][fill, sg]"// Row constraints
+                "[fill, sg][fill, sg][fill, sg][fill, sg][fill, sg][fill, sg][fill, sg]" // Row constraints
         ));
 
-        contentPanel.add(header, "span 3, wrap");
+        if (dropdowns == null) {
+            contentPanel.add(header, "span 3, wrap");
+        } else {
+            contentPanel.add(header, "span 2"); contentPanel.add(dropdowns, "wrap");
+        }
         contentPanel.add(inputPanel00); contentPanel.add(inputPanel01); contentPanel.add(imagePanel, "span 1 5, wrap");
         contentPanel.add(inputPanel10); contentPanel.add(inputPanel11, "wrap");
         contentPanel.add(inputPanel20); contentPanel.add(inputPanel21, "wrap");

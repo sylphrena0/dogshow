@@ -51,7 +51,7 @@ public class RegistrationPage extends TableLayout {
         buttons.add(registerButton);
         buttons.add(uploadButton);
 
-        addComponents(registrationHeader,
+        addComponents(registrationHeader, null,
                         familyName, markings,
                         familyEmail, obedience,
                         name, socialization,

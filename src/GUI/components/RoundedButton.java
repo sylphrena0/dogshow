@@ -1,13 +1,14 @@
 package GUI.components;
 
 import GUI.Controller;
+import utilities.ConfigParameters;
 import utilities.Scaling;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.RoundRectangle2D;
 
-public class RoundedButton extends JButton {
+public class RoundedButton extends JButton implements ConfigParameters {
     private Shape shape;
     private final Color color;
     public RoundedButton(Color color) {
@@ -22,7 +23,7 @@ public class RoundedButton extends JButton {
         button.setText(text);
         button.addActionListener(controller);
         button.setForeground(textColor);
-        button.setFont(new Font("Caveat", Font.BOLD, Scaling.relativeHeight(2)));
+        button.setFont(buttonFont);
         button.setFocusPainted(false);
         button.setBorderPainted(false);
 
