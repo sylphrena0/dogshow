@@ -20,6 +20,7 @@ public class RoundedPasswordField extends JPasswordField implements ConfigParame
         this.color = inputColor;
         this.addActionListener(controller);
         this.setForeground(Color.WHITE);
+        this.setBackground(inputColor);
         this.setCaretColor(Color.WHITE);
         this.setBorder(BorderFactory.createEmptyBorder(10,20,10,20));
         this.setFont(inputFont);

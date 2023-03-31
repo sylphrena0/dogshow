@@ -7,6 +7,10 @@ import utilities.Scaling;
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
+import javax.swing.plaf.basic.BasicComboBoxUI;
+import javax.swing.plaf.basic.BasicComboPopup;
+import javax.swing.plaf.basic.ComboPopup;
 import java.awt.*;
 import java.awt.geom.RoundRectangle2D;
 
@@ -26,7 +30,16 @@ public class RoundedDropdown extends JComboBox implements ConfigParameters {
         dropdown.setForeground(Color.WHITE);
         dropdown.setBackground(inputColor);
         dropdown.setFont(inputFont);
-        dropdown.setBorder(new EmptyBorder(10, 10, 10, 10));
+        dropdown.setBorder(new EmptyBorder(30, 30, 30, 30));
+
+        dropdown.setUI(new BasicComboBoxUI() {
+            @Override
+            protected ComboPopup createPopup() {
+                BasicComboPopup basicComboPopup = new BasicComboPopup(comboBox);
+                basicComboPopup.setBorder(null);
+                return basicComboPopup;
+            }
+        });
 
 //        dropdown.setRenderer(new MyComboBoxRenderer());
 //        dropdown.setEditor(new MyComboBoxEditor());

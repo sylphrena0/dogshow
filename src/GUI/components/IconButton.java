@@ -31,6 +31,7 @@ public class IconButton extends JButton implements ConfigParameters {
             this.setBorderPainted(false);
             this.setOpaque(false);
             this.addActionListener(controller);
+            this.setBackground(null);
         } catch (IOException e) {
             System.out.println(e.getMessage());
             System.exit(0);

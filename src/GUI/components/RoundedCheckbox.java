@@ -14,7 +14,7 @@ public class RoundedCheckbox extends JCheckBox implements ConfigParameters{
         private Shape shape;
         private final Color color;
         public RoundedCheckbox(String text, Controller controller) {
-            super(text, true);
+            super(" " + text, true);
             this.color = inputColor;
             setOpaque(false); // As suggested by @AVD in comment.
             RoundedCheckbox RoundedCheckbox = this;
@@ -22,6 +22,8 @@ public class RoundedCheckbox extends JCheckBox implements ConfigParameters{
             RoundedCheckbox.setForeground(Color.WHITE);
             RoundedCheckbox.setFont(inputFont);
             RoundedCheckbox.setFocusPainted(false);
+            RoundedCheckbox.setBorder(BorderFactory.createEmptyBorder(10,30,10,30));
+
 
             try {
                 // Set default icon for checkbox

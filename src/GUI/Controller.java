@@ -1,15 +1,19 @@
 package GUI;
 
 import GUI.components.IconButton;
+import GUI.components.RoundedButton;
 import GUI.pages.HomePage;
 import GUI.pages.RecordsPage;
 import GUI.pages.RegistrationPage;
 import GUI.pages.ContestPage;
+import com.formdev.flatlaf.FlatDarculaLaf;
 import utilities.ConfigParameters;
 import utilities.Scaling;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.plaf.metal.MetalLookAndFeel;
+import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -23,6 +27,7 @@ public class Controller extends JFrame implements ActionListener, ConfigParamete
     private JPanel pagePanel;
 
     private Controller(String title) {
+        FlatDarculaLaf.setup();
         instance = this;
         setTitle(title);
         setResizable(false);
@@ -30,12 +35,19 @@ public class Controller extends JFrame implements ActionListener, ConfigParamete
         setSize(screenSize);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         addComponents();
+
         try {
-            UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+            UIManager.setLookAndFeel(new FlatDarculaLaf());
+
+//            UIManager.put("nimbusFocus" , inputColor);
+//            UIManager.put("nimbusSelection", greenButtonColor);
+//            SwingUtilities.updateComponentTreeUI(this);
         } catch (Exception e) {
             System.out.println("Error setting UI look and feel!");
             System.exit(0);
         }
+
+
         setVisible(true);
     }
 
@@ -77,9 +89,13 @@ public class Controller extends JFrame implements ActionListener, ConfigParamete
         header.setHorizontalAlignment(SwingConstants.LEFT);
 
         home  = new JButton(" Home ");
+        home.setBorder(BorderFactory.createEmptyBorder(0,10,0,10));
         records = new JButton(" Records ");
+        records.setBorder(BorderFactory.createEmptyBorder(0,10,0,10));
         registration = new JButton(" Registration ");
+        registration.setBorder(BorderFactory.createEmptyBorder(0,10,0,10));
         contest = new JButton(" Contest ");
+        contest.setBorder(BorderFactory.createEmptyBorder(0,10,0,10));
 
         Dimension button = new Dimension(Scaling.relativeHeight(7), Scaling.relativeHeight(6.5));
 

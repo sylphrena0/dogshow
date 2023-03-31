@@ -20,8 +20,9 @@ public class RoundedTextField extends JTextField implements ConfigParameters {
         JTextField textField = this;
         textField.addActionListener(controller);
         textField.setForeground(Color.WHITE);
+        textField.setBackground(inputColor);
         textField.setCaretColor(Color.WHITE);
-        textField.setBorder(BorderFactory.createEmptyBorder(10,20,10,20));
+        textField.setBorder(BorderFactory.createEmptyBorder(10,30,10,30));
         textField.setFont(inputFont);
         textField.setText(placeholder);
 

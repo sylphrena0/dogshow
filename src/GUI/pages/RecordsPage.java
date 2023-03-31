@@ -8,13 +8,13 @@ import utilities.Scaling;
 import javax.swing.*;
 import java.awt.*;
 
-public class RecordsPage extends TableLayout {
+public class RecordsPage extends TableLayout implements ConfigParameters{
 
     public RecordsPage() {
         Controller controller = Controller.getInstance();
 
-        JLabel recordsHeader = new JLabel("Balto:");
-        recordsHeader.setFont(new Font("Caveat", Font.BOLD, Scaling.relativeHeight(4.2)));
+        JLabel recordsHeader = new JLabel("View Contestant Records: Balto");
+        recordsHeader.setFont(headerFont);
         recordsHeader.setForeground(Color.WHITE);
         recordsHeader.setHorizontalAlignment(SwingConstants.LEFT);
 

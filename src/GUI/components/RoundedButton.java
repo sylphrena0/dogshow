@@ -5,6 +5,7 @@ import utilities.ConfigParameters;
 import utilities.Scaling;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.geom.RoundRectangle2D;
 
@@ -24,9 +25,9 @@ public class RoundedButton extends JButton implements ConfigParameters {
         button.addActionListener(controller);
         button.setForeground(textColor);
         button.setFont(buttonFont);
+        button.setBackground(color);
         button.setFocusPainted(false);
         button.setBorderPainted(false);
-
     }
     protected void paintComponent(Graphics g) {
         g.setColor(color);

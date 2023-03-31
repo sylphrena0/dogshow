@@ -1,12 +1,15 @@
 package GUI.components;
 
+import utilities.ConfigParameters;
+
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
 // Author: b4rc0ll0
 // Source: https://www.codeproject.com/Articles/114959/Rounded-Border-JPanel-JPanel-graphics-improvements
 
-public class RoundedPanel extends JPanel {
+public class RoundedPanel extends JPanel implements ConfigParameters {
     /** Stroke size. it is recommended to set it to 1 for better view */
     protected int strokeSize = 1;
     /** Color of shadow */
@@ -28,6 +31,7 @@ public class RoundedPanel extends JPanel {
     public RoundedPanel() {
         super();
         setOpaque(false);
+        this.setBackground(headerColor);
     }
 
     @Override
@@ -60,10 +64,10 @@ public class RoundedPanel extends JPanel {
         }
 
         //Draws the rounded opaque panel with borders.
-        graphics.setColor(getBackground());
+        graphics.setColor(headerColor);
         graphics.fillRoundRect(0, 0, width - shadowGap,
                 height - shadowGap, arcs.width, arcs.height);
-        graphics.setColor(getForeground());
+        graphics.setColor(headerColor);
         graphics.setStroke(new BasicStroke(strokeSize));
         graphics.drawRoundRect(0, 0, width - shadowGap,
                 height - shadowGap, arcs.width, arcs.height);

@@ -17,7 +17,7 @@ public class RegistrationPage extends TableLayout {
         Controller controller = Controller.getInstance();
 
         JLabel registrationHeader = new JLabel("Register a contestant:");
-        registrationHeader.setFont(new Font("Caveat", Font.BOLD, Scaling.relativeHeight(4.2)));
+        registrationHeader.setFont(headerFont);
         registrationHeader.setForeground(Color.WHITE);
         registrationHeader.setHorizontalAlignment(SwingConstants.LEFT);
 

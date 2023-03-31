@@ -12,6 +12,7 @@ public class ImageLoaderButton extends IconButton {
     private Image image;
     public ImageLoaderButton(Controller controller) {
         super("noImageIcon.png", Scaling.relativeHeight(20), Scaling.relativeHeight(20), controller);
+        this.setBackground(headerColor);
     }
 
     protected void paintComponent(Graphics g) {
