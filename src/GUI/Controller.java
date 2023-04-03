@@ -39,9 +39,17 @@ public class Controller extends JFrame implements ActionListener, ConfigParamete
         try {
             UIManager.setLookAndFeel(new FlatDarculaLaf());
 
-//            UIManager.put("nimbusFocus" , inputColor);
-//            UIManager.put("nimbusSelection", greenButtonColor);
-//            SwingUtilities.updateComponentTreeUI(this);
+
+            ////////////////////////////////////
+            ////// Dropdown Customization //////
+            ////////////////////////////////////
+            UIManager.put("ComboBox.focusedBackground" , inputColor);
+            UIManager.put("ComboBox.selectionBackground" , inputColor);
+            UIManager.put("ComboBox.popupInsets" , new Insets(3,3,3,3)); //outer inset for set of items in dropdown menu
+            UIManager.put("ComboBox.selectionInsets" , new Insets(3,3,3,3)); //insets for items in dropdown menu
+            ////////////////////////////////////
+
+            SwingUtilities.updateComponentTreeUI(this);
         } catch (Exception e) {
             System.out.println("Error setting UI look and feel!");
             System.exit(0);
