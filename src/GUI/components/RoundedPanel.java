@@ -3,34 +3,23 @@ package GUI.components;
 import utilities.ConfigParameters;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
 // Author: b4rc0ll0
 // Source: https://www.codeproject.com/Articles/114959/Rounded-Border-JPanel-JPanel-graphics-improvements
 
-public class RoundedPanel extends JPanel implements ConfigParameters {
-    /** Stroke size. it is recommended to set it to 1 for better view */
-    protected int strokeSize = 1;
-    /** Color of shadow */
-    protected Color shadowColor = Color.black;
-    /** Sets if it drops shadow */
-    protected boolean shady = true;
-    /** Sets if it has a High Quality view */
-    protected boolean highQuality = true;
-    /** Double values for Horizontal and Vertical radius of corner arcs */
-    protected Dimension arcs = new Dimension(200, 200);
-    /** Distance between shadow border and opaque panel border */
-    protected int shadowGap = 5;
-    /** The offset of shadow.  */
-    protected int shadowOffset = 4;
-    /** The transparency value of shadow. ( 0 - 255) */
+public class RoundedPanel extends JPanel implements ConfigParameters {  //stroke size. it is recommended to set it to 1 for better view
+    protected int strokeSize = 1; //color of shadow
+    protected Color shadowColor = Color.black; //sets if it drops shadow
+    protected boolean shady = true; //sets if it has a High Quality view
+    protected boolean highQuality = true; //double values for Horizontal and Vertical radius of corner arcs
+    protected Dimension arcs = new Dimension(200, 200); //distance between shadow border and opaque panel border
+    protected int shadowGap = 5; //the offset of shadow.
+    protected int shadowOffset = 4; //the transparency value of shadow. ( 0 - 255)
     protected int shadowAlpha = 0;
-
-    //FOLLOWING CODES GOES HERE
     public RoundedPanel() {
         super();
-        setOpaque(false);
+        this.setOpaque(false);
         this.setBackground(headerColor);
     }
 
@@ -44,26 +33,26 @@ public class RoundedPanel extends JPanel implements ConfigParameters {
                 shadowColor.getGreen(), shadowColor.getBlue(), shadowAlpha);
         Graphics2D graphics = (Graphics2D) g;
 
-        //Sets antialiasing if HQ.
+        //sets antialiasing if HQ.
         if (highQuality) {
             graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                     RenderingHints.VALUE_ANTIALIAS_ON);
         }
 
-        //Draws shadow borders if any.
+        //draws shadow borders if any.
         if (shady) {
             graphics.setColor(shadowColorA);
             graphics.fillRoundRect(
-                    shadowOffset,// X position
-                    shadowOffset,// Y position
-                    width - strokeSize - shadowOffset, // width
-                    height - strokeSize - shadowOffset, // height
-                    arcs.width, arcs.height);// arc Dimension
+                    shadowOffset, //x position
+                    shadowOffset, //y position
+                    width - strokeSize - shadowOffset, //width
+                    height - strokeSize - shadowOffset, //height
+                    arcs.width, arcs.height); //arc Dimension
         } else {
             shadowGap = 1;
         }
 
-        //Draws the rounded opaque panel with borders.
+        //draws the rounded opaque panel with borders.
         graphics.setColor(headerColor);
         graphics.fillRoundRect(0, 0, width - shadowGap,
                 height - shadowGap, arcs.width, arcs.height);
@@ -72,7 +61,7 @@ public class RoundedPanel extends JPanel implements ConfigParameters {
         graphics.drawRoundRect(0, 0, width - shadowGap,
                 height - shadowGap, arcs.width, arcs.height);
 
-        //Sets strokes to default, is better.
+        //sets strokes to default, is better.
         graphics.setStroke(new BasicStroke());
     }
 }

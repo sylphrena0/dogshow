@@ -16,16 +16,16 @@ public class RoundedTextField extends JTextField implements ConfigParameters {
     private final Color color;
     public RoundedTextField(String placeholder, Controller controller) {
         this.color = inputColor;
-        setOpaque(false); // As suggested by @AVD in comment.
-        JTextField textField = this;
-        textField.addActionListener(controller);
-        textField.setForeground(Color.WHITE);
-        textField.setBackground(inputColor);
-        textField.setCaretColor(Color.WHITE);
-        textField.setBorder(BorderFactory.createEmptyBorder(10,30,10,30));
-        textField.setFont(inputFont);
-        textField.setText(placeholder);
+        this.setOpaque(false); // As suggested by @AVD in comment.
+        this.addActionListener(controller);
+        this.setForeground(Color.WHITE);
+        this.setBackground(inputColor);
+        this.setCaretColor(Color.WHITE);
+        this.setBorder(BorderFactory.createEmptyBorder(10,30,10,30));
+        this.setFont(inputFont);
+        this.setText(placeholder);
 
+        JTextField textField = this;
         textField.addFocusListener(new FocusListener() {
             @Override
             public void focusGained(FocusEvent e) {

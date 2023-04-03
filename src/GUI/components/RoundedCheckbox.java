@@ -16,22 +16,16 @@ public class RoundedCheckbox extends JCheckBox implements ConfigParameters{
         public RoundedCheckbox(String text, Controller controller) {
             super(" " + text, true);
             this.color = inputColor;
-            setOpaque(false); // As suggested by @AVD in comment.
-            RoundedCheckbox RoundedCheckbox = this;
-            RoundedCheckbox.addActionListener(controller);
-            RoundedCheckbox.setForeground(Color.WHITE);
-            RoundedCheckbox.setFont(inputFont);
-            RoundedCheckbox.setFocusPainted(false);
-            RoundedCheckbox.setBorder(BorderFactory.createEmptyBorder(10,30,10,30));
-
+            this.setOpaque(false);
+            this.addActionListener(controller);
+            this.setForeground(Color.WHITE);
+            this.setFont(inputFont);
+            this.setFocusPainted(false);
+            this.setBorder(BorderFactory.createEmptyBorder(10,30,10,30));
 
             try {
-                // Set default icon for checkbox
-                this.setIcon(new ImageIcon(ImageIO.read(new File("images/unchecked.png"))));
-                // Set selected icon when checkbox state is selected
-                this.setSelectedIcon(new ImageIcon(ImageIO.read(new File("images/checked.png"))));
-
-
+                this.setIcon(new ImageIcon(ImageIO.read(new File("images/unchecked.png")))); //set default icon for checkbox
+                this.setSelectedIcon(new ImageIcon(ImageIO.read(new File("images/checked.png")))); //set selected icon when checkbox state is selected
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

@@ -16,7 +16,7 @@ public class RoundedPasswordField extends JPasswordField implements ConfigParame
     private Shape shape;
     private final Color color;
     public RoundedPasswordField(String placeholder, Controller controller) {
-        setOpaque(false); // As suggested by @AVD in comment.
+        setOpaque(false);
         this.color = inputColor;
         this.addActionListener(controller);
         this.setForeground(Color.WHITE);

@@ -4,8 +4,6 @@ import GUI.Controller;
 
 import java.awt.*;
 
-import static java.awt.Font.createFont;
-
 public interface ConfigParameters {
     Dimension screenSize = Controller.screenSize();
     Dimension pageSize = new Dimension(screenSize.width, screenSize.height - Scaling.relativeHeight(6.5));
@@ -14,6 +12,8 @@ public interface ConfigParameters {
     Color backgroundColor = new Color(0x212121);
     Color headerColor = new Color(0x303030);
     Color inputColor = new Color(0x434343);
+    Color transparent = new Color(0, 0, 0, 0);
+
     Font inputFont = new Font("Arial", Font.PLAIN, Scaling.relativeHeight(1.5));
     Font headerFont = CaveatFont.getFont(Font.BOLD, Scaling.relativeHeight(4.2)); //used font that is included with package
     Font buttonFont = CaveatFont.getFont(Font.BOLD, Scaling.relativeHeight(2));

@@ -3,7 +3,6 @@ package GUI.pages;
 import GUI.Controller;
 import GUI.components.*;
 import utilities.ConfigParameters;
-import utilities.Scaling;
 
 import javax.swing.*;
 import java.awt.*;
