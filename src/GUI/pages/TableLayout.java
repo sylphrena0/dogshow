@@ -40,7 +40,7 @@ public class TableLayout extends JPanel implements ConfigParameters {
 
         JPanel registrationPanel = new RoundedPanel();
         registrationPanel.setLayout(new BorderLayout());
-        registrationPanel.setBackground(headerColor);
+        registrationPanel.setBackground(pageColor);
 
         JPanel inputPanel = new JPanel(new GridLayout(5, 2, gridPaddingRegistration, gridPaddingRegistration));
         inputPanel.setOpaque(false);

@@ -24,7 +24,7 @@ public class ContestPage extends JPanel implements ConfigParameters {
         this.setBorder(BorderFactory.createEmptyBorder(pagePadding, pagePadding,2*pagePadding, pagePadding));
 
         JPanel contestPanel = new RoundedPanel();
-        contestPanel.setBackground(headerColor);
+        contestPanel.setBackground(pageColor);
         this.add(contestPanel);
 
         //create a new label

@@ -42,7 +42,7 @@ public class HomePage extends JPanel implements ConfigParameters {
         /////////// Login Panel ///////////
         ///////////////////////////////////
         JPanel loginPanel = new RoundedPanel();
-        loginPanel.setBackground(headerColor);
+        loginPanel.setBackground(pageColor);
 
         JLabel loginHeader = new JLabel("Welcome! Please Login:");
         loginHeader.setFont(headerFont);
@@ -105,7 +105,7 @@ public class HomePage extends JPanel implements ConfigParameters {
         //////// Registration Panel ////////
         ////////////////////////////////////
         JPanel registerPanel = new RoundedPanel();
-        registerPanel.setBackground(headerColor);
+        registerPanel.setBackground(pageColor);
 
         JLabel registerHeader = new JLabel("Welcome! Please Register:");
         registerHeader.setFont(headerFont);

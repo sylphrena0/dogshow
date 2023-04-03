@@ -10,7 +10,7 @@ public interface ConfigParameters {
     Color greenButtonColor = new Color(0x93c47d);
     Color purpleButtonColor = new Color(0x7c50e2);
     Color backgroundColor = new Color(0x212121);
-    Color headerColor = new Color(0x303030);
+    Color pageColor = new Color(0x303030);
     Color inputColor = new Color(0x434343);
     Color transparent = new Color(0, 0, 0, 0);
 

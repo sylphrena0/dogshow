@@ -20,7 +20,7 @@ public class RoundedPanel extends JPanel implements ConfigParameters {  //stroke
     public RoundedPanel() {
         super();
         this.setOpaque(false);
-        this.setBackground(headerColor);
+        this.setBackground(pageColor);
     }
 
     @Override
@@ -53,10 +53,10 @@ public class RoundedPanel extends JPanel implements ConfigParameters {  //stroke
         }
 
         //draws the rounded opaque panel with borders.
-        graphics.setColor(headerColor);
+        graphics.setColor(pageColor);
         graphics.fillRoundRect(0, 0, width - shadowGap,
                 height - shadowGap, arcs.width, arcs.height);
-        graphics.setColor(headerColor);
+        graphics.setColor(pageColor);
         graphics.setStroke(new BasicStroke(strokeSize));
         graphics.drawRoundRect(0, 0, width - shadowGap,
                 height - shadowGap, arcs.width, arcs.height);

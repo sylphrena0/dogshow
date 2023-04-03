@@ -71,7 +71,7 @@ public class Controller extends JFrame implements ActionListener, ConfigParamete
 
     private void configureNavButton(JButton button, Dimension size) {
         button.setMinimumSize(size);
-        button.setBackground(headerColor);
+        button.setBackground(pageColor);
         button.setForeground(Color.WHITE);
         button.setFont(headerFont);
         button.setFocusPainted(false);
@@ -85,7 +85,7 @@ public class Controller extends JFrame implements ActionListener, ConfigParamete
 
         JPanel navPanel = new JPanel();
         navPanel.setPreferredSize(new Dimension(screenSize.width, Scaling.relativeHeight(6.5)));
-        navPanel.setBackground(headerColor);
+        navPanel.setBackground(pageColor);
         navPanel.setForeground(Color.WHITE);
 
         JLabel header = new JLabel("  Williamsport Area Kennel Club");
@@ -118,7 +118,7 @@ public class Controller extends JFrame implements ActionListener, ConfigParamete
 
         JPanel titlePanel = new JPanel();
         titlePanel.setLayout(new BorderLayout());
-        titlePanel.setBackground(headerColor);
+        titlePanel.setBackground(pageColor);
         titlePanel.add(header);
 
         IconButton closeButton = new IconButton("close.png", (int) (Scaling.relativeHeight(6.5)*0.75), (int) (Scaling.relativeHeight(6.5)*0.75), getInstance());
@@ -176,36 +176,36 @@ public class Controller extends JFrame implements ActionListener, ConfigParamete
         switch (actionCommand) {
             case "HOME" -> {
                 home.setBackground(backgroundColor);
-                records.setBackground(headerColor);
-                registration.setBackground(headerColor);
-                contest.setBackground(headerColor);
+                records.setBackground(pageColor);
+                registration.setBackground(pageColor);
+                contest.setBackground(pageColor);
 
                 setTitle("Home - Dog Show");
                 pageLayout.show(pagePanel, "HOME");
             }
             case "RECORDS" -> {
                 records.setBackground(backgroundColor);
-                home.setBackground(headerColor);
-                registration.setBackground(headerColor);
-                contest.setBackground(headerColor);
+                home.setBackground(pageColor);
+                registration.setBackground(pageColor);
+                contest.setBackground(pageColor);
 
                 setTitle("Records - Dog Show");
                 pageLayout.show(pagePanel, "RECORDS");
             }
             case "REGISTRATION" -> {
                 registration.setBackground(backgroundColor);
-                home.setBackground(headerColor);
-                records.setBackground(headerColor);
-                contest.setBackground(headerColor);
+                home.setBackground(pageColor);
+                records.setBackground(pageColor);
+                contest.setBackground(pageColor);
 
                 setTitle("Registration - Dog Show");
                 pageLayout.show(pagePanel, "REGISTRATION");
             }
             case "CONTEST" -> {
                 contest.setBackground(backgroundColor);
-                home.setBackground(headerColor);
-                records.setBackground(headerColor);
-                registration.setBackground(headerColor);
+                home.setBackground(pageColor);
+                records.setBackground(pageColor);
+                registration.setBackground(pageColor);
 
                 setTitle("Contest - Dog Show");
                 pageLayout.show(pagePanel, "CONTEST");
