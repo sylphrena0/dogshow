@@ -28,11 +28,6 @@ public class RegistrationPage extends TableLayout {
         RoundedTextField age = new RoundedTextField("Age", controller);
         RoundedTextField color = new RoundedTextField("Color", controller);
 
-        JPanel ageAndColor = new JPanel(new GridLayout(1, 2, gridPaddingRegistration, gridPaddingRegistration));
-        ageAndColor.setOpaque(false);
-        ageAndColor.add(age);
-        ageAndColor.add(color);
-
         RoundedTextField markings = new RoundedTextField("Identifiable Markings", controller);
         RoundedCheckbox obedience = new RoundedCheckbox("Register for Obedience Contest", controller);
         RoundedCheckbox socialization = new RoundedCheckbox("Register for Socialization Contest", controller);
@@ -51,12 +46,12 @@ public class RegistrationPage extends TableLayout {
         buttons.add(registerButton);
         buttons.add(uploadButton);
 
-        addComponents(registrationHeader, null,
+        addComponents(registrationHeader, null, null,
                         familyName, markings,
                         familyEmail, obedience,
                         name, socialization,
                         breed, grooming,
-                        ageAndColor, fetch,
+                        age, color, fetch,
                         registerButton,
                         imageLoaderButton,
                         uploadButton);

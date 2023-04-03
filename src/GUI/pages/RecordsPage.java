@@ -21,22 +21,12 @@ public class RecordsPage extends TableLayout implements ConfigParameters{
         RoundedDropdown year = new RoundedDropdown(new String[] {"2023 Constestants", "2022 Constestants"}, null, controller);
         RoundedDropdown names = new RoundedDropdown(new String[] {"Sylphrena", "Dom"}, null, controller);
 
-        JPanel dropdowns = new JPanel(new GridLayout(1, 2, gridPaddingRegistration, gridPaddingRegistration));
-        dropdowns.setOpaque(false);
-        dropdowns.add(year);
-        dropdowns.add(names);
-
         RoundedTextField familyName = new RoundedTextField("Family Name", controller);
         RoundedTextField familyEmail = new RoundedTextField("Family Email", controller);
         RoundedTextField name = new RoundedTextField("Dog Name", controller);
         RoundedTextField breed = new RoundedTextField("Breed", controller);
         RoundedTextField age = new RoundedTextField("Age", controller);
         RoundedTextField color = new RoundedTextField("Color", controller);
-
-        JPanel ageAndColor = new JPanel(new GridLayout(1, 2, gridPaddingRegistration, gridPaddingRegistration));
-        ageAndColor.setOpaque(false);
-        ageAndColor.add(age);
-        ageAndColor.add(color);
 
         RoundedTextField markings = new RoundedTextField("Identifiable Markings", controller);
         RoundedCheckbox obedience = new RoundedCheckbox("Register for Obedience Contest", controller);
@@ -48,12 +38,12 @@ public class RecordsPage extends TableLayout implements ConfigParameters{
 
         IconButton imageLoaderButton = new ImageLoaderButton(controller);
 
-        addComponents(recordsHeader, dropdowns,
+        addComponents(recordsHeader, year, names,
                 familyName, markings,
                 familyEmail, obedience,
                 name, socialization,
                 breed, grooming,
-                ageAndColor, fetch,
+                age, color, fetch,
                 winnerBanner,
                 imageLoaderButton,
                 null);

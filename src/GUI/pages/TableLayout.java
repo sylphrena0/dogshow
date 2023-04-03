@@ -20,12 +20,12 @@ public class TableLayout extends JPanel implements ConfigParameters {
         this.controller = Controller.getInstance();
     }
 
-    protected void addComponents(JComponent header, JComponent dropdowns,
-                                 JComponent inputPanel00, JComponent inputPanel01,
-                                 JComponent inputPanel10, JComponent inputPanel11,
-                                 JComponent inputPanel20, JComponent inputPanel21,
-                                 JComponent inputPanel30, JComponent inputPanel31,
-                                 JComponent inputPanel40, JComponent inputPanel41,
+    protected void addComponents(JComponent header, JComponent years, JComponent names,
+                                 JComponent familyName, JComponent markings,
+                                 JComponent email, JComponent obedience,
+                                 JComponent name, JComponent socialization,
+                                 JComponent breed, JComponent grooming,
+                                 JComponent age, JComponent color, JComponent fetch,
                                  JComponent register,
                                  JComponent imageLoaderButton,
                                  JComponent upload) {
@@ -57,16 +57,28 @@ public class TableLayout extends JPanel implements ConfigParameters {
                 "[fill, sg][fill, sg][fill, sg][fill, sg][fill, sg][fill, sg][fill, sg]" // Row constraints
         ));
 
-        if (dropdowns == null) {
+        if (years == null) {
             contentPanel.add(header, "span 3, wrap");
         } else {
-            contentPanel.add(header, "span 2"); contentPanel.add(dropdowns, "wrap");
+            contentPanel.add(header, "span 2"); contentPanel.add(years, "split 2"); contentPanel.add(names, "wrap, gap %d".formatted(gridPaddingRegistration));
         }
-        contentPanel.add(inputPanel00); contentPanel.add(inputPanel01); contentPanel.add(imagePanel, "span 1 5, wrap");
-        contentPanel.add(inputPanel10); contentPanel.add(inputPanel11, "wrap");
-        contentPanel.add(inputPanel20); contentPanel.add(inputPanel21, "wrap");
-        contentPanel.add(inputPanel30); contentPanel.add(inputPanel31, "wrap");
-        contentPanel.add(inputPanel40); contentPanel.add(inputPanel41, "wrap");
+        contentPanel.add(familyName);
+        contentPanel.add(markings);
+        contentPanel.add(imagePanel, "span 1 5, wrap");
+
+        contentPanel.add(email);
+        contentPanel.add(obedience, "wrap");
+
+        contentPanel.add(name);
+        contentPanel.add(socialization, "wrap");
+
+        contentPanel.add(breed);
+        contentPanel.add(grooming, "wrap");
+
+        contentPanel.add(age, "split 2");
+        contentPanel.add(color, "gap %d".formatted(gridPaddingRegistration));
+        contentPanel.add(fetch, "wrap");
+
         if (upload != null) {
             contentPanel.add(register, "span 2");
             contentPanel.add(upload);
