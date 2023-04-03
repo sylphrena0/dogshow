@@ -13,12 +13,12 @@ public class RecordsPage extends TableLayout implements ConfigParameters{
     public RecordsPage() {
         Controller controller = Controller.getInstance();
 
-        JLabel recordsHeader = new JLabel("View Contestant Records: Balto");
+        JLabel recordsHeader = new JLabel("View Records: Balto");
         recordsHeader.setFont(headerFont);
         recordsHeader.setForeground(Color.WHITE);
         recordsHeader.setHorizontalAlignment(SwingConstants.LEFT);
 
-        RoundedDropdown year = new RoundedDropdown(new String[] {"2023 Constestants", "2022 Constestants"}, null, controller);
+        RoundedDropdown year = new RoundedDropdown(new String[] {"2023", "2022 "}, null, controller);
         RoundedDropdown names = new RoundedDropdown(new String[] {"Sylphrena", "Dom"}, null, controller);
 
         RoundedTextField familyName = new RoundedTextField("Family Name", controller);

@@ -31,8 +31,6 @@ public class TableLayout extends JPanel implements ConfigParameters {
                                  JComponent upload) {
 
         this.imagePanel = imageLoaderButton;
-//        imagePanel.setMaximumSize(new Dimension(Scaling.relativeWidth((100.0 - 4 * Scaling.heightToWidth(4.5) - Scaling.heightToWidth(4))/3), Scaling.relativeHeight(8.08/64.48 * 75.5 - 2.0*4.5 - 2.0*4 - 4.2)));
-
 
         //"this" is the JPanel we are adding to the super, as this class extends JPanel
         this.setBackground(backgroundColor);
@@ -60,7 +58,9 @@ public class TableLayout extends JPanel implements ConfigParameters {
         if (years == null) {
             contentPanel.add(header, "span 3, wrap");
         } else {
-            contentPanel.add(header, "span 2"); contentPanel.add(years, "split 2"); contentPanel.add(names, "wrap, gap %d".formatted(gridPaddingRegistration));
+            contentPanel.add(header, "span 2");
+            contentPanel.add(years, "split 2");
+            contentPanel.add(names, "wrap, gap %d".formatted(gridPaddingRegistration));
         }
         contentPanel.add(familyName);
         contentPanel.add(markings);
@@ -89,9 +89,6 @@ public class TableLayout extends JPanel implements ConfigParameters {
         registrationPanel.add(contentPanel, BorderLayout.CENTER);
 
         this.add(registrationPanel);
-    }
-    private void configureGBC() {
-
     }
 }
 
