@@ -1,7 +1,6 @@
 package GUI;
 
 import GUI.components.IconButton;
-import GUI.components.RoundedButton;
 import GUI.pages.HomePage;
 import GUI.pages.RecordsPage;
 import GUI.pages.RegistrationPage;
@@ -12,8 +11,6 @@ import utilities.Scaling;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import javax.swing.plaf.metal.MetalLookAndFeel;
-import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
