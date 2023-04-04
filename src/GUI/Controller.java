@@ -6,6 +6,7 @@ import GUI.pages.RecordsPage;
 import GUI.pages.RegistrationPage;
 import GUI.pages.ContestPage;
 import com.formdev.flatlaf.FlatDarculaLaf;
+import net.miginfocom.layout.PlatformDefaults;
 import utilities.ConfigParameters;
 import utilities.Scaling;
 
@@ -250,6 +251,7 @@ public class Controller extends JFrame implements ActionListener, ConfigParamete
 
 
     public static void main(String[] args) {
+        PlatformDefaults.setLogicalPixelBase(PlatformDefaults.BASE_REAL_PIXEL);
         SwingUtilities.invokeLater(()-> Controller.getInstance("Dog Show"));
     }
 

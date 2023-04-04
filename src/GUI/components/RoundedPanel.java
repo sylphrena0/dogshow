@@ -23,6 +23,13 @@ public class RoundedPanel extends JPanel implements ConfigParameters {  //stroke
         this.setBackground(pageColor);
     }
 
+    public RoundedPanel(int arc) {
+        super();
+        this.setOpaque(false);
+        this.setBackground(pageColor);
+        this.arcs = new Dimension(arc, arc);
+    }
+
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);

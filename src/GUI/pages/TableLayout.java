@@ -14,7 +14,7 @@ public class TableLayout extends JPanel implements ConfigParameters {
 
     protected JComponent imagePanel;
 
-    protected int gridPaddingRegistration = Scaling.relativeHeight(4);;
+    protected int gridPaddingRegistration = Scaling.relativeHeight(3);;
 
     public TableLayout() {
         this.controller = Controller.getInstance();
