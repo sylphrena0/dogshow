@@ -4,9 +4,8 @@ import GUI.components.IconButton;
 import GUI.pages.Home;
 import GUI.pages.Record;
 import GUI.pages.Registration;
-import GUI.pages.ContestPage;
+import GUI.pages.ContestList;
 import com.formdev.flatlaf.FlatDarculaLaf;
-import net.miginfocom.layout.PlatformDefaults;
 import utilities.ConfigParameters;
 import utilities.Scaling;
 
@@ -158,12 +157,12 @@ public class Controller extends JFrame implements ActionListener, ConfigParamete
         homePage = new Home();
         Record recordsPage = new Record();
         registrationPage = new Registration();
-        ContestPage contestPage = new ContestPage();
+        ContestList contestList = new ContestList();
 
         pagePanel.add("HOME", homePage);
         pagePanel.add("RECORDS", recordsPage);
         pagePanel.add("REGISTRATION", registrationPage);
-        pagePanel.add("CONTEST", contestPage);
+        pagePanel.add("CONTEST", contestList);
 
         containerPanel.add(pagePanel, BorderLayout.CENTER);
 
@@ -210,6 +209,7 @@ public class Controller extends JFrame implements ActionListener, ConfigParamete
 
                 setTitle("Contest - Dog Show");
                 pageLayout.show(pagePanel, "CONTEST");
+
             }
             case "LOGIN" -> {
                 System.out.println("LOGIN");
@@ -251,7 +251,9 @@ public class Controller extends JFrame implements ActionListener, ConfigParamete
 
 
     public static void main(String[] args) {
-        PlatformDefaults.setLogicalPixelBase(PlatformDefaults.BASE_REAL_PIXEL);
+//        PlatformDefaults.setLogicalPixelBase(PlatformDefaults.BASE_REAL_PIXEL);
+//        PlatformDefaults.setDefaultVerticalUnit(1);
+//        PlatformDefaults.setDefaultHorizontalUnit(1);
         SwingUtilities.invokeLater(()-> Controller.getInstance("Dog Show"));
     }
 

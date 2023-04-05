@@ -7,11 +7,10 @@ import utilities.ConfigParameters;
 import javax.swing.*;
 import java.awt.*;
 
-public class ContestPage extends JPanel implements ConfigParameters {
+public class ContestList extends JPanel implements ConfigParameters {
     private final Controller controller;
-    public static JList b;
 
-    public ContestPage() {
+    public ContestList() {
         this.controller = Controller.getInstance();
         addComponents();
     }
@@ -27,25 +26,23 @@ public class ContestPage extends JPanel implements ConfigParameters {
         contestPanel.setBackground(pageColor);
         this.add(contestPanel);
 
-        //create a new label
-        JLabel l= new JLabel("select year");
+        String[] columnNames = {"REG ID",
+                "Name",
+                "Obedience",
+                "Socialization",
+                "Grooming",
+                "Fetch",
+                "Eligible"};
+        Object[][] data = {
+                {"4912", "Balto", 10, 9, 6, 8, false}
+        };
+        JTable table = new JTable(data, columnNames);
 
-        //String array to store weekdays
-        String dogs[]= { " "};
+        JScrollPane scrollPane = new JScrollPane(table);
+        table.setFillsViewportHeight(true);
 
-        //create list
-        b= new JList(dogs);
-
-        //set a selected index
-        b.setSelectedIndex(2);
-
-        //add list to panel
-        contestPanel.add(b);
-
-        //set the size of frame
-        contestPanel.setSize(400,400);
-
-        contestPanel.show();
-
+        contestPanel.setLayout(new BorderLayout());
+        contestPanel.add(table.getTableHeader(), BorderLayout.PAGE_START);
+        contestPanel.add(table, BorderLayout.CENTER);
     }
 }
