@@ -1,9 +1,9 @@
 package GUI;
 
 import GUI.components.IconButton;
-import GUI.pages.HomePage;
-import GUI.pages.RecordsPage;
-import GUI.pages.RegistrationPage;
+import GUI.pages.Home;
+import GUI.pages.Record;
+import GUI.pages.Registration;
 import GUI.pages.ContestPage;
 import com.formdev.flatlaf.FlatDarculaLaf;
 import net.miginfocom.layout.PlatformDefaults;
@@ -18,9 +18,9 @@ import java.awt.event.ActionListener;
 
 public class Controller extends JFrame implements ActionListener, ConfigParameters {
     private JButton home, records, registration, contest;
-    private RegistrationPage registrationPage;
+    private Registration registrationPage;
     private static Controller instance;
-    private HomePage homePage;
+    private Home homePage;
     private CardLayout pageLayout;
     private JPanel pagePanel;
 
@@ -155,9 +155,9 @@ public class Controller extends JFrame implements ActionListener, ConfigParamete
         pageLayout = new CardLayout();
         pagePanel = new JPanel(pageLayout);
 
-        homePage = new HomePage();
-        RecordsPage recordsPage = new RecordsPage();
-        registrationPage = new RegistrationPage();
+        homePage = new Home();
+        Record recordsPage = new Record();
+        registrationPage = new Registration();
         ContestPage contestPage = new ContestPage();
 
         pagePanel.add("HOME", homePage);

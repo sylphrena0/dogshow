@@ -1,4 +1,4 @@
-package GUI.pages;
+package GUI.pages.layouts;
 
 import GUI.Controller;
 import GUI.components.*;

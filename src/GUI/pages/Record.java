@@ -2,14 +2,15 @@ package GUI.pages;
 
 import GUI.Controller;
 import GUI.components.*;
+import GUI.pages.layouts.TableLayout;
 import utilities.ConfigParameters;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class RecordsPage extends TableLayout implements ConfigParameters{
+public class Record extends TableLayout implements ConfigParameters{
 
-    public RecordsPage() {
+    public Record() {
         Controller controller = Controller.getInstance();
 
         JLabel recordsHeader = new JLabel("View Records: Balto");
@@ -28,10 +29,10 @@ public class RecordsPage extends TableLayout implements ConfigParameters{
         RoundedTextField color = new RoundedTextField("Color", controller);
 
         RoundedTextField markings = new RoundedTextField("Identifiable Markings", controller);
-        RoundedCheckbox obedience = new RoundedCheckbox("Register for Obedience Contest", controller);
-        RoundedCheckbox socialization = new RoundedCheckbox("Register for Socialization Contest", controller);
-        RoundedCheckbox grooming = new RoundedCheckbox("Register for Grooming Contest", controller);
-        RoundedCheckbox fetch = new RoundedCheckbox("Register for Play Fetch Contest", controller);
+        ScoreInput obedience = new ScoreInput("Obedience Score", controller);
+        ScoreInput socialization = new ScoreInput("Socialization Score", controller);
+        ScoreInput grooming = new ScoreInput("Grooming Score", controller);
+        ScoreInput fetch = new ScoreInput("Fetch Score", controller);
 
         RoundedButton winnerBanner = new RoundedButton("2022 Balto Award Winner", greenButtonColor, Color.BLACK, controller);
 

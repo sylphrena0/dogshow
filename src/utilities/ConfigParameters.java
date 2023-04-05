@@ -13,7 +13,7 @@ public interface ConfigParameters {
     Color pageColor = new Color(0x303030);
     Color inputColor = new Color(0x434343);
     Color transparent = new Color(0, 0, 0, 0);
-
+    Color disabledText = new Color(0x999999);
     Font inputFont = new Font("Arial", Font.PLAIN, Scaling.relativeHeight(1.5));
     Font headerFont = CaveatFont.getFont(Font.BOLD, Scaling.relativeHeight(4.2)); //used font that is included with package
     Font buttonFont = CaveatFont.getFont(Font.BOLD, Scaling.relativeHeight(2));

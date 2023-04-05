@@ -3,31 +3,34 @@ package GUI.components;
 import utilities.ConfigParameters;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
 // Author: b4rc0ll0
 // Source: https://www.codeproject.com/Articles/114959/Rounded-Border-JPanel-JPanel-graphics-improvements
 
 public class RoundedPanel extends JPanel implements ConfigParameters {  //stroke size. it is recommended to set it to 1 for better view
-    protected int strokeSize = 1; //color of shadow
-    protected Color shadowColor = Color.black; //sets if it drops shadow
+    protected int strokeSize = 1; //sets if it drops shadow
+    protected Color shadowColor = Color.black; //color of shadow
     protected boolean shady = true; //sets if it has a High Quality view
     protected boolean highQuality = true; //double values for Horizontal and Vertical radius of corner arcs
     protected Dimension arcs = new Dimension(200, 200); //distance between shadow border and opaque panel border
     protected int shadowGap = 5; //the offset of shadow.
     protected int shadowOffset = 4; //the transparency value of shadow. ( 0 - 255)
     protected int shadowAlpha = 0;
+    private Color color;
     public RoundedPanel() {
         super();
         this.setOpaque(false);
-        this.setBackground(pageColor);
+        this.color = pageColor;
     }
 
-    public RoundedPanel(int arc) {
+    public RoundedPanel(int arc, Color background) {
         super();
         this.setOpaque(false);
-        this.setBackground(pageColor);
         this.arcs = new Dimension(arc, arc);
+        this.color = background;
+        this.setBorder(new EmptyBorder(10,20,10,20));
     }
 
     @Override
@@ -60,10 +63,10 @@ public class RoundedPanel extends JPanel implements ConfigParameters {  //stroke
         }
 
         //draws the rounded opaque panel with borders.
-        graphics.setColor(pageColor);
+        graphics.setColor(color);
         graphics.fillRoundRect(0, 0, width - shadowGap,
                 height - shadowGap, arcs.width, arcs.height);
-        graphics.setColor(pageColor);
+        graphics.setColor(color);
         graphics.setStroke(new BasicStroke(strokeSize));
         graphics.drawRoundRect(0, 0, width - shadowGap,
                 height - shadowGap, arcs.width, arcs.height);

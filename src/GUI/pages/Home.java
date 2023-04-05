@@ -14,11 +14,11 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 
-public class HomePage extends JPanel implements ConfigParameters {
+public class Home extends JPanel implements ConfigParameters {
     private final Controller controller;
     private CardLayout authLayout;
     private JPanel authPanel;
-    public HomePage() {
+    public Home() {
         this.controller = Controller.getInstance();
         addComponents();
     }

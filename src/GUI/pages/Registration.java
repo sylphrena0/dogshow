@@ -2,6 +2,7 @@ package GUI.pages;
 
 import GUI.Controller;
 import GUI.components.*;
+import GUI.pages.layouts.TableLayout;
 import utilities.Scaling;
 
 import javax.imageio.ImageIO;
@@ -10,9 +11,9 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 
-public class RegistrationPage extends TableLayout {
+public class Registration extends TableLayout {
     private final ImageLoaderButton imageLoaderButton;
-    public RegistrationPage() {
+    public Registration() {
         Controller controller = Controller.getInstance();
 
         JLabel registrationHeader = new JLabel("Register a contestant:");
