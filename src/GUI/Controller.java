@@ -4,7 +4,7 @@ import GUI.components.IconButton;
 import GUI.pages.Home;
 import GUI.pages.Record;
 import GUI.pages.Registration;
-import GUI.pages.ContestList;
+import GUI.pages.ScoreList;
 import com.formdev.flatlaf.FlatDarculaLaf;
 import utilities.ConfigParameters;
 import utilities.Scaling;
@@ -16,7 +16,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Controller extends JFrame implements ActionListener, ConfigParameters {
-    private JButton home, records, registration, contest;
+    private JButton home, records, registration, score;
     private Registration registrationPage;
     private static Controller instance;
     private Home homePage;
@@ -99,22 +99,22 @@ public class Controller extends JFrame implements ActionListener, ConfigParamete
         records.setBorder(BorderFactory.createEmptyBorder(0,10,0,10));
         registration = new JButton(" Registration ");
         registration.setBorder(BorderFactory.createEmptyBorder(0,10,0,10));
-        contest = new JButton(" Contest ");
-        contest.setBorder(BorderFactory.createEmptyBorder(0,10,0,10));
+        score = new JButton(" Score ");
+        score.setBorder(BorderFactory.createEmptyBorder(0,10,0,10));
 
         Dimension button = new Dimension(Scaling.relativeHeight(7), Scaling.relativeHeight(6.5));
 
         configureNavButton(home, button);
         configureNavButton(records, button);
         configureNavButton(registration, button);
-        configureNavButton(contest, button);
+        configureNavButton(score, button);
 
         home.setBackground(backgroundColor);
 
         home.setActionCommand("HOME");
         records.setActionCommand("RECORDS");
         registration.setActionCommand("REGISTRATION");
-        contest.setActionCommand("CONTEST");
+        score.setActionCommand("SCORE");
 
         JPanel titlePanel = new JPanel();
         titlePanel.setLayout(new BorderLayout());
@@ -133,7 +133,7 @@ public class Controller extends JFrame implements ActionListener, ConfigParamete
                         .addComponent(home)
                         .addComponent(records)
                         .addComponent(registration)
-                        .addComponent(contest)
+                        .addComponent(score)
                         .addComponent(closeButton)
         );
         navLayout.setVerticalGroup(
@@ -143,7 +143,7 @@ public class Controller extends JFrame implements ActionListener, ConfigParamete
                                 .addComponent(home)
                                 .addComponent(records)
                                 .addComponent(registration)
-                                .addComponent(contest)
+                                .addComponent(score)
                                 .addComponent(closeButton, Scaling.relativeHeight(6.5), Scaling.relativeHeight(6.5), Scaling.relativeHeight(6.5))
                         )
         );
@@ -157,12 +157,12 @@ public class Controller extends JFrame implements ActionListener, ConfigParamete
         homePage = new Home();
         Record recordsPage = new Record();
         registrationPage = new Registration();
-        ContestList contestList = new ContestList();
+        ScoreList scoreList = new ScoreList();
 
         pagePanel.add("HOME", homePage);
         pagePanel.add("RECORDS", recordsPage);
         pagePanel.add("REGISTRATION", registrationPage);
-        pagePanel.add("CONTEST", contestList);
+        pagePanel.add("SCORE", scoreList);
 
         containerPanel.add(pagePanel, BorderLayout.CENTER);
 
@@ -178,7 +178,7 @@ public class Controller extends JFrame implements ActionListener, ConfigParamete
                 home.setBackground(backgroundColor);
                 records.setBackground(pageColor);
                 registration.setBackground(pageColor);
-                contest.setBackground(pageColor);
+                score.setBackground(pageColor);
 
                 setTitle("Home - Dog Show");
                 pageLayout.show(pagePanel, "HOME");
@@ -187,7 +187,7 @@ public class Controller extends JFrame implements ActionListener, ConfigParamete
                 records.setBackground(backgroundColor);
                 home.setBackground(pageColor);
                 registration.setBackground(pageColor);
-                contest.setBackground(pageColor);
+                score.setBackground(pageColor);
 
                 setTitle("Records - Dog Show");
                 pageLayout.show(pagePanel, "RECORDS");
@@ -196,19 +196,19 @@ public class Controller extends JFrame implements ActionListener, ConfigParamete
                 registration.setBackground(backgroundColor);
                 home.setBackground(pageColor);
                 records.setBackground(pageColor);
-                contest.setBackground(pageColor);
+                score.setBackground(pageColor);
 
                 setTitle("Registration - Dog Show");
                 pageLayout.show(pagePanel, "REGISTRATION");
             }
-            case "CONTEST" -> {
-                contest.setBackground(backgroundColor);
+            case "SCORE" -> {
+                score.setBackground(backgroundColor);
                 home.setBackground(pageColor);
                 records.setBackground(pageColor);
                 registration.setBackground(pageColor);
 
-                setTitle("Contest - Dog Show");
-                pageLayout.show(pagePanel, "CONTEST");
+                setTitle("Score - Dog Show");
+                pageLayout.show(pagePanel, "SCORE");
 
             }
             case "LOGIN" -> {

@@ -7,10 +7,10 @@ import utilities.ConfigParameters;
 import javax.swing.*;
 import java.awt.*;
 
-public class ContestList extends JPanel implements ConfigParameters {
+public class ScoreList extends JPanel implements ConfigParameters {
     private final Controller controller;
 
-    public ContestList() {
+    public ScoreList() {
         this.controller = Controller.getInstance();
         addComponents();
     }
