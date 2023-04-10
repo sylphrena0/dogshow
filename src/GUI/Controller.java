@@ -217,12 +217,12 @@ public class Controller extends JFrame implements ActionListener, ConfigParamete
             case "REGISTER" -> {
                 System.out.println("REGISTER");
             }
-            case "LOGIN_PAGE" -> {
-                System.out.println("LOGIN_PAGE");
+            case "LOGIN_PANEL" -> {
+                System.out.println("LOGIN_PANEL");
                 homePage.switchAuthPanel();
             }
-            case "REGISTER_PAGE" -> {
-                System.out.println("REGISTER_PAGE");
+            case "REGISTER_PANEL" -> {
+                System.out.println("REGISTER_PANEL");
                 homePage.switchAuthPanel();
             }
             case "SET_ICON" -> {
@@ -231,7 +231,7 @@ public class Controller extends JFrame implements ActionListener, ConfigParamete
                 chooser.setFileFilter(filter);
 
                 int returnValue = chooser.showOpenDialog(this);
-                String selectedFile = "";
+                String selectedFile;
                 if (returnValue == JFileChooser.APPROVE_OPTION) {
                     selectedFile = chooser.getSelectedFile().getAbsolutePath();
                     registrationPage.setDogImage(selectedFile);

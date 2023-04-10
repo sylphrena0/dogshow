@@ -5,8 +5,8 @@ import GUI.components.RoundedButton;
 import GUI.components.RoundedPanel;
 import GUI.components.RoundedPasswordField;
 import GUI.components.RoundedTextField;
+import net.miginfocom.swing.MigLayout;
 import utilities.ConfigParameters;
-import utilities.Scaling;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -24,9 +24,6 @@ public class Home extends JPanel implements ConfigParameters {
     }
 
     private void addComponents() {
-
-        int authContentHeight = Scaling.relativeHeight(17);
-
         //"this" is the JPanel we are adding to the super, as this class extends JPanel
         this.setBackground(backgroundColor);
         this.setPreferredSize(pageSize);
@@ -41,71 +38,37 @@ public class Home extends JPanel implements ConfigParameters {
         ///////////////////////////////////
         /////////// Login Panel ///////////
         ///////////////////////////////////
-        JPanel loginPanel = new RoundedPanel();
-        loginPanel.setBackground(pageColor);
+        RoundedPanel loginPanel = new RoundedPanel();
 
         JLabel loginHeader = new JLabel("Welcome! Please Login:");
         loginHeader.setFont(headerFont);
         loginHeader.setForeground(Color.WHITE);
         loginHeader.setHorizontalAlignment(SwingConstants.LEFT);
 
-        RoundedButton registerPageButton = new RoundedButton("Register", pageColor, lightPurpleButtonColor, controller);
-        registerPageButton.setActionCommand("REGISTER_PAGE");
-//        registerPageButton.setBorder(new LineBorder(greenButtonColor, 5));
-
-        RoundedButton loginButton = new RoundedButton("Login", lightPurpleButtonColor, Color.BLACK, controller);
-        loginButton.setActionCommand("LOGIN");
-
-        GridLayout buttonLayout = new GridLayout(1,2, gridPadding, gridPadding);
-        JPanel loginButtonPanel = new JPanel(buttonLayout);
-
-        loginButtonPanel.add(registerPageButton);
-        loginButtonPanel.add(loginButton);
-        loginButtonPanel.setOpaque(false);
-
         RoundedTextField loginUsername = new RoundedTextField("Username", controller);
         RoundedPasswordField loginPassword = new RoundedPasswordField("Password", controller);
+        RoundedButton registerPanelButton = new RoundedButton("Register", pageColor, lightPurpleButtonColor, controller);
+        RoundedButton loginButton = new RoundedButton("Login", lightPurpleButtonColor, Color.BLACK, controller);
 
-        GridLayout loginContentLayout = new GridLayout(3,1, gridPadding,gridPadding);
-        JPanel loginContent = new JPanel(loginContentLayout);
+        registerPanelButton.setActionCommand("REGISTER_PANEL");
+        loginButton.setActionCommand("LOGIN");
 
-        loginContent.add(loginUsername);
-        loginContent.add(loginPassword);
-        loginContent.add(loginButtonPanel);
-        loginContent.setOpaque(false);
+        loginPanel.setLayout(new MigLayout(
+                "insets %d, gap %d, al left".formatted(gridPadding, gridPadding), // Layout Constraints
+                "[fill, sg]", // Column constraints (fill makes components grow to row size, sg constrains each row/column to be the same size)
+                "[fill, sg][fill, sg][fill, sg][fill, sg]" // Row constraints
+        ));
 
-        GroupLayout loginLayout = new GroupLayout(loginPanel);
-        loginLayout.setAutoCreateGaps(true);
-        loginLayout.setAutoCreateContainerGaps(true);
-
-        loginLayout.setHorizontalGroup(
-                loginLayout.createParallelGroup(GroupLayout.Alignment.CENTER)
-                        .addGroup(GroupLayout.Alignment.LEADING, loginLayout.createSequentialGroup()
-                                .addGap(Scaling.relativeWidth(2.1))
-                                .addComponent(loginHeader)
-                        )
-                        .addGroup(GroupLayout.Alignment.LEADING, loginLayout.createSequentialGroup()
-                                .addGap(Scaling.relativeWidth(4.2))
-                                .addComponent(loginContent, Scaling.relativeWidth(17.4), Scaling.relativeWidth(17.4), Scaling.relativeWidth(17.4))
-                        )
-        );
-        loginLayout.setVerticalGroup(
-                loginLayout.createSequentialGroup()
-                        .addGap(gridPadding)
-                        .addComponent(loginHeader)
-                        .addGap(gridPadding)
-                        .addComponent(loginContent, authContentHeight, authContentHeight, authContentHeight)
-                        .addGap(Scaling.relativeHeight(5.5))
-
-
-        );
-
-        loginPanel.setLayout(loginLayout);
+        loginPanel.add(loginHeader, "wrap");
+        loginPanel.add(loginUsername, "width 25%!, wrap");
+        loginPanel.add(loginPassword, "width 25%!, wrap");
+        loginPanel.add(registerPanelButton, "width 6%!, split 2");
+        loginPanel.add(loginButton, "gap %d".formatted(gridPadding));
 
         ////////////////////////////////////
         //////// Registration Panel ////////
         ////////////////////////////////////
-        JPanel registerPanel = new RoundedPanel();
+        RoundedPanel registerPanel = new RoundedPanel();
         registerPanel.setBackground(pageColor);
 
         JLabel registerHeader = new JLabel("Welcome! Please Register:");
@@ -113,63 +76,39 @@ public class Home extends JPanel implements ConfigParameters {
         registerHeader.setForeground(Color.WHITE);
         registerHeader.setHorizontalAlignment(SwingConstants.LEFT);
 
-        RoundedButton registerButton = new RoundedButton("Register", lightPurpleButtonColor, Color.BLACK, controller);
-        registerButton.setActionCommand("REGISTER");
-
-        RoundedButton loginPageButton = new RoundedButton("Login", mutedPurpleColor, Color.WHITE, controller);
-        loginPageButton.setActionCommand("LOGIN_PAGE");
-
-        JPanel registerButtonPanel = new JPanel(buttonLayout); //used buttonLayout from loginPanel
-
-        registerButtonPanel.add(loginPageButton);
-        registerButtonPanel.add(registerButton);
-        registerButtonPanel.setOpaque(false);
-
         RoundedTextField registerName = new RoundedTextField("Name", controller);
         RoundedTextField registerEmail = new RoundedTextField("Email", controller);
         RoundedTextField registerUsername = new RoundedTextField("Username", controller);
         RoundedPasswordField registerPassword = new RoundedPasswordField("Password", controller);
         RoundedPasswordField registerConfirmPassword = new RoundedPasswordField("Confirm Password", controller);
+        RoundedButton loginPanelButton = new RoundedButton("Login", pageColor, lightPurpleButtonColor, controller);
+        RoundedButton registerButton = new RoundedButton("Register", lightPurpleButtonColor, Color.BLACK, controller);
 
-        GridLayout registerContentLayout = new GridLayout(3,2, gridPadding, gridPadding);
-        JPanel registerContent = new JPanel(registerContentLayout);
+        loginPanelButton.setActionCommand("LOGIN_PANEL");
+        registerButton.setActionCommand("REGISTER");
 
-        registerContent.add(registerName);
-        registerContent.add(registerPassword);
 
-        registerContent.add(registerEmail);
-        registerContent.add(registerConfirmPassword);
 
-        registerContent.add(registerUsername);
-        registerContent.add(registerButtonPanel);
+        registerPanel.setLayout(new MigLayout(
+                "insets %d, gap %d, al left".formatted(gridPadding, gridPadding), // Layout Constraints
+                "[fill, sg][fill, sg]", // Column constraints (fill makes components grow to row size, sg constrains each row/column to be the same size)
+                "[fill, sg][fill, sg][fill, sg][fill, sg]" // Row constraints
+        ));
 
-        registerContent.setOpaque(false);
+        registerPanel.add(registerHeader, "span 2, wrap");
 
-        GroupLayout registerLayout = new GroupLayout(registerPanel);
-        registerLayout.setAutoCreateGaps(true);
-        registerLayout.setAutoCreateContainerGaps(true);
+        registerPanel.add(registerName, "width 25%!");
+        registerPanel.add(registerPassword, "width 25%!, wrap");
 
-        registerLayout.setHorizontalGroup(
-                registerLayout.createParallelGroup(GroupLayout.Alignment.CENTER)
-                        .addGroup(GroupLayout.Alignment.LEADING, registerLayout.createSequentialGroup()
-                                .addGap(Scaling.relativeWidth(2.1))
-                                .addComponent(registerHeader)
-                        )
-                        .addGroup(GroupLayout.Alignment.LEADING, registerLayout.createSequentialGroup()
-                                .addGap(Scaling.relativeWidth(4.2))
-                                .addComponent(registerContent, Scaling.relativeWidth(36), Scaling.relativeWidth(36), Scaling.relativeWidth(36))
-                        )
-        );
-        registerLayout.setVerticalGroup(
-                registerLayout.createSequentialGroup()
-                        .addGap(gridPadding)
-                        .addComponent(registerHeader)
-                        .addGap(gridPadding) //40
-                        .addComponent(registerContent, authContentHeight, authContentHeight, authContentHeight)
-                        .addGap(Scaling.relativeHeight(5.5))
+        registerPanel.add(registerEmail, "width 25%!");
+        registerPanel.add(registerConfirmPassword, "width 25%!, wrap");
 
-        );
-        registerPanel.setLayout(registerLayout);
+        registerPanel.add(registerUsername, "width 25%!");
+
+        registerPanel.add(loginPanelButton, "width 5%!, split 2");
+        registerPanel.add(registerButton, "gap %d".formatted(gridPadding));
+
+        ////////////////////////////////////
 
         authPanel.add(loginPanel);
         authPanel.add(registerPanel);
@@ -177,9 +116,9 @@ public class Home extends JPanel implements ConfigParameters {
 
         try {
             //scaling solution from https://stackoverflow.com/questions/6714045/how-to-resize-jlabel-imageicon
-            ImageIcon imageIcon = new ImageIcon(ImageIO.read(new File("images/dogs.png"))); // load the image to a imageIcon
-            Image scaledImage = imageIcon.getImage().getScaledInstance(screenSize.width, (int) (screenSize.width*15.0/64.0),  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
-            imageIcon = new ImageIcon(scaledImage);  // transform it back
+            ImageIcon imageIcon = new ImageIcon(ImageIO.read(new File("images/dogs.png"))); //load the image to a imageIcon
+            Image scaledImage = imageIcon.getImage().getScaledInstance(screenSize.width, (int) (screenSize.width*15.0/64.0),  java.awt.Image.SCALE_SMOOTH); //scale it the smooth way
+            imageIcon = new ImageIcon(scaledImage);  //transform it back
 
             JLabel dogImageLabel = new JLabel(imageIcon);
             this.add(dogImageLabel, BorderLayout.CENTER);
