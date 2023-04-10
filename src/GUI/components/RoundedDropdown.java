@@ -22,7 +22,7 @@ public class RoundedDropdown extends JComboBox<String> implements ConfigParamete
         this.setForeground(Color.WHITE);
         this.setBackground(inputColor);
         this.setFont(inputFont);
-        this.setBorder(new EmptyBorder(30, 30, 30, 30));
+        this.setBorder(componentInsets);
 //        this.setOpaque(false);
 
 //        this.setUI(new BasicComboBoxUI() {

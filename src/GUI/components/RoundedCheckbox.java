@@ -21,7 +21,7 @@ public class RoundedCheckbox extends JCheckBox implements ConfigParameters{
             this.setForeground(Color.WHITE);
             this.setFont(inputFont);
             this.setFocusPainted(false);
-            this.setBorder(BorderFactory.createEmptyBorder(10,30,10,30));
+            this.setBorder(componentInsets);
 
             try {
                 this.setIcon(new ImageIcon(ImageIO.read(new File("images/unchecked.png")))); //set default icon for checkbox

@@ -21,7 +21,7 @@ public class RoundedTextField extends JTextField implements ConfigParameters {
         this.setForeground(Color.WHITE);
         this.setBackground(inputColor);
         this.setCaretColor(Color.WHITE);
-        this.setBorder(BorderFactory.createEmptyBorder(10,30,10,30));
+        this.setBorder(componentInsets);
         this.setFont(inputFont);
         this.setText(placeholder);
 

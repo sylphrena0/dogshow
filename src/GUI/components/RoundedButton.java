@@ -12,14 +12,14 @@ public class RoundedButton extends JButton implements ConfigParameters {
     private final Color color;
     public RoundedButton(String text, Color color, Color textColor, Controller controller) {
         this.color = color;
-//        this.setOpaque(false);
+        this.setOpaque(false);
         this.setText(text);
         this.addActionListener(controller);
         this.setForeground(textColor);
         this.setFont(buttonFont);
         this.setBackground(color);
         this.setFocusPainted(false);
-//        this.setBorderPainted(false);
+        this.setBorderPainted(false);
     }
     protected void paintComponent(Graphics g) {
         g.setColor(color);

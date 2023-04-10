@@ -3,7 +3,6 @@ package GUI.components;
 import utilities.ConfigParameters;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
 // Author: b4rc0ll0
@@ -30,7 +29,7 @@ public class RoundedPanel extends JPanel implements ConfigParameters {  //stroke
         this.setOpaque(false);
         this.arcs = new Dimension(arc, arc);
         this.color = background;
-        this.setBorder(new EmptyBorder(10,20,10,20));
+        this.setBorder(componentInsets);
     }
 
     @Override
