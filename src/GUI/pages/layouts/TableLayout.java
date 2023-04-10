@@ -26,9 +26,8 @@ public class TableLayout extends JPanel implements ConfigParameters {
                                  JComponent name, JComponent socialization,
                                  JComponent breed, JComponent grooming,
                                  JComponent age, JComponent color, JComponent fetch,
-                                 JComponent register,
-                                 JComponent imageLoaderButton,
-                                 JComponent upload) {
+                                 JComponent back, JComponent register,
+                                 JComponent imageLoaderButton) {
 
         this.imagePanel = imageLoaderButton;
 
@@ -79,12 +78,8 @@ public class TableLayout extends JPanel implements ConfigParameters {
         contentPanel.add(color, "gap %d".formatted(gridPaddingRegistration));
         contentPanel.add(fetch, "wrap");
 
-        if (upload != null) {
-            contentPanel.add(register, "span 2");
-            contentPanel.add(upload);
-        } else {
-            contentPanel.add(register, "span 3");
-        }
+        contentPanel.add(back, "span 3, split 2, wmax 5%");
+        contentPanel.add(register, "gap %d".formatted(gridPaddingRegistration/2));
 
         registrationPanel.add(contentPanel, BorderLayout.CENTER);
 

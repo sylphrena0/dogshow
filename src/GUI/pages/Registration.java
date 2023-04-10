@@ -37,14 +37,12 @@ public class Registration extends TableLayout {
         imageLoaderButton = new ImageLoaderButton(controller);
         imageLoaderButton.setActionCommand("SET_ICON");
 
-        RoundedButton registerButton = new RoundedButton("Register", greenButtonColor, Color.BLACK, controller);
+        RoundedButton back = new RoundedButton("Back", pageColor, lightPurpleButtonColor, controller);
+        RoundedButton registerButton = new RoundedButton("Register", lightPurpleButtonColor, Color.BLACK, controller);
 
-        RoundedButton uploadButton = new RoundedButton("Upload Dog Picture", purpleButtonColor, Color.WHITE, controller);
-        uploadButton.setActionCommand("SET_ICON");
 
         JPanel buttons = new JPanel(new GridLayout(1,2, gridPaddingRegistration, gridPaddingRegistration));
         buttons.add(registerButton);
-        buttons.add(uploadButton);
 
         addComponents(registrationHeader, null, null,
                         familyName, markings,
@@ -52,9 +50,8 @@ public class Registration extends TableLayout {
                         name, socialization,
                         breed, grooming,
                         age, color, fetch,
-                        registerButton,
-                        imageLoaderButton,
-                        uploadButton);
+                        back, registerButton,
+                        imageLoaderButton);
     }
 
     public void setDogImage(String file) {

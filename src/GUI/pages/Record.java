@@ -8,7 +8,7 @@ import utilities.ConfigParameters;
 import javax.swing.*;
 import java.awt.*;
 
-public class Record extends TableLayout implements ConfigParameters{
+public class Record extends TableLayout implements ConfigParameters {
 
     public Record() {
         Controller controller = Controller.getInstance();
@@ -34,7 +34,8 @@ public class Record extends TableLayout implements ConfigParameters{
         ScoreInput grooming = new ScoreInput("Grooming Score", controller);
         ScoreInput fetch = new ScoreInput("Fetch Score", controller);
 
-        RoundedButton winnerBanner = new RoundedButton("2022 Balto Award Winner", greenButtonColor, Color.BLACK, controller);
+        RoundedButton back = new RoundedButton("Back", pageColor, lightPurpleButtonColor, controller);
+        RoundedButton winnerBanner = new RoundedButton("2022 Balto Award Winner", lightPurpleButtonColor, Color.BLACK, controller);
 
         IconButton imageLoaderButton = new ImageLoaderButton(controller);
 
@@ -44,9 +45,8 @@ public class Record extends TableLayout implements ConfigParameters{
                 name, socialization,
                 breed, grooming,
                 age, color, fetch,
-                winnerBanner,
-                imageLoaderButton,
-                null);
+                back, winnerBanner,
+                imageLoaderButton);
     }
 
 

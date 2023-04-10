@@ -49,17 +49,18 @@ public class Home extends JPanel implements ConfigParameters {
         loginHeader.setForeground(Color.WHITE);
         loginHeader.setHorizontalAlignment(SwingConstants.LEFT);
 
-        RoundedButton loginButton = new RoundedButton("Login", greenButtonColor, Color.BLACK, controller);
-        loginButton.setActionCommand("LOGIN");
-
-        RoundedButton registerPageButton = new RoundedButton("Register", purpleButtonColor, Color.WHITE, controller);
+        RoundedButton registerPageButton = new RoundedButton("Register", pageColor, lightPurpleButtonColor, controller);
         registerPageButton.setActionCommand("REGISTER_PAGE");
+//        registerPageButton.setBorder(new LineBorder(greenButtonColor, 5));
+
+        RoundedButton loginButton = new RoundedButton("Login", lightPurpleButtonColor, Color.BLACK, controller);
+        loginButton.setActionCommand("LOGIN");
 
         GridLayout buttonLayout = new GridLayout(1,2, gridPadding, gridPadding);
         JPanel loginButtonPanel = new JPanel(buttonLayout);
 
-        loginButtonPanel.add(loginButton);
         loginButtonPanel.add(registerPageButton);
+        loginButtonPanel.add(loginButton);
         loginButtonPanel.setOpaque(false);
 
         RoundedTextField loginUsername = new RoundedTextField("Username", controller);
@@ -112,16 +113,16 @@ public class Home extends JPanel implements ConfigParameters {
         registerHeader.setForeground(Color.WHITE);
         registerHeader.setHorizontalAlignment(SwingConstants.LEFT);
 
-        RoundedButton registerButton = new RoundedButton("Register", greenButtonColor, Color.BLACK, controller);
+        RoundedButton registerButton = new RoundedButton("Register", lightPurpleButtonColor, Color.BLACK, controller);
         registerButton.setActionCommand("REGISTER");
 
-        RoundedButton loginPageButton = new RoundedButton("Login", purpleButtonColor, Color.WHITE, controller);
+        RoundedButton loginPageButton = new RoundedButton("Login", mutedPurpleColor, Color.WHITE, controller);
         loginPageButton.setActionCommand("LOGIN_PAGE");
 
         JPanel registerButtonPanel = new JPanel(buttonLayout); //used buttonLayout from loginPanel
 
-        registerButtonPanel.add(registerButton);
         registerButtonPanel.add(loginPageButton);
+        registerButtonPanel.add(registerButton);
         registerButtonPanel.setOpaque(false);
 
         RoundedTextField registerName = new RoundedTextField("Name", controller);
