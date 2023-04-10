@@ -8,6 +8,8 @@ import GUI.components.Table;
 import utilities.ConfigParameters;
 
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 
 public class ScoreList extends JPanel implements ConfigParameters {
@@ -35,11 +37,6 @@ public class ScoreList extends JPanel implements ConfigParameters {
         };
 
         ContestTableModel model = new ContestTableModel(columnNames, data);
-        JTable table = new ContestTable(model);
-
-        JScrollPane scrollPane = new JScrollPane(table);
-
-        add(scrollPane);
 
         JFrame frame = new JFrame("Table");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -51,5 +48,7 @@ public class ScoreList extends JPanel implements ConfigParameters {
 
         frame.pack();
         frame.setVisible(true);
+
+
     }
 }
