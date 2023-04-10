@@ -1,7 +1,10 @@
 package GUI.pages;
 
 import GUI.Controller;
+import GUI.components.ContestTable;
+import GUI.components.ContestTableModel;
 import GUI.components.RoundedPanel;
+import GUI.components.Table;
 import utilities.ConfigParameters;
 
 import javax.swing.*;
@@ -26,23 +29,27 @@ public class ContestList extends JPanel implements ConfigParameters {
         contestPanel.setBackground(pageColor);
         this.add(contestPanel);
 
-        String[] columnNames = {"REG ID",
-                "Name",
-                "Obedience",
-                "Socialization",
-                "Grooming",
-                "Fetch",
-                "Eligible"};
+        String[] columnNames = {"REG ID", "Name", "Obedience", "Socialization", "Grooming", "Fetch", "Eligible"};
         Object[][] data = {
-                {"4912", "Balto", 10, 9, 6, 8, false}
+                {"1234", "Balto", 7, 10, 9, 7, false}
         };
-        JTable table = new JTable(data, columnNames);
+
+        ContestTableModel model = new ContestTableModel(columnNames, data);
+        JTable table = new ContestTable(model);
 
         JScrollPane scrollPane = new JScrollPane(table);
-        table.setFillsViewportHeight(true);
 
-        contestPanel.setLayout(new BorderLayout());
-        contestPanel.add(table.getTableHeader(), BorderLayout.PAGE_START);
-        contestPanel.add(table, BorderLayout.CENTER);
+        add(scrollPane);
+
+        JFrame frame = new JFrame("Table");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        Table newContentPane = new Table();
+        newContentPane.setOpaque(true);
+        frame.setContentPane(newContentPane);
+        frame.setLocationRelativeTo(null);
+
+        frame.pack();
+        frame.setVisible(true);
     }
 }
