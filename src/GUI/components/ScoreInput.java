@@ -5,7 +5,6 @@ import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
 import java.awt.*;
-import java.lang.annotation.Documented;
 
 public class ScoreInput extends RoundedPanel {
 
@@ -34,6 +33,13 @@ public class ScoreInput extends RoundedPanel {
         this.add(score2);
         this.add(score3);
         this.add(score4);
+    }
+
+    public ScoreInput(String label, Boolean enabled, Controller controller) {
+        this(label, controller);
+        if (!enabled) {
+            this.setEnabled(false);
+        }
     }
 
     @Override

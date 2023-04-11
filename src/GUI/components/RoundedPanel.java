@@ -1,6 +1,7 @@
 package GUI.components;
 
 import utilities.ConfigParameters;
+import utilities.Scaling;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,20 +14,18 @@ public class RoundedPanel extends JPanel implements ConfigParameters {  //stroke
     protected Color shadowColor = Color.black; //color of shadow
     protected boolean shady = true; //sets if it has a High Quality view
     protected boolean highQuality = true; //double values for Horizontal and Vertical radius of corner arcs
-    protected Dimension arcs = new Dimension(200, 200); //distance between shadow border and opaque panel border
+    protected Dimension arcs = new Dimension(Scaling.relativeHeight(12), Scaling.relativeHeight(12)); //distance between shadow border and opaque panel border
     protected int shadowGap = 5; //the offset of shadow.
     protected int shadowOffset = 4; //the transparency value of shadow. ( 0 - 255)
     protected int shadowAlpha = 0;
     private Color color;
     public RoundedPanel() {
-        super();
         this.setOpaque(false);
         this.color = pageColor;
     }
 
     public RoundedPanel(int arc, Color background) {
-        super();
-        this.setOpaque(false);
+        this();
         this.arcs = new Dimension(arc, arc);
         this.color = background;
         this.setBorder(componentInsets);

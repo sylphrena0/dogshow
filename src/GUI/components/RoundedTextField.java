@@ -42,12 +42,17 @@ public class RoundedTextField extends JTextField implements ConfigParameters {
         });
 
     }
-
     public RoundedTextField(String placeholder, Controller controller, Color color) {
         this(placeholder, controller);
         this.color = color;
         this.setBackground(color);
         this.setHorizontalAlignment(JTextField.CENTER);
+    }
+    public RoundedTextField(String placeholder, Boolean enabled, Controller controller) {
+        this(placeholder, controller);
+        if (!enabled) {
+            this.setEnabled(false);
+        }
     }
     protected void paintComponent(Graphics g) {
         g.setColor(color);

@@ -36,4 +36,13 @@ public class RoundedButton extends JButton implements ConfigParameters {
         }
         return shape.contains(x, y);
     }
+
+    @Override
+    public void setEnabled(boolean b) {
+        if (b) {
+            this.setRolloverEnabled(true);
+        } else {
+            this.setRolloverEnabled(false);
+        }
+    }
 }
