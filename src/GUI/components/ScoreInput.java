@@ -28,11 +28,11 @@ public class ScoreInput extends RoundedPanel {
         score3 = new RoundedTextField("-", controller, pageColor);
         score4 = new RoundedTextField("-", controller, pageColor);
 
-        this.add(scoreLabel, "w 30%");
-        this.add(score1);
-        this.add(score2);
-        this.add(score3);
-        this.add(score4);
+        this.add(scoreLabel, "w 30%!");
+        this.add(score1, "w 14%!");
+        this.add(score2, "w 14%!");
+        this.add(score3, "w 14%!");
+        this.add(score4, "w 14%!");
     }
 
     public ScoreInput(String label, Boolean enabled, Controller controller) {

@@ -235,8 +235,6 @@ public class Controller extends JFrame implements ActionListener, ConfigParamete
                 if (returnValue == JFileChooser.APPROVE_OPTION) {
                     selectedFile = chooser.getSelectedFile().getAbsolutePath();
                     registrationPage.setDogImage(selectedFile);
-
-
                 }
             }
         }
