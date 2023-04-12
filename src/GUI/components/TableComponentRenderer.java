@@ -20,7 +20,7 @@ public class TableComponentRenderer implements TableCellRenderer, ConfigParamete
         c.setHorizontalAlignment(SwingConstants.CENTER);
         c.setBorder(BorderFactory.createEmptyBorder());
 
-        if (row%2 == 0){
+        if (row % 2 == 0){
             c.setBackground(pageColor);
         }
         else {

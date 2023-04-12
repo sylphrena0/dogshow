@@ -12,7 +12,7 @@ public class RecordList extends ListLayout  {
     public RecordList() {
         Controller controller = Controller.getInstance();
 
-        JLabel recordsListHeader = new JLabel("Score: Balto");
+        JLabel recordsListHeader = new JLabel("View Contestant Records:");
         recordsListHeader.setFont(headerFont);
         recordsListHeader.setForeground(Color.WHITE);
         recordsListHeader.setHorizontalAlignment(SwingConstants.LEFT);

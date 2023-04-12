@@ -59,13 +59,13 @@ public class ListLayout extends JPanel implements ConfigParameters {
         tableHeader.setBorder(BorderFactory.createEmptyBorder());
         tableHeader.setDefaultRenderer(new TableComponentRenderer());
 
-        listPanel.add(header);
+        listPanel.add(header, "gapbefore 2%, gaptop 4%, w 60%");
         if (year != null) {
-            listPanel.add(year);
-            listPanel.add(checkbox, "wrap");
+            listPanel.add(year, "gapy %d %d".formatted(gridPadding, gridPadding/4));
+            listPanel.add(checkbox, "gap %d %d %d %d, wrap".formatted(gridPadding, gridPadding, gridPadding, gridPadding/4));
         } else if (button != null) {
-            listPanel.add(checkbox);
-            listPanel.add(button, "wrap");
+            listPanel.add(checkbox, "al right, w min!, gapy %d %d".formatted(gridPadding, gridPadding/4));
+            listPanel.add(button, "gap %d %d %d %d, wrap".formatted(gridPadding, gridPadding, gridPadding, gridPadding/4));
         }
 
         listPanel.add(tableScrollable, "span 2, h 94%!, dock south");
