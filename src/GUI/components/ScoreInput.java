@@ -28,7 +28,7 @@ public class ScoreInput extends RoundedPanel {
         score3 = new RoundedTextField("-", controller, pageColor);
         score4 = new RoundedTextField("-", controller, pageColor);
 
-        this.add(scoreLabel, "w 30%!");
+        this.add(scoreLabel, "w 32%!");
         this.add(score1, "w 14%!");
         this.add(score2, "w 14%!");
         this.add(score3, "w 14%!");

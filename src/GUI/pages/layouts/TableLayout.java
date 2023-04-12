@@ -37,12 +37,9 @@ public class TableLayout extends JPanel implements ConfigParameters {
         this.setLayout(new BorderLayout());
         this.setBorder(BorderFactory.createEmptyBorder(pagePadding, pagePadding,2*pagePadding, pagePadding));
 
-        JPanel registrationPanel = new RoundedPanel();
-        registrationPanel.setLayout(new BorderLayout());
-        registrationPanel.setBackground(pageColor);
-
-        JPanel inputPanel = new JPanel(new GridLayout(5, 2, gridPaddingRegistration, gridPaddingRegistration));
-        inputPanel.setOpaque(false);
+        JPanel tablePanel = new RoundedPanel();
+        tablePanel.setLayout(new BorderLayout());
+        tablePanel.setBackground(pageColor);
 
         JPanel contentPanel = new JPanel();
         contentPanel.setMaximumSize(new Dimension(Scaling.relativeWidth(100.0 - 4 * Scaling.heightToWidth(4.5) - Scaling.heightToWidth(4)), Scaling.relativeHeight(75.5 - 2.0*4.5 - 2.0*4 - 4.2)));
@@ -81,9 +78,9 @@ public class TableLayout extends JPanel implements ConfigParameters {
         contentPanel.add(back, "span 3, split 2, wmax 5%");
         contentPanel.add(register, "gap %d".formatted(gridPaddingRegistration/2));
 
-        registrationPanel.add(contentPanel, BorderLayout.CENTER);
+        tablePanel.add(contentPanel, BorderLayout.CENTER);
 
-        this.add(registrationPanel);
+        this.add(tablePanel);
     }
 }
 

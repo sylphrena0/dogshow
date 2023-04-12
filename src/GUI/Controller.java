@@ -1,10 +1,8 @@
 package GUI;
 
 import GUI.components.IconButton;
-import GUI.pages.Home;
+import GUI.pages.*;
 import GUI.pages.Record;
-import GUI.pages.Registration;
-import GUI.pages.ScoreList;
 import com.formdev.flatlaf.FlatDarculaLaf;
 import utilities.ConfigParameters;
 import utilities.Scaling;
@@ -155,12 +153,12 @@ public class Controller extends JFrame implements ActionListener, ConfigParamete
         pagePanel = new JPanel(pageLayout);
 
         homePage = new Home();
-        Record recordsPage = new Record();
+        RecordList recordList = new RecordList();
         registrationPage = new Registration();
         ScoreList scoreList = new ScoreList();
 
         pagePanel.add("HOME", homePage);
-        pagePanel.add("RECORDS", recordsPage);
+        pagePanel.add("RECORDS", recordList);
         pagePanel.add("REGISTRATION", registrationPage);
         pagePanel.add("SCORE", scoreList);
 

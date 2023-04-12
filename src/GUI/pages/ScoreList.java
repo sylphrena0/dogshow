@@ -1,10 +1,8 @@
 package GUI.pages;
 
 import GUI.Controller;
-import GUI.components.ContestTable;
-import GUI.components.ContestTableModel;
-import GUI.components.RoundedPanel;
-import GUI.components.Table;
+import GUI.components.*;
+import GUI.pages.layouts.ListLayout;
 import utilities.ConfigParameters;
 
 import javax.swing.*;
@@ -12,43 +10,61 @@ import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 
-public class ScoreList extends JPanel implements ConfigParameters {
-    private final Controller controller;
-
+public class ScoreList extends ListLayout implements ConfigParameters {
     public ScoreList() {
-        this.controller = Controller.getInstance();
-        addComponents();
-    }
+        Controller controller = Controller.getInstance();
 
-    private void addComponents() {
-        //"this" is the JPanel we are adding to the super, as this class extends JPanel
-        this.setBackground(backgroundColor);
-        this.setPreferredSize(pageSize);
-        this.setLayout(new BorderLayout());
-        this.setBorder(BorderFactory.createEmptyBorder(pagePadding, pagePadding,2*pagePadding, pagePadding));
+        JLabel recordsListHeader = new JLabel("Score: Balto");
+        recordsListHeader.setFont(headerFont);
+        recordsListHeader.setForeground(Color.WHITE);
+        recordsListHeader.setHorizontalAlignment(SwingConstants.LEFT);
 
-        JPanel contestPanel = new RoundedPanel();
-        contestPanel.setBackground(pageColor);
-        this.add(contestPanel);
+        RoundedCheckbox baltoEligible = new RoundedCheckbox("Balto Eligible", controller);
+        RoundedButton commit = new RoundedButton("Commit Scores", lightPurpleButtonColor, Color.BLACK, controller);
 
-        String[] columnNames = {"REG ID", "Name", "Obedience", "Socialization", "Grooming", "Fetch", "Eligible"};
+
+        String[] columnNames = {"First Name",
+                "Last Name",
+                "Sport",
+                "# of Years",
+                "Vegetarian"};
+
+        //Its data is initialized and stored in a two-dimensional Object array:
+
         Object[][] data = {
-                {"1234", "Balto", 7, 10, 9, 7, false}
+                {"Kathy", "Smith",
+                        "Snowboarding", 5, false},
+                {"John", "Doe",
+                        "Rowing", 3, true},
+                {"Sue", "Black",
+                        "Knitting", 2, false},
+                {"Jane", "White",
+                        "Speed reading", 20, true},
+                {"Joe", "Brown",
+                        "Pool", 10, false},
+                {"Kathy", "Smith",
+                        "Snowboarding", 5, false},
+                {"John", "Doe",
+                        "Rowing", 3, true},
+                {"Sue", "Black",
+                        "Knitting", 2, false},
+                {"Jane", "White",
+                        "Speed reading", 20, true},
+                {"Joe", "Brown",
+                        "Pool", 10, false},
+                {"Krish", "Smith",
+                        "Snowboarding", 5, false},
+                {"Snow", "Doe",
+                        "Rowing", 3, true},
+                {"Stew", "Black",
+                        "Knitting", 2, false},
+                {"Drwaft", "White",
+                        "Speed reading", 20, true},
+                {"Matt", "Brown",
+                        "Pool", 10, false}
         };
 
-        ContestTableModel model = new ContestTableModel(columnNames, data);
 
-        JFrame frame = new JFrame("Table");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        Table newContentPane = new Table();
-        newContentPane.setOpaque(true);
-        frame.setContentPane(newContentPane);
-        frame.setLocationRelativeTo(null);
-
-        frame.pack();
-        frame.setVisible(true);
-
-
+        addComponents(recordsListHeader, null, baltoEligible, commit, columnNames, data);
     }
 }

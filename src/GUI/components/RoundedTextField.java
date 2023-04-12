@@ -54,6 +54,7 @@ public class RoundedTextField extends JTextField implements ConfigParameters {
             this.setEnabled(false);
         }
     }
+
     protected void paintComponent(Graphics g) {
         g.setColor(color);
         g.fillRoundRect(0, 0, getWidth()-1, getHeight()-1, 15, 15);
