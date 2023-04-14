@@ -19,6 +19,8 @@ public class ScoreInput extends RoundedPanel {
                 "[fill]" // Row constraints
         ));
 
+        //this.setBorder(null);
+
         scoreLabel = new JLabel(label);
         scoreLabel.setFont(inputFont);
         scoreLabel.setForeground(Color.WHITE);
