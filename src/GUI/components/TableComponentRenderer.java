@@ -1,6 +1,7 @@
 package GUI.components;
 
 import utilities.ConfigParameters;
+import utilities.Scaling;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -19,6 +20,9 @@ public class TableComponentRenderer implements TableCellRenderer, ConfigParamete
         JLabel c = (JLabel) defaultRenderer.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
         c.setHorizontalAlignment(SwingConstants.CENTER);
         c.setBorder(BorderFactory.createEmptyBorder());
+        if (row == -1) {//if header
+            c.setFont(c.getFont().deriveFont(Font.BOLD, Scaling.relativeHeight(2)));
+        }
 
         if (row % 2 == 0){
             c.setBackground(pageColor);

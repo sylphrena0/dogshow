@@ -23,7 +23,6 @@ public class RecordList extends ListLayout  {
 
         String[] columnNames = {"REG ID",
                 "Name",
-                "Obedience",
                 "Socialization",
                 "Grooming",
                 "Fetch",
@@ -35,16 +34,16 @@ public class RecordList extends ListLayout  {
         Object[][] data = {
                 {"5121", "Balto", 10, 8, 2, 7, true,""},
                 {"9231", "Fideo", 6, 3, 5, 1, true,""},
-                {"9823", "Black", 6, 1, 3, null, false,""},
+                {"9823", "Black", 6, 1, 3, "-", false,""},
                 {"2934", "Percy", 10, 10, 10, 10, true,""},
                 {"2214", "Cerberus", 5, 1, 2, 3, true,""},
-                {"1213", "Precious", 6, 1, 3, null, true,""},
+                {"1213", "Precious", 6, 1, 3, "-", true,""},
                 {"5121", "Balto", 10, 8, 2, 7, true,""},
                 {"9231", "Fideo", 6, 3, 5, 1, true,""},
-                {"9823", "Black", 6, 1, 3, null, false,""},
+                {"9823", "Black", 6, 1, 3, "-", false,""},
                 {"2934", "Percy", 10, 10, 10, 10, true,""},
                 {"2214", "Cerberus", 5, 1, 2, 3, true,""},
-                {"1213", "Precious", 6, 1, 3, null, true,""}
+                {"1213", "Precious", 6, 1, 3, "-", true,""}
         };
 
 

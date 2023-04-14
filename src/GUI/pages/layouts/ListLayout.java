@@ -7,10 +7,7 @@ import utilities.ConfigParameters;
 import utilities.Scaling;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.JTableHeader;
-import javax.swing.table.TableCellRenderer;
+import javax.swing.table.*;
 import java.awt.*;
 
 public class ListLayout extends JPanel implements ConfigParameters {
@@ -46,6 +43,7 @@ public class ListLayout extends JPanel implements ConfigParameters {
         table.setFocusable(false);
         table.setRowHeight(Scaling.relativeHeight(6.5));
         table.setPreferredSize(new Dimension(Scaling.relativeWidth(100 - 4.5), data.length*Scaling.relativeHeight(6.5)));
+        table.setFont(inputFont);
 
         JScrollPane tableScrollable =  new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         tableScrollable.setOpaque(false);
