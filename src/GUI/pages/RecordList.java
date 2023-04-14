@@ -21,45 +21,30 @@ public class RecordList extends ListLayout  {
         RoundedButton commit = new RoundedButton("Commit Scores", lightPurpleButtonColor, Color.BLACK, controller);
 
 
-        String[] columnNames = {"First Name",
-                "Last Name",
-                "Sport",
-                "# of Years",
-                "Vegetarian"};
+        String[] columnNames = {"REG ID",
+                "Name",
+                "Obedience",
+                "Socialization",
+                "Grooming",
+                "Fetch",
+                "Balto Winner",
+                ""};
 
         //Its data is initialized and stored in a two-dimensional Object array:
 
         Object[][] data = {
-                {"Kathy", "Smith",
-                        "Snowboarding", 5, false},
-                {"John", "Doe",
-                        "Rowing", 3, true},
-                {"Sue", "Black",
-                        "Knitting", 2, false},
-                {"Jane", "White",
-                        "Speed reading", 20, true},
-                {"Joe", "Brown",
-                        "Pool", 10, false},
-                {"Kathy", "Smith",
-                        "Snowboarding", 5, false},
-                {"John", "Doe",
-                        "Rowing", 3, true},
-                {"Sue", "Black",
-                        "Knitting", 2, false},
-                {"Jane", "White",
-                        "Speed reading", 20, true},
-                {"Joe", "Brown",
-                        "Pool", 10, false},
-                {"Krish", "Smith",
-                        "Snowboarding", 5, false},
-                {"Snow", "Doe",
-                        "Rowing", 3, true},
-                {"Stew", "Black",
-                        "Knitting", 2, false},
-                {"Drwaft", "White",
-                        "Speed reading", 20, true},
-                {"Matt", "Brown",
-                        "Pool", 10, false}
+                {"5121", "Balto", 10, 8, 2, 7, true,""},
+                {"9231", "Fideo", 6, 3, 5, 1, true,""},
+                {"9823", "Black", 6, 1, 3, null, false,""},
+                {"2934", "Percy", 10, 10, 10, 10, true,""},
+                {"2214", "Cerberus", 5, 1, 2, 3, true,""},
+                {"1213", "Precious", 6, 1, 3, null, true,""},
+                {"5121", "Balto", 10, 8, 2, 7, true,""},
+                {"9231", "Fideo", 6, 3, 5, 1, true,""},
+                {"9823", "Black", 6, 1, 3, null, false,""},
+                {"2934", "Percy", 10, 10, 10, 10, true,""},
+                {"2214", "Cerberus", 5, 1, 2, 3, true,""},
+                {"1213", "Precious", 6, 1, 3, null, true,""}
         };
 
 
