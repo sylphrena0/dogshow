@@ -2,7 +2,7 @@ package GUI.pages;
 
 import GUI.Controller;
 import GUI.components.*;
-import GUI.pages.layouts.ListLayout;
+import GUI.pages.views.ListView;
 import utilities.ConfigParameters;
 
 import javax.swing.*;
@@ -10,7 +10,7 @@ import java.awt.*;
 
 
 
-public class ScoreList extends ListLayout implements ConfigParameters {
+public class ScoreList extends ListView implements ConfigParameters {
     public ScoreList() {
         Controller controller = Controller.getInstance();
 

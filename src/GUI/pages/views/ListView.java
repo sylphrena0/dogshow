@@ -1,4 +1,4 @@
-package GUI.pages.layouts;
+package GUI.pages.views;
 
 import GUI.Controller;
 import GUI.components.*;
@@ -9,15 +9,13 @@ import utilities.Scaling;
 import javax.swing.*;
 import javax.swing.table.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
-public class ListLayout extends JPanel implements ConfigParameters {
+public class ListView extends JPanel implements ConfigParameters {
 
     private final Controller controller;
     protected JTable table;
 
-    public ListLayout() {
+    public ListView() {
         this.controller = Controller.getInstance();
     }
 

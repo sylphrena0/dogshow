@@ -3,13 +3,13 @@ package GUI.pages;
 import GUI.Controller;
 import GUI.components.RoundedButton;
 import GUI.components.RoundedCheckbox;
-import GUI.pages.layouts.ListLayout;
+import GUI.pages.views.ListView;
 import utilities.Scaling;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class RecordList extends ListLayout  {
+public class RecordList extends ListView {
     public RecordList() {
         Controller controller = Controller.getInstance();
 

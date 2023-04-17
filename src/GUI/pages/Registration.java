@@ -2,7 +2,7 @@ package GUI.pages;
 
 import GUI.Controller;
 import GUI.components.*;
-import GUI.pages.layouts.TableLayout;
+import GUI.pages.views.TableView;
 import utilities.Scaling;
 
 import javax.imageio.ImageIO;
@@ -11,7 +11,7 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 
-public class Registration extends TableLayout {
+public class Registration extends TableView {
     private final ImageLoaderButton imageLoaderButton;
     public Registration() {
         Controller controller = Controller.getInstance();

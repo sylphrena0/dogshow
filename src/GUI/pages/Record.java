@@ -2,13 +2,13 @@ package GUI.pages;
 
 import GUI.Controller;
 import GUI.components.*;
-import GUI.pages.layouts.TableLayout;
+import GUI.pages.views.TableView;
 import utilities.ConfigParameters;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class Record extends TableLayout implements ConfigParameters {
+public class Record extends TableView implements ConfigParameters {
 
     public Record() {
         Controller controller = Controller.getInstance();

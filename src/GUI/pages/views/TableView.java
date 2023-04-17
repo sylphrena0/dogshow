@@ -1,4 +1,4 @@
-package GUI.pages.layouts;
+package GUI.pages.views;
 
 import GUI.Controller;
 import GUI.components.*;
@@ -9,14 +9,14 @@ import utilities.Scaling;
 import javax.swing.*;
 import java.awt.*;
 
-public class TableLayout extends JPanel implements ConfigParameters {
+public class TableView extends JPanel implements ConfigParameters {
     private final Controller controller;
 
     protected JComponent imagePanel;
 
     protected int gridPaddingRegistration = Scaling.relativeHeight(3);;
 
-    public TableLayout() {
+    public TableView() {
         this.controller = Controller.getInstance();
     }
 
