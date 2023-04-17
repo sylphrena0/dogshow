@@ -4,6 +4,7 @@ import GUI.Controller;
 import GUI.components.RoundedButton;
 import GUI.components.RoundedCheckbox;
 import GUI.pages.layouts.ListLayout;
+import utilities.Scaling;
 
 import javax.swing.*;
 import java.awt.*;
@@ -30,9 +31,7 @@ public class RecordList extends ListLayout  {
                 "Balto Winner",
                 ""};
 
-        //Its data is initialized and stored in a two-dimensional Object array:
-//        JLabel inspect = new JLabel(new ImageIcon("images/inspect.png"));
-        ImageIcon inspect = new ImageIcon("images/inspect.png");
+        ImageIcon inspect = new ImageIcon((new ImageIcon("images/inspect.png")).getImage().getScaledInstance((int) (Scaling.relativeHeight(6.5)*0.5), (int) (Scaling.relativeHeight(6.5)*0.5),  java.awt.Image.SCALE_SMOOTH));  // use scaled icon
 
         Object[][] data = {
                 {"5121", "Balto", 10, 8, 2, 7, true, inspect},

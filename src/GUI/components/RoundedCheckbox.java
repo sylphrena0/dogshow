@@ -2,6 +2,7 @@ package GUI.components;
 
 import GUI.Controller;
 import utilities.ConfigParameters;
+import utilities.Scaling;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -23,12 +24,9 @@ public class RoundedCheckbox extends JCheckBox implements ConfigParameters{
             this.setFocusPainted(false);
             this.setBorder(componentInsets);
 
-            try {
-                this.setIcon(new ImageIcon(ImageIO.read(new File("images/unchecked.png")))); //set default icon for checkbox
-                this.setSelectedIcon(new ImageIcon(ImageIO.read(new File("images/checked.png")))); //set selected icon when checkbox state is selected
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+            this.setIcon(new ImageIcon((new ImageIcon("images/unchecked.png")).getImage().getScaledInstance((int) (Scaling.relativeHeight(6.5)*0.5), (int) (Scaling.relativeHeight(6.5)*0.5),  java.awt.Image.SCALE_SMOOTH))); //set default icon for checkbox
+            this.setSelectedIcon(new ImageIcon((new ImageIcon("images/checked.png")).getImage().getScaledInstance((int) (Scaling.relativeHeight(6.5)*0.5), (int) (Scaling.relativeHeight(6.5)*0.5),  java.awt.Image.SCALE_SMOOTH))); //set selected icon when checkbox state is selected
+
         }
         protected void paintComponent(Graphics g) {
             g.setColor(color);
