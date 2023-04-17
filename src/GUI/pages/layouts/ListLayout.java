@@ -33,10 +33,20 @@ public class ListLayout extends JPanel implements ConfigParameters {
         ));
         listPanel.setBackground(pageColor);
 
-        JTable table = new JTable(data, columnNames);
+        JTable table = new JTable();
 
-        table.setDefaultRenderer(Object.class, new TableComponentRenderer());
-        table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        table.setModel(new DefaultTableModel(data, columnNames) {
+            @Override
+            public Class<?> getColumnClass(int column) {
+                if (column == 7) {
+                    return ImageIcon.class;
+                }
+                return String.class;
+            }
+        });
+
+        table.setDefaultRenderer(String.class, new TableComponentRenderer(new TableComponentRenderer(table.getDefaultRenderer(String.class))));
+        table.setDefaultRenderer(ImageIcon.class, new TableComponentRenderer(new TableComponentRenderer(table.getDefaultRenderer(ImageIcon.class))));
         table.setBackground(null);
         table.setOpaque(false);
         table.setDefaultEditor(Object.class, null);
@@ -55,7 +65,7 @@ public class ListLayout extends JPanel implements ConfigParameters {
         tableHeader.setBackground(backgroundColor);
         tableHeader.setPreferredSize(new Dimension(Scaling.relativeWidth(100 - 4.5), Scaling.relativeHeight(6.5)));
         tableHeader.setBorder(BorderFactory.createEmptyBorder());
-        tableHeader.setDefaultRenderer(new TableComponentRenderer());
+        tableHeader.setDefaultRenderer(new TableComponentRenderer(new TableComponentRenderer(tableHeader.getDefaultRenderer())));
 
         listPanel.add(header, "gapbefore 2%, gaptop 4%, w 60%");
         if (year != null) {
@@ -66,7 +76,7 @@ public class ListLayout extends JPanel implements ConfigParameters {
             listPanel.add(button, "gap %d %d %d %d, wrap".formatted(gridPadding, gridPadding, gridPadding, gridPadding/4));
         }
 
-        listPanel.add(tableScrollable, "span 2, h 94%!, dock south");
+        listPanel.add(tableScrollable, "span 2, h 91%!, dock south");
 
         this.add(listPanel, BorderLayout.CENTER);
     }

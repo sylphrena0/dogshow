@@ -12,24 +12,25 @@ public class TableComponentRenderer implements TableCellRenderer, ConfigParamete
 
     private TableCellRenderer defaultRenderer;
 
-    public TableComponentRenderer(){
-        this.defaultRenderer = new DefaultTableCellRenderer();;
+    public TableComponentRenderer(TableCellRenderer defaultRenderer){
+        this.defaultRenderer = defaultRenderer;
     }
     @Override
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column){
         JLabel c = (JLabel) defaultRenderer.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
         c.setHorizontalAlignment(SwingConstants.CENTER);
         c.setBorder(BorderFactory.createEmptyBorder());
-        if (row == -1) {//if header
+
+        if (row == -1) {//make font bold if c is header
             c.setFont(c.getFont().deriveFont(Font.BOLD, Scaling.relativeHeight(2)));
         }
-
         if (row % 2 == 0){
             c.setBackground(pageColor);
         }
         else {
             c.setBackground(backgroundColor);
         }
+
         return c;
     }
 
