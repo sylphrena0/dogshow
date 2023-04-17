@@ -2,7 +2,6 @@ package GUI;
 
 import GUI.components.IconButton;
 import GUI.pages.*;
-import GUI.pages.Record;
 import com.formdev.flatlaf.FlatDarculaLaf;
 import utilities.ConfigParameters;
 import utilities.Scaling;
@@ -240,7 +239,6 @@ public class Controller extends JFrame implements ActionListener, ConfigParamete
             case "BALTO" -> {
                 System.out.println("Filter clicked!");
             }
-
         }
     }
     @Override
@@ -252,23 +250,14 @@ public class Controller extends JFrame implements ActionListener, ConfigParamete
             System.out.println(target.getValueAt(row, 0));
         }
     }
-
     @Override
-    public void mousePressed(MouseEvent e) {
-    }
-
+    public void mousePressed(MouseEvent e) {}
     @Override
-    public void mouseReleased(MouseEvent e) {
-    }
-
+    public void mouseReleased(MouseEvent e) {}
     @Override
-    public void mouseEntered(MouseEvent e) {
-    }
-
+    public void mouseEntered(MouseEvent e) {}
     @Override
-    public void mouseExited(MouseEvent e) {
-    }
-
+    public void mouseExited(MouseEvent e) {}
     public static Dimension screenSize() {
         Controller controller = Controller.getInstance();
         Insets screenInsets = controller.getToolkit().getScreenInsets(controller.getGraphicsConfiguration());
@@ -276,10 +265,7 @@ public class Controller extends JFrame implements ActionListener, ConfigParamete
         return new Dimension(screenSize.width - screenInsets.right - screenInsets.left,
                 screenSize.height - screenInsets.bottom - screenInsets.top);
     }
-
-
     public static void main(String[] args) {
         SwingUtilities.invokeLater(()-> Controller.getInstance("Dog Show"));
     }
-
 }
