@@ -12,8 +12,10 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
-public class Controller extends JFrame implements ActionListener, ConfigParameters {
+public class Controller extends JFrame implements ActionListener, ConfigParameters, MouseListener {
     private JButton home, records, registration, score;
     private Registration registrationPage;
     private static Controller instance;
@@ -237,19 +239,42 @@ public class Controller extends JFrame implements ActionListener, ConfigParamete
             }
         }
     }
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        JTable target = (JTable)e.getSource();
+        int row = target.getSelectedRow();
+        int column = target.getSelectedColumn();
+        if (column == 7) {
+            System.out.println(target.getValueAt(row, 0));
+        }
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+    }
+
     public static Dimension screenSize() {
         Controller controller = Controller.getInstance();
-            Insets screenInsets = controller.getToolkit().getScreenInsets(controller.getGraphicsConfiguration());
-            Rectangle screenSize = controller.getGraphicsConfiguration().getBounds();
-            return new Dimension(screenSize.width - screenInsets.right - screenInsets.left,
-                                  screenSize.height - screenInsets.bottom - screenInsets.top);
+        Insets screenInsets = controller.getToolkit().getScreenInsets(controller.getGraphicsConfiguration());
+        Rectangle screenSize = controller.getGraphicsConfiguration().getBounds();
+        return new Dimension(screenSize.width - screenInsets.right - screenInsets.left,
+                screenSize.height - screenInsets.bottom - screenInsets.top);
     }
 
 
     public static void main(String[] args) {
-//        PlatformDefaults.setLogicalPixelBase(PlatformDefaults.BASE_REAL_PIXEL);
-//        PlatformDefaults.setDefaultVerticalUnit(1);
-//        PlatformDefaults.setDefaultHorizontalUnit(1);
         SwingUtilities.invokeLater(()-> Controller.getInstance("Dog Show"));
     }
 

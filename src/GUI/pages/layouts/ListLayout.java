@@ -9,10 +9,13 @@ import utilities.Scaling;
 import javax.swing.*;
 import javax.swing.table.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class ListLayout extends JPanel implements ConfigParameters {
 
     private final Controller controller;
+    protected JTable table;
 
     public ListLayout() {
         this.controller = Controller.getInstance();
@@ -33,7 +36,7 @@ public class ListLayout extends JPanel implements ConfigParameters {
         ));
         listPanel.setBackground(pageColor);
 
-        JTable table = new JTable();
+        table = new JTable();
 
         table.setModel(new DefaultTableModel(data, columnNames) {
             @Override
@@ -45,6 +48,7 @@ public class ListLayout extends JPanel implements ConfigParameters {
             }
         });
 
+        table.addMouseListener(controller);
         table.setDefaultRenderer(String.class, new TableComponentRenderer(new TableComponentRenderer(table.getDefaultRenderer(String.class))));
         table.setDefaultRenderer(ImageIcon.class, new TableComponentRenderer(new TableComponentRenderer(table.getDefaultRenderer(ImageIcon.class))));
         table.setBackground(null);
