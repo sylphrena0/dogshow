@@ -237,6 +237,10 @@ public class Controller extends JFrame implements ActionListener, ConfigParamete
                     registrationPage.setDogImage(selectedFile);
                 }
             }
+            case "BALTO" -> {
+                System.out.println("Filter clicked!");
+            }
+
         }
     }
     @Override
