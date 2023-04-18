@@ -68,6 +68,8 @@ public class ListView extends JPanel implements ConfigParameters {
         tableHeader.setPreferredSize(new Dimension(Scaling.relativeWidth(100 - 4.5), Scaling.relativeHeight(6.5)));
         tableHeader.setBorder(BorderFactory.createEmptyBorder());
         tableHeader.setDefaultRenderer(new TableComponentRenderer(new TableComponentRenderer(tableHeader.getDefaultRenderer())));
+        tableHeader.setReorderingAllowed(false);
+        tableHeader.setResizingAllowed(false);
 
         listPanel.add(header, "gapbefore 2%, gaptop 4%, w 60%");
         if (year != null) {
