@@ -3,16 +3,14 @@ package GUI;
 import GUI.components.IconButton;
 import GUI.pages.*;
 import com.formdev.flatlaf.FlatDarculaLaf;
+import db.Database;
 import utilities.ConfigParameters;
 import utilities.Scaling;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.awt.event.*;
 
 public class Controller extends JFrame implements ActionListener, ConfigParameters, MouseListener {
     private JButton home, records, registration, score;
@@ -30,6 +28,11 @@ public class Controller extends JFrame implements ActionListener, ConfigParamete
         setUndecorated(true);
         setSize(screenSize);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent evt) {
+                Database.disconnect();
+            }
+        });
         addComponents();
 
         try {
