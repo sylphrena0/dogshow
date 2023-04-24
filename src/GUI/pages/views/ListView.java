@@ -10,6 +10,7 @@ import javax.swing.*;
 import javax.swing.table.*;
 import java.awt.*;
 
+
 public class ListView extends JPanel implements ConfigParameters {
 
     private final Controller controller;
@@ -83,6 +84,24 @@ public class ListView extends JPanel implements ConfigParameters {
         listPanel.add(tableScrollable, "span 2, h 91%!, dock south");
 
         this.add(listPanel, BorderLayout.CENTER);
+
+        TableModel model = new DefaultTableModel(data, columnNames){
+            public Class getColumnClass(int column) {
+                Class returnValue;
+                if ((column >= 0) && (column < getColumnCount())) {
+                    returnValue = getValueAt(0, column).getClass();
+                } else {
+                    returnValue = Object.class;
+                }
+                return returnValue;
+            }
+        };
+
+        RowSorter<TableModel> sorter = new TableRowSorter<TableModel>(model);
+        table.setRowSorter(sorter);
+
+
+
     }
 
 }
