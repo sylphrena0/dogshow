@@ -9,7 +9,7 @@ import utilities.Scaling;
 import javax.swing.*;
 import javax.swing.table.*;
 import java.awt.*;
-
+import java.util.Comparator;
 
 public class ListView extends JPanel implements ConfigParameters {
 
@@ -25,7 +25,7 @@ public class ListView extends JPanel implements ConfigParameters {
         this.setBackground(backgroundColor);
         this.setPreferredSize(pageSize);
         this.setLayout(new BorderLayout());
-        this.setBorder(BorderFactory.createEmptyBorder(pagePadding, pagePadding,pagePadding, pagePadding));
+        this.setBorder(BorderFactory.createEmptyBorder(pagePadding, pagePadding, pagePadding, pagePadding));
 
         JPanel listPanel = new RoundedPanel();
         listPanel.setLayout(new MigLayout(
@@ -39,26 +39,35 @@ public class ListView extends JPanel implements ConfigParameters {
 
         table.setModel(new DefaultTableModel(data, columnNames) {
             @Override
-            public Class<?> getColumnClass(int column) {
+            public Class getColumnClass(int column) {
                 if (column == 7) {
                     return ImageIcon.class;
+                } else if (column == 0) {
+                    return Integer.class;
                 }
-                return String.class;
+                return getValueAt(0, column).getClass();
+            }
+
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return true;
             }
         });
 
         table.addMouseListener(controller);
         table.setDefaultRenderer(String.class, new TableComponentRenderer(new TableComponentRenderer(table.getDefaultRenderer(String.class))));
+        table.setDefaultRenderer(Boolean.class, new TableComponentRenderer(new TableComponentRenderer(table.getDefaultRenderer(String.class))));
+        table.setDefaultRenderer(Integer.class, new TableComponentRenderer(new TableComponentRenderer(table.getDefaultRenderer(String.class))));
         table.setDefaultRenderer(ImageIcon.class, new TableComponentRenderer(new TableComponentRenderer(table.getDefaultRenderer(ImageIcon.class))));
         table.setBackground(null);
         table.setOpaque(false);
         table.setDefaultEditor(Object.class, null);
         table.setFocusable(false);
         table.setRowHeight(Scaling.relativeHeight(6.5));
-        table.setPreferredSize(new Dimension(Scaling.relativeWidth(100 - 4.5), data.length*Scaling.relativeHeight(6.5)));
+        table.setPreferredSize(new Dimension(Scaling.relativeWidth(100 - 4.5), data.length * Scaling.relativeHeight(6.5)));
         table.setFont(inputFont);
 
-        JScrollPane tableScrollable =  new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        JScrollPane tableScrollable = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         tableScrollable.setOpaque(false);
         tableScrollable.setBackground(transparent);
         tableScrollable.setBorder(BorderFactory.createLineBorder(pageColor, 2));
@@ -74,33 +83,19 @@ public class ListView extends JPanel implements ConfigParameters {
 
         listPanel.add(header, "gapbefore 2%, gaptop 4%, w 60%");
         if (year != null) {
-            listPanel.add(year, "gapy %d %d".formatted(gridPadding, gridPadding/4));
-            listPanel.add(checkbox, "gap %d %d %d %d, wrap".formatted(gridPadding, gridPadding, gridPadding, gridPadding/4));
+            listPanel.add(year, "gapy %d %d".formatted(gridPadding, gridPadding / 4));
+            listPanel.add(checkbox, "gap %d %d %d %d, wrap".formatted(gridPadding, gridPadding, gridPadding, gridPadding / 4));
         } else if (button != null) {
-            listPanel.add(checkbox, "al right, w min!, gapy %d %d".formatted(gridPadding, gridPadding/4));
-            listPanel.add(button, "gap %d %d %d %d, wrap".formatted(gridPadding, gridPadding, gridPadding, gridPadding/4));
+            listPanel.add(checkbox, "al right, w min!, gapy %d %d".formatted(gridPadding, gridPadding / 4));
+            listPanel.add(button, "gap %d %d %d %d, wrap".formatted(gridPadding, gridPadding, gridPadding, gridPadding / 4));
         }
 
         listPanel.add(tableScrollable, "span 2, h 91%!, dock south");
 
         this.add(listPanel, BorderLayout.CENTER);
 
-        TableModel model = new DefaultTableModel(data, columnNames){
-            public Class getColumnClass(int column) {
-                Class returnValue;
-                if ((column >= 0) && (column < getColumnCount())) {
-                    returnValue = getValueAt(0, column).getClass();
-                } else {
-                    returnValue = Object.class;
-                }
-                return returnValue;
-            }
-        };
-
-        RowSorter<TableModel> sorter = new TableRowSorter<TableModel>(model);
+        TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(table.getModel());
         table.setRowSorter(sorter);
-
-
 
     }
 
