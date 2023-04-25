@@ -150,25 +150,14 @@ public class Database {
         }
     }
 
-    /**
-        * Executes a prepared statement
-        * @param preparedStatement the prepared statement to execute
-        * @throws SQLException if the prepared statement is invalid
-     **/
-    private static void execute(PreparedStatement preparedStatement) throws SQLException {
-        preparedStatement.executeUpdate();
-        //TODO: consider removing method
-    }
 
     public static void register(String username, char[] password, String name, String email) {
         try {
-            //TODO: check that inputs are valid
-
             createDatabase(password); //create database if it does not exist and connect to the database
 
             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO users (username, name, email) VALUES (?, ?, ?)");
             preparedStatement.setString(1, username);
-            execute(preparedStatement);
+            preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -212,7 +201,7 @@ public class Database {
             preparedStatement.setString(12, photo);
             preparedStatement.setInt(13, year);
             preparedStatement.setBoolean(14, current);
-            execute(preparedStatement);
+            preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -239,7 +228,7 @@ public class Database {
             updateScore.setArray(3, grooming);
             updateScore.setArray(4, fetch);
             updateScore.setInt(5, registrationID);
-            execute(updateScore);
+            updateScore.executeUpdate();
             return true;
         } catch (SQLException e) {
             throw new RuntimeException(e);
