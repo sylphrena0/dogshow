@@ -36,16 +36,16 @@ public class RecordList extends ListView {
         Object[][] data = {
                 {"5121", "Balto", 10, 8, 2, 7, true, inspect},
                 {"9231", "Fideo", 6, 3, 5, 1, true, inspect},
-                {"9823", "Black", 6, 1, 3, "-", false, inspect},
+                {"9823", "Black", 6, 1, 3, 0, false, inspect},
                 {"2934", "Percy", 10, 10, 10, 10, true, inspect},
                 {"2214", "Cerberus", 5, 1, 2, 3, true, inspect},
-                {"1213", "Precious", 6, 1, 3, "-", true, inspect},
+                {"1213", "Precious", 6, 1, 3, 0, true, inspect},
                 {"5121", "Balto", 10, 8, 2, 7, true, inspect},
                 {"9231", "Fideo", 6, 3, 5, 1, true, inspect},
-                {"9823", "Black", 6, 1, 3, "-", false, inspect},
+                {"9823", "Black", 6, 1, 3, 0, false, inspect},
                 {"2934", "Percy", 10, 10, 10, 10, true, inspect},
                 {"2214", "Cerberus", 5, 1, 2, 3, true, inspect},
-                {"1213", "Precious", 6, 1, 3, "-", true, inspect},
+                {"1213", "Precious", 6, 1, 3, 0, true, inspect},
         };
 
 
