@@ -15,9 +15,11 @@ import java.awt.geom.RoundRectangle2D;
 public class RoundedPasswordField extends JPasswordField implements ConfigParameters {
     private Shape shape;
     private final Color color;
+    private String placeholder;
     public RoundedPasswordField(String placeholder, Controller controller) {
         setOpaque(false);
         this.color = inputColor;
+        this.placeholder = placeholder;
         this.addActionListener(controller);
         this.setForeground(Color.WHITE);
         this.setBackground(inputColor);
@@ -59,6 +61,25 @@ public class RoundedPasswordField extends JPasswordField implements ConfigParame
             shape = new RoundRectangle2D.Float(0, 0, getWidth()-1, getHeight()-1, 15, 15);
         }
         return shape.contains(x, y);
+    }
+
+    public void setInvalid(String error) {
+        //set a red placeholder error for 3 seconds before reverting to normal
+        this.setForeground(errorRed);
+        this.setEchoChar((char) 0); //sets password to visible
+        this.setText(error);
+        JPasswordField passwordField = this;
+        new java.util.Timer().schedule(
+                new java.util.TimerTask() {
+                    @Override
+                    public void run() {
+                        passwordField.setText(placeholder);
+                        passwordField.setForeground(Color.WHITE);
+                    }
+                },
+                3000
+        );
+
     }
 
 }

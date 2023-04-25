@@ -11,6 +11,7 @@ public interface ConfigParameters {
     Dimension pageSize = new Dimension(screenSize.width, screenSize.height - Scaling.relativeHeight(6.5));
     Color lightPurpleButtonColor = new Color(0xBB86FC);
     Color purpleButtonColor = new Color(0x7c50e2);
+    Color errorRed = new Color(0xFA4364);
     Color mutedPurpleColor = new Color(0x604A79);
     Color backgroundColor = new Color(0x212121);
     Color pageColor = new Color(0x303030);

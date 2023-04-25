@@ -18,6 +18,13 @@ public class Home extends JPanel implements ConfigParameters {
     private final Controller controller;
     private CardLayout authLayout;
     private JPanel authPanel;
+    RoundedTextField registerName;
+    RoundedTextField registerEmail;
+    RoundedTextField registerUsername;
+    RoundedPasswordField registerPassword;
+    RoundedPasswordField registerConfirmPassword;
+    RoundedTextField loginUsername;
+    RoundedPasswordField loginPassword;
     public Home() {
         this.controller = Controller.getInstance();
         addComponents();
@@ -45,12 +52,10 @@ public class Home extends JPanel implements ConfigParameters {
         loginHeader.setForeground(Color.WHITE);
         loginHeader.setHorizontalAlignment(SwingConstants.LEFT);
 
-        RoundedTextField loginUsername = new RoundedTextField("Username", controller);
-        RoundedPasswordField loginPassword = new RoundedPasswordField("Password", controller);
-        RoundedButton registerPanelButton = new RoundedButton("Register", pageColor, lightPurpleButtonColor, controller);
+        loginUsername = new RoundedTextField("Username", controller);
+        loginPassword = new RoundedPasswordField("Password", controller);
         RoundedButton loginButton = new RoundedButton("Login", lightPurpleButtonColor, Color.BLACK, controller);
 
-        registerPanelButton.setActionCommand("REGISTER_PANEL");
         loginButton.setActionCommand("LOGIN");
 
         loginPanel.setLayout(new MigLayout(
@@ -62,8 +67,7 @@ public class Home extends JPanel implements ConfigParameters {
         loginPanel.add(loginHeader, "wrap");
         loginPanel.add(loginUsername, "width 25%!, wrap");
         loginPanel.add(loginPassword, "width 25%!, wrap");
-        loginPanel.add(registerPanelButton, "width 6%!, split 2");
-        loginPanel.add(loginButton, "gap %d".formatted(gridPadding));
+        loginPanel.add(loginButton);
 
         ////////////////////////////////////
         //////// Registration Panel ////////
@@ -76,15 +80,13 @@ public class Home extends JPanel implements ConfigParameters {
         registerHeader.setForeground(Color.WHITE);
         registerHeader.setHorizontalAlignment(SwingConstants.LEFT);
 
-        RoundedTextField registerName = new RoundedTextField("Name", controller);
-        RoundedTextField registerEmail = new RoundedTextField("Email", controller);
-        RoundedTextField registerUsername = new RoundedTextField("Username", controller);
-        RoundedPasswordField registerPassword = new RoundedPasswordField("Password", controller);
-        RoundedPasswordField registerConfirmPassword = new RoundedPasswordField("Confirm Password", controller);
-        RoundedButton loginPanelButton = new RoundedButton("Login", pageColor, lightPurpleButtonColor, controller);
+        registerName = new RoundedTextField("Name", controller);
+        registerEmail = new RoundedTextField("Email", controller);
+        registerUsername = new RoundedTextField("Username", controller);
+        registerPassword = new RoundedPasswordField("Password", controller);
+        registerConfirmPassword = new RoundedPasswordField("Confirm Password", controller);
         RoundedButton registerButton = new RoundedButton("Register", lightPurpleButtonColor, Color.BLACK, controller);
 
-        loginPanelButton.setActionCommand("LOGIN_PANEL");
         registerButton.setActionCommand("REGISTER");
 
 
@@ -105,8 +107,7 @@ public class Home extends JPanel implements ConfigParameters {
 
         registerPanel.add(registerUsername, "width 25%!");
 
-        registerPanel.add(loginPanelButton, "width 5%!, split 2");
-        registerPanel.add(registerButton, "gap %d".formatted(gridPadding));
+        registerPanel.add(registerButton);
 
         ////////////////////////////////////
 
@@ -133,4 +134,31 @@ public class Home extends JPanel implements ConfigParameters {
         authLayout.next(authPanel);
     }
 
+    public RoundedTextField getRegisterName() {
+        return registerName;
+    }
+
+    public RoundedTextField getRegisterEmail() {
+        return registerEmail;
+    }
+
+    public RoundedTextField getRegisterUsername() {
+        return registerUsername;
+    }
+
+    public RoundedPasswordField getRegisterPassword() {
+        return registerPassword;
+    }
+
+    public RoundedPasswordField getRegisterConfirmPassword() {
+        return registerConfirmPassword;
+    }
+
+    public RoundedTextField getLoginUsername() {
+        return loginUsername;
+    }
+
+    public RoundedPasswordField getLoginPassword() {
+        return loginPassword;
+    }
 }

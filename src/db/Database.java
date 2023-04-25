@@ -26,7 +26,7 @@ public class Database {
      * Creates a database if it does not exist and connects to it
      * @param password the password to use to encrypt the database
      **/
-    private static void createDatabase(String password) {
+    private static void createDatabase(char[] password) {
         //check if we already have a database by checking if the salt file exists
         try {
             salt = new byte[16];
@@ -36,7 +36,7 @@ public class Database {
             return;
         } catch (FileNotFoundException e) {
             //database does not exist, create it
-        } catch (IOException e) {
+        } catch (IOException e) { //TODO: check if this works :) (I don't think it does)
             return; //database exists, return nothing
         }
 
@@ -65,7 +65,8 @@ public class Database {
                 String tableStatement = "CREATE TABLE IF NOT EXISTS users (\n"
                         + " id TINYINT PRIMARY KEY AUTOINCREMENT,\n"
                         + " username TEXT NOT NULL UNIQUE,\n" //unique username
-                        + " password TEXT NOT NULL\n"
+                        + " name TEXT,\n"
+                        + " email TEXT\n"
                         + "); \n"
                         + "CREATE TABLE IF NOT EXISTS records (\n"
                         + " regID SMALLINT PRIMARY KEY AUTOINCREMENT,\n" //smallint (-32,768 to 32,767)
@@ -100,7 +101,7 @@ public class Database {
         * @param password the password to use to decrypt the database
         * @throws RuntimeException if the database does not exist
      **/
-    private static void connect(String password) throws SQLException {
+    private static void connect(char[] password) throws SQLException {
         //get salt from salt.txt if it isn't already set
         if (salt == null) {
             try {
@@ -109,7 +110,7 @@ public class Database {
                 salt = fis.readNBytes(8);
                 fis.close();
             } catch (FileNotFoundException e) {
-                throw new RuntimeException("Database does not exist: " + e.getMessage());
+                throw new RuntimeException("Database does not exist!");
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -117,7 +118,7 @@ public class Database {
 
         SecretKey key = null;
         try { //get secret key from password using salt
-            key = new SecretKeySpec(SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256").generateSecret(new PBEKeySpec(password.toCharArray(), salt, 65536, 256)).getEncoded(), "AES");
+            key = new SecretKeySpec(SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256").generateSecret(new PBEKeySpec(password, salt, 65536, 256)).getEncoded(), "AES");
         } catch (InvalidKeySpecException | NoSuchAlgorithmException e) {
             throw new RuntimeException(e);
         }
@@ -154,24 +155,24 @@ public class Database {
      **/
     private static void execute(PreparedStatement preparedStatement) throws SQLException {
         preparedStatement.executeUpdate();
+        //TODO: consider removing method
     }
 
-    public static void register(String username, String password) {
+    public static void register(String username, char[] password, String name, String email) {
         try {
             //TODO: check that inputs are valid
 
             createDatabase(password); //create database if it does not exist and connect to the database
 
-            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO users(username, password) VALUES(?,?)");
+            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO users (username, name, email) VALUES (?, ?, ?)");
             preparedStatement.setString(1, username);
-            preparedStatement.setString(2, password);
             execute(preparedStatement);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public static boolean login(String username, String password) {
+    public static boolean login(String username, char[] password) {
         try {
             connect(password);
             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM users WHERE username = ?");
@@ -183,7 +184,6 @@ public class Database {
         } catch (SQLException e) {
             return false; //password is incorrect
         }
-
         return true;
     }
 
@@ -216,19 +216,28 @@ public class Database {
         }
     }
 
-    public static boolean editScore(Integer registrationID, String obedience, String socialization, String grooming, String fetch) {
+    public static boolean editScore(Integer registrationID, Array obedience, Array socialization, Array grooming, Array fetch) {
         try {
-            //TODO: check if current is false, if so, return an error
+            //check if current is false, if so, return an error
+            PreparedStatement currentCheck = connection.prepareStatement("SELECT * FROM records WHERE regID = ?");
+            currentCheck.setInt(1, registrationID);
+            ResultSet resultSet = currentCheck.executeQuery();
+            if (!resultSet.next() || !resultSet.getBoolean("current")) {
+                return false; //registrationID does not exist or record is not current
+            }
+
             //TODO: check that scores are valid
+            //return false if any scores arrays contain values that are not ints between 0 and 10
+
             //TODO: parse obedience, socialization, grooming, fetch arrays into strings
 
-            PreparedStatement preparedStatement = connection.prepareStatement("UPDATE records SET obedience = ?, socialization = ?, grooming = ?, fetch = ? WHERE regID = ?");
-            preparedStatement.setString(1, obedience);
-            preparedStatement.setString(2, socialization);
-            preparedStatement.setString(3, grooming);
-            preparedStatement.setString(4, fetch);
-            preparedStatement.setInt(5, registrationID);
-            execute(preparedStatement);
+            PreparedStatement updateScore = connection.prepareStatement("UPDATE records SET obedience = ?, socialization = ?, grooming = ?, fetch = ? WHERE regID = ?");
+            updateScore.setArray(1, obedience);
+            updateScore.setArray(2, socialization);
+            updateScore.setArray(3, grooming);
+            updateScore.setArray(4, fetch);
+            updateScore.setInt(5, registrationID);
+            execute(updateScore);
             return true;
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -242,10 +251,6 @@ public class Database {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-    }
-
-
-    public static void main(String[] args) {
     }
 }
 
