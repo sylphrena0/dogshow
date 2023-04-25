@@ -15,8 +15,8 @@ import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
-import java.security.spec.KeySpec;
 import java.sql.*;
+import java.util.ArrayList;
 
 public class Database {
 
@@ -66,7 +66,7 @@ public class Database {
 
                 String tableStatement = "CREATE TABLE IF NOT EXISTS users (\n"
                         + " id INTEGER PRIMARY KEY AUTOINCREMENT,\n"
-                        + " username TEXT NOT NULL UNIQUE,\n" //unique username
+                        + " username TEXT NOT NULL,\n" //unique username
                         + " name TEXT,\n"
                         + " email TEXT\n"
                         + "); \n"
@@ -178,7 +178,7 @@ public class Database {
         return true;
     }
 
-    public static void insertRecord(String familyName, String email, String name, String breed, int age, String color, String markings, String obedience, String socialization, String grooming, String fetch, String photo, int year) {
+    public static void registerContestant(String familyName, String email, String name, String breed, int age, String color, String markings, String obedience, String socialization, String grooming, String fetch, String photo, int year) {
         try {
 //            connect();
             //TODO: parse obedience, socialization, grooming, fetch arrays into strings
@@ -243,5 +243,58 @@ public class Database {
             throw new RuntimeException(e);
         }
     }
+
+    public static Object[] getContestant(int regID) {
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM records WHERE regID = ?");
+            preparedStatement.setInt(1, regID);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (!resultSet.next()) {
+                return null; //registrationID does not exist
+            }
+            Object[] record = new Object[14];
+            record[0] = resultSet.getInt("regID");
+            record[1] = resultSet.getString("familyName");
+            record[2] = resultSet.getString("email");
+            record[3] = resultSet.getString("name");
+            record[4] = resultSet.getString("breed");
+            record[5] = resultSet.getInt("age");
+            record[6] = resultSet.getString("color");
+            record[7] = resultSet.getString("markings");
+            record[8] = resultSet.getString("obedience");
+            record[9] = resultSet.getString("socialization");
+            record[10] = resultSet.getString("grooming");
+            record[11] = resultSet.getString("fetch");
+            record[12] = resultSet.getString("photo");
+            record[13] = resultSet.getInt("year");
+            return record;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static Object[][] getScores(boolean current) {
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT regID, name, obedience, socialization, grooming FROM records WHERE current = ?");
+            preparedStatement.setBoolean(1, current);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            ArrayList<Object[]> records = new ArrayList<>();
+            while (resultSet.next()) {
+                Object[] record = new Object[14];
+                record[0] = resultSet.getInt("regID");
+                record[3] = resultSet.getString("name");
+                record[8] = resultSet.getString("obedience");
+                record[9] = resultSet.getString("socialization");
+                record[10] = resultSet.getString("grooming");
+                record[11] = resultSet.getString("fetch");
+                records.add(record);
+            }
+            return records.toArray(new Object[0][0]);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
+
+
 

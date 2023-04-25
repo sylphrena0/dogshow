@@ -15,6 +15,7 @@ public class ListView extends JPanel implements ConfigParameters {
 
     private final Controller controller;
     protected JTable table;
+    private String[] columnNames;
 
     public ListView() {
         this.controller = Controller.getInstance();
@@ -22,6 +23,7 @@ public class ListView extends JPanel implements ConfigParameters {
 
     protected void addComponents(JComponent header, JComponent year, JComponent checkbox, JComponent button, String[] columnNames, Object[][] data) {
         //"this" is the JPanel we are adding to the super, as this class extends JPanel
+        this.columnNames = columnNames;
         this.setBackground(backgroundColor);
         this.setPreferredSize(pageSize);
         this.setLayout(new BorderLayout());
@@ -42,15 +44,12 @@ public class ListView extends JPanel implements ConfigParameters {
             public Class getColumnClass(int column) {
                 if (column == 7) {
                     return ImageIcon.class;
+                } else if (column == 6) {
+                    return Boolean.class;
                 } else if (column == 0) {
                     return Integer.class;
                 }
                 return getValueAt(0, column).getClass();
-            }
-
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return true;
             }
         });
 
@@ -97,6 +96,22 @@ public class ListView extends JPanel implements ConfigParameters {
         TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(table.getModel());
         table.setRowSorter(sorter);
 
+    }
+
+    public void updateData(Object[][] data) {
+        table.setModel(new DefaultTableModel(data, columnNames) {
+            @Override
+            public Class getColumnClass(int column) {
+                if (column == 7) {
+                    return ImageIcon.class;
+                } else if (column == 6) {
+                    return Boolean.class;
+                } else if (column == 0) {
+                    return Integer.class;
+                }
+                return getValueAt(0, column).getClass();
+            }
+        });
     }
 
 }

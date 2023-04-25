@@ -6,7 +6,6 @@ import GUI.components.RoundedPasswordField;
 import GUI.components.RoundedTextField;
 import GUI.pages.*;
 import com.formdev.flatlaf.FlatDarculaLaf;
-import com.sun.nio.sctp.AbstractNotificationHandler;
 import db.Database;
 import utilities.ConfigParameters;
 import utilities.Scaling;
@@ -18,7 +17,6 @@ import java.awt.event.*;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.security.spec.RSAOtherPrimeInfo;
 import java.util.Arrays;
 
 public class Controller extends JFrame implements ActionListener, ConfigParameters, MouseListener {
@@ -159,13 +157,13 @@ public class Controller extends JFrame implements ActionListener, ConfigParamete
             fis.close();
         } catch (FileNotFoundException e) {
             homePage.switchAuthPanel(); //database does not exist, thus user is not registered
-        } catch (IOException ignored) {
-        }
+        } catch (IOException ignored) { }
 
+        RecordList recordList = new RecordList(new Object[][]{});
+        ScoreList scoreList = new ScoreList(new Object[][]{});
 
-        RecordList recordList = new RecordList();
         registrationPage = new Registration();
-        ScoreList scoreList = new ScoreList();
+
 
         pagePanel.add("HOME", homePage);
         pagePanel.add("RECORDS", recordList);
@@ -343,6 +341,7 @@ public class Controller extends JFrame implements ActionListener, ConfigParamete
         int column = target.getSelectedColumn();
         if (column == 7) {
             System.out.println(target.getValueAt(row, 0));
+//            Database.
         }
     }
     @Override

@@ -12,7 +12,7 @@ import java.awt.*;
 
 
 public class ScoreList extends ListView implements ConfigParameters {
-    public ScoreList() {
+    public ScoreList(Object[][] data) {
         Controller controller = Controller.getInstance();
 
         JLabel recordsListHeader = new JLabel("Scores");
@@ -40,7 +40,7 @@ public class ScoreList extends ListView implements ConfigParameters {
 
         ImageIcon inspect = new ImageIcon((new ImageIcon("images/inspect.png")).getImage().getScaledInstance((int) (Scaling.relativeHeight(6.5)*0.5), (int) (Scaling.relativeHeight(6.5)*0.5),  java.awt.Image.SCALE_SMOOTH));  // use scaled icon
 
-        Object[][] data = {
+        Object[][] sample = {
                 {4512, "Balto", 10, 8, 2, 7, true, inspect},
                 {9231, "Fideo", 6, 3, 5, 1, true, inspect},
                 {1824, "Percy", 6, 1, 3, 0, false, inspect},
@@ -59,9 +59,7 @@ public class ScoreList extends ListView implements ConfigParameters {
                 {8175, "Cooper", 7, 8, 9, 5, true, inspect}
         };
 
-        addComponents(recordsListHeader, null, baltoEligible, commit, columnNames, data);
-
-
-
+        addComponents(recordsListHeader, null, baltoEligible, commit, columnNames, sample);
     }
+
 }

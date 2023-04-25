@@ -10,7 +10,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class RecordList extends ListView {
-    public RecordList() {
+    public RecordList(Object[][] data) {
         Controller controller = Controller.getInstance();
 
         JLabel recordsListHeader = new JLabel("View Contestant Records:");
@@ -33,7 +33,7 @@ public class RecordList extends ListView {
 
         ImageIcon inspect = new ImageIcon((new ImageIcon("images/inspect.png")).getImage().getScaledInstance((int) (Scaling.relativeHeight(6.5)*0.5), (int) (Scaling.relativeHeight(6.5)*0.5),  java.awt.Image.SCALE_SMOOTH));  // use scaled icon
 
-        Object[][] data = {
+        Object[][] sampleData = {
                 {"5121", "Balto", 10, 8, 2, 7, true, inspect},
                 {"9231", "Fideo", 6, 3, 5, 1, true, inspect},
                 {"9823", "Black", 6, 1, 3, 0, false, inspect},
