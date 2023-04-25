@@ -134,6 +134,11 @@ public class Home extends JPanel implements ConfigParameters {
         authLayout.next(authPanel);
     }
 
+    public void hideAuthPanel() {
+        //remove auth panel
+        authPanel.setVisible(false);
+    }
+
     public RoundedTextField getRegisterName() {
         return registerName;
     }

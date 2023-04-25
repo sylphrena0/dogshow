@@ -1,6 +1,7 @@
 package GUI;
 
 import GUI.components.IconButton;
+import GUI.components.NavButton;
 import GUI.components.RoundedPasswordField;
 import GUI.components.RoundedTextField;
 import GUI.pages.*;
@@ -21,7 +22,7 @@ import java.security.spec.RSAOtherPrimeInfo;
 import java.util.Arrays;
 
 public class Controller extends JFrame implements ActionListener, ConfigParameters, MouseListener {
-    private JButton homeNav, recordsNav, registrationNav, scoreNav;
+    private NavButton homeNav, recordsNav, registrationNav, scoreNav;
     private Registration registrationPage;
     private static Controller instance;
     private Home homePage;
@@ -56,6 +57,9 @@ public class Controller extends JFrame implements ActionListener, ConfigParamete
             UIManager.put("ComboBox.selectionInsets" , new Insets(3,3,3,3)); //insets for items in dropdown menu
             ////////////////////////////////////
 
+            //set background color of disabled buttons
+            UIManager.put("Button.disabledBackground", pageColor);
+
             SwingUtilities.updateComponentTreeUI(this);
         } catch (Exception e) {
             System.out.println("Error setting UI look and feel!");
@@ -78,16 +82,6 @@ public class Controller extends JFrame implements ActionListener, ConfigParamete
         }
         return instance;
     }
-
-    private void configureNavButton(JButton button, Dimension size) {
-        button.setMinimumSize(size);
-        button.setBackground(pageColor);
-        button.setForeground(Color.WHITE);
-        button.setFont(headerFont);
-        button.setFocusPainted(false);
-        button.setBorderPainted(false);
-        button.addActionListener(this);
-    }
     private void addComponents() {
         JPanel containerPanel = new JPanel();
         containerPanel.setLayout(new BorderLayout());
@@ -103,21 +97,10 @@ public class Controller extends JFrame implements ActionListener, ConfigParamete
         header.setForeground(Color.WHITE);
         header.setHorizontalAlignment(SwingConstants.LEFT);
 
-        homeNav = new JButton(" Home ");
-        homeNav.setBorder(BorderFactory.createEmptyBorder(0,10,0,10));
-        recordsNav = new JButton(" Records ");
-        recordsNav.setBorder(BorderFactory.createEmptyBorder(0,10,0,10));
-        registrationNav = new JButton(" Registration ");
-        registrationNav.setBorder(BorderFactory.createEmptyBorder(0,10,0,10));
-        scoreNav = new JButton(" Score ");
-        scoreNav.setBorder(BorderFactory.createEmptyBorder(0,10,0,10));
-
-        Dimension button = new Dimension(Scaling.relativeHeight(7), Scaling.relativeHeight(6.5));
-
-        configureNavButton(homeNav, button);
-        configureNavButton(recordsNav, button);
-        configureNavButton(registrationNav, button);
-        configureNavButton(scoreNav, button);
+        homeNav = new NavButton(" Home ");
+        recordsNav = new NavButton(" Records ");
+        registrationNav = new NavButton(" Registration ");
+        scoreNav = new NavButton(" Score ");
 
         homeNav.setBackground(backgroundColor);
 
@@ -125,6 +108,10 @@ public class Controller extends JFrame implements ActionListener, ConfigParamete
         recordsNav.setActionCommand("RECORDS");
         registrationNav.setActionCommand("REGISTRATION");
         scoreNav.setActionCommand("SCORE");
+
+        recordsNav.setEnabled(false);
+        registrationNav.setEnabled(false);
+        scoreNav.setEnabled(false);
 
         JPanel titlePanel = new JPanel();
         titlePanel.setLayout(new BorderLayout());
@@ -170,10 +157,10 @@ public class Controller extends JFrame implements ActionListener, ConfigParamete
             FileInputStream fis = new FileInputStream("src/db/salt.txt");
             fis.read();
             fis.close();
-            return;
         } catch (FileNotFoundException e) {
             homePage.switchAuthPanel(); //database does not exist, thus user is not registered
-        } catch (IOException ignored) { }
+        } catch (IOException ignored) {
+        }
 
 
         RecordList recordList = new RecordList();
@@ -236,24 +223,32 @@ public class Controller extends JFrame implements ActionListener, ConfigParamete
                 //get credentials
                 RoundedTextField username = homePage.getLoginUsername();
                 RoundedPasswordField password = homePage.getLoginPassword();
+                boolean error = false;
 
                 //validate that user entered credentials
                 if (username.getText().equals("Username")) {
                     username.setInvalid("Please specify a username");
+                    error = true;
                 } if (String.valueOf(password.getPassword()).equals("Password")) {
                     password.setInvalid("Please specify a password");
+                    error = true;
                 }
 
                 //attempt to connect to database
-                if (!Database.login(username.getText(), password.getPassword())) { //connects to database. false if incorrect credentials
-                    username.setInvalid("Invalid username or password");
+                if (!error) {
+                    if (!Database.login(username.getText(), password.getPassword())) { //connects to database. false if incorrect credentials
+                        username.setInvalid("Invalid username or password");
+                    } else {
+                        System.out.println("Logged in!");
+                        recordsNav.setEnabled(true);
+                        registrationNav.setEnabled(true);
+                        scoreNav.setEnabled(true);
+                        homePage.hideAuthPanel();
+                    }
                 }
 
-                System.out.println("LOGIN");
-
-
             }
-            case "REGISTER" -> {
+            case "REGISTER" -> { //sample user is admin / 1@CTASF_!
                 RoundedTextField name = homePage.getRegisterName();
                 RoundedTextField email = homePage.getRegisterEmail();
                 RoundedTextField username = homePage.getRegisterUsername();
@@ -261,46 +256,66 @@ public class Controller extends JFrame implements ActionListener, ConfigParamete
                 String passwordString = new String(password.getPassword());
                 RoundedPasswordField passwordConfirm = homePage.getRegisterConfirmPassword();
 
+                boolean error = false;
+
                 //validate name
                 if (name.getText().equals("Name")) {
                     name.setInvalid("Please specify a name");
+                    error = true;
                 } else if (!name.getText().matches("^[a-zA-Z\\s]*$")) {
                     name.setInvalid("Invalid name");
+                    error = true;
                 }
 
                 //validate email
                 if (email.getText().equals("Email")) {
                     email.setInvalid("Please specify an email");
+                    error = true;
                 } else if (!email.getText().matches("^(.+)@(.+)$")) {
                     email.setInvalid("Invalid email");
+                    error = true;
                 }
 
                 //validate username
                 if (username.getText().equals("Username")) {
                     username.setInvalid("Please specify a username");
-                } else if (!username.getText().matches("^(\\w){4,16}$")) {
+                    error = true;
+                } else if (!username.getText().matches("^.{4,16}$")) {
                     username.setInvalid("Must be 4-16 characters");
-                } else if (username.getText().matches("^(\\w){4,16}$")) {
+                    error = true;
+                } else if (!username.getText().matches("^(\\w){4,16}$")) {
                     username.setInvalid("Only letters, numbers, and underscores allowed");
+                    error = true;
                 }
 
                 //validate password
                 if (passwordString.equals("Password")) {
                     password.setInvalid("Please specify a password");
+                    error = true;
                 } else if (!passwordString.matches("(.{8,40})")) {
                     password.setInvalid("Must be 8-40 characters");
+                    error = true;
                 } else if (passwordString.matches("\\d") || passwordString.matches("[a-zA-Z]") || passwordString.matches("[!@#$%^&*_]") ) {
                     password.setInvalid("Enter one digit, one char, and one special char");
+                    error = true;
                 } else if (!String.valueOf(password.getPassword()).matches("^[\\w!@#$%^&*]*$")) {
                     password.setInvalid("Invalid character included");
+                    error = true;
                 } else if (!Arrays.equals(password.getPassword(), passwordConfirm.getPassword())) {
                     password.setInvalid("Passwords do not match");
                     passwordConfirm.setInvalid("Passwords do not match");
+                    error = true;
                 } if (new String(passwordConfirm.getPassword()).equals("Confirm Password")) {
                     passwordConfirm.setInvalid("Please specify a password");
+                    error = true;
                 }
-
-                Database.register(username.getText(), password.getPassword(), name.getText(), email.getText());
+                if (!error) {
+                    Database.register(username.getText(), password.getPassword(), name.getText(), email.getText());
+                    recordsNav.setEnabled(true);
+                    registrationNav.setEnabled(true);
+                    scoreNav.setEnabled(true);
+                    System.out.println("Registered user and created database!");
+                }
 
                 System.out.println("REGISTER");
             }

@@ -65,7 +65,7 @@ public class Database {
                 connect(password);
 
                 String tableStatement = "CREATE TABLE IF NOT EXISTS users (\n"
-                        + " id TINYINT PRIMARY KEY AUTOINCREMENT,\n"
+                        + " id INTEGER PRIMARY KEY AUTOINCREMENT,\n"
                         + " username TEXT NOT NULL UNIQUE,\n" //unique username
                         + " name TEXT,\n"
                         + " email TEXT\n"
@@ -126,13 +126,13 @@ public class Database {
         }
 
         if (connection != null) {
+            System.out.println("Connection to SQLite already exists.");
             return;
         } // connection already exists
 
         DriverManager.getConnection(url, new SQLiteMCConfig.Builder().withKey(key.toString()).build().toProperties());
         connection = new SQLiteMCConfig.Builder().withKey(key.toString()).build().createConnection(url);
 
-        System.out.println("Connection to SQLite has been established.");
     }
 
     /**
