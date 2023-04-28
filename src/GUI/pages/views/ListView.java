@@ -25,7 +25,7 @@ public class ListView extends JPanel implements ConfigParameters {
             "Fetch",
             "Balto Winner",
             ""};
-    private ScoreTableModel tableModel;
+    private DefaultTableModel tableModel;
 
     public ListView() {
         this.controller = Controller.getInstance();
@@ -47,7 +47,22 @@ public class ListView extends JPanel implements ConfigParameters {
         ));
         listPanel.setBackground(pageColor);
 
-        tableModel = new ScoreTableModel(data, columnNames);
+        tableModel = new DefaultTableModel() {
+            @Override
+            public Class getColumnClass(int column) {
+                if (column == 7) {
+                    return ImageIcon.class;
+                } else if (column == 6) {
+                    return Boolean.class;
+                } else if (column == 0) {
+                    return Integer.class;
+                }
+                return getValueAt(0, column).getClass();
+            }
+            @Override
+            public boolean isCellEditable(int row, int column) {return false;}
+        };
+
         table = new JTable(tableModel);
         table.addMouseListener(controller);
         table.setDefaultRenderer(String.class, new TableComponentRenderer(new TableComponentRenderer(table.getDefaultRenderer(String.class))));
