@@ -24,6 +24,7 @@ public class ListView extends JPanel implements ConfigParameters {
             "Balto Winner",
             ""};
     private DefaultTableModel tableModel;
+    ImageIcon inspect = new ImageIcon((new ImageIcon("images/inspect.png")).getImage().getScaledInstance((int) (Scaling.relativeHeight(6.5) * 0.5), (int) (Scaling.relativeHeight(6.5) * 0.5), java.awt.Image.SCALE_SMOOTH));  // use scaled icon
 
     public ListView() {
         this.controller = Controller.getInstance();
@@ -106,7 +107,6 @@ public class ListView extends JPanel implements ConfigParameters {
     }
 
     public void setData(Object[][] data) {
-        ImageIcon inspect = new ImageIcon((new ImageIcon("images/inspect.png")).getImage().getScaledInstance((int) (Scaling.relativeHeight(6.5) * 0.5), (int) (Scaling.relativeHeight(6.5) * 0.5), java.awt.Image.SCALE_SMOOTH));  // use scaled icon
         //add a column to the end of each row with inspect
         for (int i = 0; i < data.length; i++) {
             data[i] = Arrays.copyOf(data[i], data[i].length + 1);
@@ -117,5 +117,11 @@ public class ListView extends JPanel implements ConfigParameters {
         tableModel.setDataVector(data, columnNames);
         table.setPreferredSize(new Dimension(Scaling.relativeWidth(100 - 4.5), data.length * Scaling.relativeHeight(6.5)));
 
+    }
+
+    public void addRow(Object[] row) {
+        row = Arrays.copyOf(row, row.length + 1);
+        row[row.length - 1] = inspect;
+        tableModel.addRow(row);
     }
 }
