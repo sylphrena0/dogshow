@@ -2,7 +2,6 @@ package GUI.pages.views;
 
 import GUI.Controller;
 import GUI.components.*;
-import GUI.components.ScoreTableModel;
 import net.miginfocom.swing.MigLayout;
 import utilities.ConfigParameters;
 import utilities.Scaling;
