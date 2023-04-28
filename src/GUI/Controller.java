@@ -1,9 +1,6 @@
 package GUI;
 
-import GUI.components.IconButton;
-import GUI.components.NavButton;
-import GUI.components.RoundedPasswordField;
-import GUI.components.RoundedTextField;
+import GUI.components.*;
 import GUI.pages.*;
 import com.formdev.flatlaf.FlatDarculaLaf;
 import db.Database;
@@ -18,10 +15,13 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Vector;
 
 public class Controller extends JFrame implements ActionListener, ConfigParameters, MouseListener {
     private NavButton homeNav, recordsNav, registrationNav, scoreNav;
     private Registration registrationPage;
+    RecordList recordList;
+    ScoreList scoreList;
     private static Controller instance;
     private Home homePage;
     private CardLayout pageLayout;
@@ -159,8 +159,8 @@ public class Controller extends JFrame implements ActionListener, ConfigParamete
             homePage.switchAuthPanel(); //database does not exist, thus user is not registered
         } catch (IOException ignored) { }
 
-        RecordList recordList = new RecordList(new Object[][]{});
-        ScoreList scoreList = new ScoreList(new Object[][]{});
+        recordList = new RecordList(new Object[][]{});
+        scoreList = new ScoreList(new Object[][]{});
 
         registrationPage = new Registration();
 
@@ -242,6 +242,36 @@ public class Controller extends JFrame implements ActionListener, ConfigParamete
                         registrationNav.setEnabled(true);
                         scoreNav.setEnabled(true);
                         homePage.hideAuthPanel();
+
+                        Object[][] sample = {
+                                {4512, "Balto", 10, 8, 2, 7, true},
+                                {9231, "Fideo", 6, 3, 5, 1, true},
+                                {1824, "Percy", 6, 1, 3, 0, false},
+                                {3491, "Cerberus", 10, 10, 10, 10, true},
+                                {1923, "Precious", 5, 1, 2, 3, true},
+                                {5383, "Kohl", 0, 3, 4, 1, false},
+                                {3481, "Roast", 8, 7, 0, 3, false},
+                                {2812, "Mouse", 0, 0, 7, 0, false},
+                                {2319, "Boo", 2, 3, 1, 9, true},
+                                {7912, "Bella", 6, 8, 5, 7, true},
+                                {4554, "Max", 9, 5, 4, 9, true},
+                                {2808, "Charlie", 9, 0, 5, 6, false},
+                                {6429, "Benito", 10, 8, 9, 7, true},
+                                {6776, "Daisy", 4, 6, 8, 6, true},
+                                {1198, "Milo", 3, 9, 0, 8, false},
+                                {8175, "Cooper", 7, 8, 9, 5, true}
+                        };
+
+
+
+                        recordList.setData(sample);
+                        scoreList.setData(sample);
+
+                        scoreList.repaint();
+
+                        System.out.println(scoreList.getTable());
+
+
                     }
                 }
 

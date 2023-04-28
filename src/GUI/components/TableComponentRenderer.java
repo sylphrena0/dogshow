@@ -17,8 +17,9 @@ public class TableComponentRenderer implements TableCellRenderer, ConfigParamete
     }
     @Override
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column){
-        JLabel c = (JLabel) defaultRenderer.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-        c.setHorizontalAlignment(SwingConstants.CENTER);
+        JComponent c = (JComponent) defaultRenderer.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+        if (!(value instanceof Boolean)){ ((JLabel) c).setHorizontalAlignment(SwingConstants.CENTER);} //set alignment to center as JLabel for all columns except boolean
+        c.setAlignmentX(Component.CENTER_ALIGNMENT); //only works for boolean
         c.setBorder(BorderFactory.createEmptyBorder());
 
         if (row == -1) {//make font bold if c is header
