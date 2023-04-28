@@ -10,7 +10,6 @@ import javax.swing.*;
 import javax.swing.table.*;
 import java.awt.*;
 import java.util.Arrays;
-import java.util.Vector;
 
 public class ListView extends JPanel implements ConfigParameters {
 
@@ -29,7 +28,6 @@ public class ListView extends JPanel implements ConfigParameters {
     public ListView() {
         this.controller = Controller.getInstance();
     }
-    private Object[][] data = {{}};
 
     protected void addComponents(JComponent header, JComponent year, JComponent checkbox, JComponent button) {
         //"this" is the JPanel we are adding to the super, as this class extends JPanel
@@ -72,7 +70,6 @@ public class ListView extends JPanel implements ConfigParameters {
         table.setOpaque(false);
         table.setFocusable(false);
         table.setRowHeight(Scaling.relativeHeight(6.5));
-        table.setPreferredSize(new Dimension(Scaling.relativeWidth(100 - 4.5), data.length * Scaling.relativeHeight(6.5)));
         table.setFont(inputFont);
 
         JScrollPane tableScrollable = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
@@ -89,7 +86,7 @@ public class ListView extends JPanel implements ConfigParameters {
         tableHeader.setReorderingAllowed(false);
         tableHeader.setResizingAllowed(false);
 
-        TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(table.getModel());
+        TableRowSorter<TableModel> sorter = new TableRowSorter<>(table.getModel());
         table.setRowSorter(sorter);
 
 
