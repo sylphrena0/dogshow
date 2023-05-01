@@ -8,10 +8,12 @@ import db.Database;
 import utilities.ConfigParameters;
 import utilities.Scaling;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -44,6 +46,12 @@ public class Controller extends JFrame implements ActionListener, ConfigParamete
             }
         });
         addComponents();
+
+        try {
+            setIconImage(ImageIO.read(new File("images/" + "icon.png")));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
         try {
             UIManager.setLookAndFeel(new FlatDarculaLaf());
