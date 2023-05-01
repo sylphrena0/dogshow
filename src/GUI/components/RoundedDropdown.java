@@ -12,25 +12,16 @@ public class RoundedDropdown extends JComboBox<String> implements ConfigParamete
     private final String text;
     private final Color color;
 
-    public RoundedDropdown(String[] options, String text, Controller controller) {
-        super(options);
+    public RoundedDropdown(String text, Controller controller) {
+        super(new String[] {});
         this.color = inputColor;
         this.text = text;
-        this.setSelectedIndex(0);
+//        this.setSelectedIndex(0);
         this.addActionListener(controller);
         this.setForeground(Color.WHITE);
         this.setBackground(inputColor);
         this.setFont(inputFont);
         this.setBorder(componentInsets);
-
-//        this.setUI(new BasicComboBoxUI() {
-//            @Override
-//            protected ComboPopup createPopup() {
-//                BasicComboPopup basicComboPopup = new BasicComboPopup(comboBox);
-//                basicComboPopup.setBorder(null);
-//                return basicComboPopup;
-//            }
-//        });
     }
 
     protected void paintComponent(Graphics g) {
@@ -58,5 +49,12 @@ public class RoundedDropdown extends JComboBox<String> implements ConfigParamete
             selected = text;
 
         return selected;
+    }
+
+    public void setOptions(String[] options) {
+        this.removeAllItems();
+        for (String option : options) {
+            this.addItem(option);
+        }
     }
 }

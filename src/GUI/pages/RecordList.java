@@ -1,29 +1,38 @@
 package GUI.pages;
 
 import GUI.Controller;
-import GUI.components.RoundedButton;
-import GUI.components.RoundedCheckbox;
+import GUI.components.RoundedDropdown;
 import GUI.pages.views.ListView;
-import utilities.Scaling;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class RecordList extends ListView {
-    public RecordList(Object[][] data) {
+    RoundedDropdown year;
+    public RecordList() {
         Controller controller = Controller.getInstance();
+
+        String[] columnNames = {"REG ID",
+                "Name",
+                "Obedience",
+                "Socialization",
+                "Grooming",
+                "Fetch",
+                "Balto Winner",
+                ""};
 
         JLabel recordsListHeader = new JLabel("View Contestant Records:");
         recordsListHeader.setFont(headerFont);
         recordsListHeader.setForeground(Color.WHITE);
         recordsListHeader.setHorizontalAlignment(SwingConstants.LEFT);
 
-        RoundedCheckbox baltoEligible = new RoundedCheckbox("Balto Eligible", controller);
-        RoundedButton commit = new RoundedButton("Commit Scores", lightPurpleButtonColor, Color.BLACK, controller);
+        year = new RoundedDropdown("Year", controller);
 
-        ImageIcon inspect = new ImageIcon((new ImageIcon("images/inspect.png")).getImage().getScaledInstance((int) (Scaling.relativeHeight(6.5)*0.5), (int) (Scaling.relativeHeight(6.5)*0.5),  java.awt.Image.SCALE_SMOOTH));  // use scaled icon
+        addComponents(recordsListHeader, year, columnNames);
+    }
 
-
-        addComponents(recordsListHeader, null, baltoEligible, commit);
+    public void setData(Object[][] data, String[] years) {
+        super.setData(data);
+        year.setOptions(years);
     }
 }

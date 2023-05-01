@@ -15,14 +15,7 @@ public class ListView extends JPanel implements ConfigParameters {
 
     private final Controller controller;
     protected JTable table;
-    private final String[] columnNames = {"REG ID",
-            "Name",
-            "Obedience",
-            "Socialization",
-            "Grooming",
-            "Fetch",
-            "Balto Winner",
-            ""};
+    private String[] columnNames;
     private DefaultTableModel tableModel;
     ImageIcon inspect = new ImageIcon((new ImageIcon("images/inspect.png")).getImage().getScaledInstance((int) (Scaling.relativeHeight(6.5) * 0.5), (int) (Scaling.relativeHeight(6.5) * 0.5), java.awt.Image.SCALE_SMOOTH));  // use scaled icon
 
@@ -30,22 +23,24 @@ public class ListView extends JPanel implements ConfigParameters {
         this.controller = Controller.getInstance();
     }
 
-    protected void addComponents(JComponent header, JComponent year, JComponent checkbox, JComponent button) {
+    protected void addComponents(JComponent header, JComponent option, String[] columnNames) {
         //"this" is the JPanel we are adding to the super, as this class extends JPanel
         this.setBackground(backgroundColor);
         this.setPreferredSize(pageSize);
         this.setLayout(new BorderLayout());
         this.setBorder(BorderFactory.createEmptyBorder(pagePadding, pagePadding, pagePadding, pagePadding));
 
+        this.columnNames = columnNames;
+
         JPanel listPanel = new RoundedPanel();
         listPanel.setLayout(new MigLayout(
                 "fill", // Layout Constraints
-                "[fill][fill][fill]", // Column constraints (fill makes components grow to row size, sg constrains each row/column to be the same size)
+                "[fill][fill]", // Column constraints (fill makes components grow to row size, sg constrains each row/column to be the same size)
                 "[fill][fill]" // Row constraints
         ));
         listPanel.setBackground(pageColor);
 
-        tableModel = new DefaultTableModel() {
+        tableModel = new DefaultTableModel(columnNames, 0) {
             @Override
             public Class getColumnClass(int column) {
                 if (column == 7) {
@@ -71,6 +66,7 @@ public class ListView extends JPanel implements ConfigParameters {
         table.setOpaque(false);
         table.setFocusable(false);
         table.setRowHeight(Scaling.relativeHeight(6.5));
+        table.setPreferredSize(new Dimension(Scaling.relativeWidth(100 - 4.5), Scaling.relativeHeight(6.5)));
         table.setFont(inputFont);
 
         JScrollPane tableScrollable = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
@@ -91,15 +87,8 @@ public class ListView extends JPanel implements ConfigParameters {
         table.setRowSorter(sorter);
 
 
-        listPanel.add(header, "gapbefore 2%, gaptop 4%, w 60%");
-        if (year != null) {
-            listPanel.add(year, "gapy %d %d".formatted(gridPadding, gridPadding / 4));
-            listPanel.add(checkbox, "gap %d %d %d %d, wrap".formatted(gridPadding, gridPadding, gridPadding, gridPadding / 4));
-        } else if (button != null) {
-            listPanel.add(checkbox, "al right, w min!, gapy %d %d".formatted(gridPadding, gridPadding / 4));
-            listPanel.add(button, "gap %d %d %d %d, wrap".formatted(gridPadding, gridPadding, gridPadding, gridPadding / 4));
-        }
-
+        listPanel.add(header, "gapbefore 2%, gaptop 4%, w 70%");
+        listPanel.add(option, "gap %d %d %d %d, wrap".formatted(gridPadding, gridPadding, gridPadding, gridPadding / 4));
         listPanel.add(tableScrollable, "span 2, h 91%!, dock south");
 
         this.add(listPanel, BorderLayout.CENTER);
@@ -107,21 +96,37 @@ public class ListView extends JPanel implements ConfigParameters {
     }
 
     public void setData(Object[][] data) {
+        if (data.length == 0) {
+            return;
+        }
         //add a column to the end of each row with inspect
         for (int i = 0; i < data.length; i++) {
-            data[i] = Arrays.copyOf(data[i], data[i].length + 1);
+            data[i] = Arrays.copyOf(data[i], data[i].length + 2);
+            data[i][data[i].length - 2] = (data[i][data[i].length - 3] != "-" && data[i][data[i].length - 4] != "-" && data[i][data[i].length - 5] != "-"  && data[i][data[i].length - 6] != "-"); //determines if balto eligible by checking that all contests are registered
             data[i][data[i].length - 1] = inspect;
         }
 
+        for (int i = 0; i < data.length; i++) { //for each row
+            for (int j = 2; j < 5; j++) { //for scores in each row
+                if (((String) data[i][j]).matches("^(([0-9]|10);){3}([0-9]|10)$")) { //if scores are saved
+                    double average = 0.0;
+                    for (String n : ((String) data[i][j]).split(";")) { //get each score
+                        average += Double.parseDouble(n); //add to average
+                    }
+                    data[i][j] = String.format("%.3g%n",average / 4.0); //set field to average, formatted to 3 sig figs
+                }
+            }
+        }
 
         tableModel.setDataVector(data, columnNames);
         table.setPreferredSize(new Dimension(Scaling.relativeWidth(100 - 4.5), data.length * Scaling.relativeHeight(6.5)));
-
     }
 
     public void addRow(Object[] row) {
         row = Arrays.copyOf(row, row.length + 1);
         row[row.length - 1] = inspect;
         tableModel.addRow(row);
+        table.setPreferredSize(new Dimension(Scaling.relativeWidth(100 - 4.5), table.getHeight() + Scaling.relativeHeight(6.5)));
     }
+
 }

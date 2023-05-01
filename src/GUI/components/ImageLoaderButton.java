@@ -39,9 +39,14 @@ public class ImageLoaderButton extends IconButton implements ConfigParameters {
     }
 
     public void setImage(Image image) {
-        this.image = image;
-        setIcon(null);
-        this.repaint();
+        if (image == null) {
+            this.image = null;
+            setIcon("noImageIcon.png", Scaling.relativeHeight(20), Scaling.relativeHeight(20));
+        } else {
+            this.image = image;
+            setIcon(null);
+        } this.repaint();
     }
+
 
 }

@@ -5,42 +5,48 @@ import GUI.components.*;
 import GUI.pages.views.TableView;
 import utilities.ConfigParameters;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 
 public class Record extends TableView implements ConfigParameters {
+    RoundedTextField familyName, familyEmail, name, breed, age, color, markings;
+    ScoreInput obedience, socialization, grooming, fetch;
+    ImageLoaderButton imageLoaderButton;
+    int regID;
 
     public Record() {
         Controller controller = Controller.getInstance();
 
-        JLabel recordsHeader = new JLabel("View Records: Balto");
+        JLabel recordsHeader = new JLabel("View Records:");
         recordsHeader.setFont(headerFont);
         recordsHeader.setForeground(Color.WHITE);
         recordsHeader.setHorizontalAlignment(SwingConstants.LEFT);
 
-        RoundedDropdown year = new RoundedDropdown(new String[] {"2023", "2022 "}, null, controller);
-        RoundedDropdown names = new RoundedDropdown(new String[] {"Sylphrena", "Dom"}, null, controller);
+        familyName = new RoundedTextField("Family Name", false, controller);
+        familyEmail = new RoundedTextField("Family Email", false, controller);
+        name = new RoundedTextField("Dog Name", false, controller);
+        breed = new RoundedTextField("Breed", false, controller);
+        age = new RoundedTextField("Age", false, controller);
+        color = new RoundedTextField("Color", false, controller);
+        markings = new RoundedTextField("Identifiable Markings", false, controller);
 
-        RoundedTextField familyName = new RoundedTextField("Family Name", false, controller);
-        RoundedTextField familyEmail = new RoundedTextField("Family Email", false, controller);
-        RoundedTextField name = new RoundedTextField("Dog Name", false, controller);
-        RoundedTextField breed = new RoundedTextField("Breed", false, controller);
-        RoundedTextField age = new RoundedTextField("Age", false, controller);
-        RoundedTextField color = new RoundedTextField("Color", false, controller);
-
-        RoundedTextField markings = new RoundedTextField("Identifiable Markings", false, controller);
-        ScoreInput obedience = new ScoreInput("Obedience Score", false, controller);
-        ScoreInput socialization = new ScoreInput("Socialization Score", false, controller);
-        ScoreInput grooming = new ScoreInput("Grooming Score", false, controller);
-        ScoreInput fetch = new ScoreInput("Fetch Score", false, controller);
+        obedience = new ScoreInput("Obedience Score", false, controller);
+        socialization = new ScoreInput("Socialization Score", false, controller);
+        grooming = new ScoreInput("Grooming Score", false, controller);
+        fetch = new ScoreInput("Fetch Score", false, controller);
 
         RoundedButton back = new RoundedButton("Back", pageColor, lightPurpleButtonColor, controller);
         RoundedButton winnerBanner = new RoundedButton("2022 Balto Award Winner", lightPurpleButtonColor, Color.BLACK, controller);
         winnerBanner.setEnabled(false);
 
-        IconButton imageLoaderButton = new ImageLoaderButton(controller);
+        back.setActionCommand("RECORD-LIST");
 
-        addComponents(recordsHeader, year, names,
+        imageLoaderButton = new ImageLoaderButton(controller);
+
+        addComponents(recordsHeader,
                 familyName, markings,
                 familyEmail, obedience,
                 name, socialization,
@@ -50,5 +56,45 @@ public class Record extends TableView implements ConfigParameters {
                 imageLoaderButton);
     }
 
+    public void setData(Object[] data) {
+        regID = (Integer) data[0];
+        familyName.setText((String) data[1]);
+        familyEmail.setText((String) data[2]);
+        name.setText((String) data[3]);
+        breed.setText((String) data[4]);
+        age.setText(((Integer) data[5]).toString());
+        color.setText((String) data[6]);
+        markings.setText((String) data[7]);
+
+        if (data[8].equals("-")) {
+            obedience.setEnabled(false);
+        } else if (!data[8].equals(" ")) {
+            obedience.setScores(((String) data[8]).split(";"));
+        }
+
+        if (data[9].equals("-")) {
+            socialization.setEnabled(false);
+        } else if (!data[9].equals(" ")) {
+            socialization.setScores(((String) data[9]).split(";"));
+        }
+
+        if (data[10].equals("-")) {
+            grooming.setEnabled(false);
+        } else if (!data[10].equals(" ")) {
+            grooming.setScores(((String) data[10]).split(";"));
+        }
+
+        if (data[11].equals("-")) {
+            fetch.setEnabled(false);
+        } else if (!data[11].equals(" ")) {
+            fetch.setScores(((String) data[11]).split(";"));
+        }
+
+        try {
+            imageLoaderButton.setImage(ImageIO.read(new ByteArrayInputStream((byte[]) data[12])));
+        } catch (IOException e) {
+            throw new RuntimeException("Error recovering image from database: " + e);
+        }
+    }
 
 }

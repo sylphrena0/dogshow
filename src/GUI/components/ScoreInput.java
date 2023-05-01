@@ -10,9 +10,11 @@ public class ScoreInput extends RoundedPanel {
 
     private RoundedTextField score1, score2, score3, score4;
     private JLabel scoreLabel;
+    private String placeholder;
 
     public ScoreInput(String label, Controller controller) {
         super(15, inputColor);
+        this.placeholder = label;
         this.setLayout(new MigLayout(
                 "fill",
                 "[fill][fill, sg][fill, sg][fill, sg][fill, sg]", // Column constraints (fill makes components grow to row size, sg constrains each row/column to be the same size)
@@ -59,6 +61,22 @@ public class ScoreInput extends RoundedPanel {
             score3.setEnabled(false);
             score4.setEnabled(false);
         }
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return score1.isEnabled();
+    }
+
+    public void setScores(String[] scores) {
+        score1.setText(scores[0]);
+        score2.setText(scores[1]);
+        score3.setText(scores[2]);
+        score4.setText(scores[3]);
+    }
+
+    public String getScores() {
+        return score1.getText() + ";" + score2.getText() + ";" + score3.getText() + ";" + score4.getText();
     }
 
 }

@@ -2,6 +2,7 @@ package GUI;
 
 import GUI.components.*;
 import GUI.pages.*;
+import GUI.pages.Record;
 import com.formdev.flatlaf.FlatDarculaLaf;
 import db.Database;
 import utilities.ConfigParameters;
@@ -15,13 +16,15 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.Vector;
+import java.util.Calendar;
 
 public class Controller extends JFrame implements ActionListener, ConfigParameters, MouseListener {
     private NavButton homeNav, recordsNav, registrationNav, scoreNav;
     private Registration registrationPage;
     RecordList recordList;
     ScoreList scoreList;
+    Record record;
+    Score score;
     private static Controller instance;
     private Home homePage;
     private CardLayout pageLayout;
@@ -49,10 +52,10 @@ public class Controller extends JFrame implements ActionListener, ConfigParamete
             ////////////////////////////////////
             ////// Dropdown Customization //////
             ////////////////////////////////////
-            UIManager.put("ComboBox.focusedBackground" , inputColor);
-            UIManager.put("ComboBox.selectionBackground" , inputColor);
-            UIManager.put("ComboBox.popupInsets" , new Insets(3,3,3,3)); //outer inset for set of items in dropdown menu
-            UIManager.put("ComboBox.selectionInsets" , new Insets(3,3,3,3)); //insets for items in dropdown menu
+            UIManager.put("ComboBox.focusedBackground", inputColor);
+            UIManager.put("ComboBox.selectionBackground", inputColor);
+            UIManager.put("ComboBox.popupInsets", new Insets(3, 3, 3, 3)); //outer inset for set of items in dropdown menu
+            UIManager.put("ComboBox.selectionInsets", new Insets(3, 3, 3, 3)); //insets for items in dropdown menu
             ////////////////////////////////////
 
             //set background color of disabled buttons
@@ -80,6 +83,7 @@ public class Controller extends JFrame implements ActionListener, ConfigParamete
         }
         return instance;
     }
+
     private void addComponents() {
         JPanel containerPanel = new JPanel();
         containerPanel.setLayout(new BorderLayout());
@@ -103,9 +107,9 @@ public class Controller extends JFrame implements ActionListener, ConfigParamete
         homeNav.setBackground(backgroundColor);
 
         homeNav.setActionCommand("HOME");
-        recordsNav.setActionCommand("RECORDS");
+        recordsNav.setActionCommand("RECORD-LIST");
         registrationNav.setActionCommand("REGISTRATION");
-        scoreNav.setActionCommand("SCORE");
+        scoreNav.setActionCommand("SCORE-LIST");
 
         recordsNav.setEnabled(false);
         registrationNav.setEnabled(false);
@@ -116,7 +120,7 @@ public class Controller extends JFrame implements ActionListener, ConfigParamete
         titlePanel.setBackground(pageColor);
         titlePanel.add(header);
 
-        IconButton closeButton = new IconButton("close.png", (int) (Scaling.relativeHeight(6.5)*0.75), (int) (Scaling.relativeHeight(6.5)*0.75), getInstance());
+        IconButton closeButton = new IconButton("close.png", (int) (Scaling.relativeHeight(6.5) * 0.75), (int) (Scaling.relativeHeight(6.5) * 0.75), getInstance());
         closeButton.addActionListener(actionEvent -> Controller.super.dispose());
 
         GroupLayout navLayout = new GroupLayout(navPanel);
@@ -157,18 +161,24 @@ public class Controller extends JFrame implements ActionListener, ConfigParamete
             fis.close();
         } catch (FileNotFoundException e) {
             homePage.switchAuthPanel(); //database does not exist, thus user is not registered
-        } catch (IOException ignored) { }
+        } catch (IOException ignored) {
+        }
 
-        recordList = new RecordList(new Object[][]{});
-        scoreList = new ScoreList(new Object[][]{});
+        recordList = new RecordList();
+        scoreList = new ScoreList();
+
+        score = new Score();
+        record = new Record();
 
         registrationPage = new Registration();
 
 
         pagePanel.add("HOME", homePage);
-        pagePanel.add("RECORDS", recordList);
+        pagePanel.add("RECORD-LIST", recordList);
+        pagePanel.add("RECORD", record);
         pagePanel.add("REGISTRATION", registrationPage);
-        pagePanel.add("SCORE", scoreList);
+        pagePanel.add("SCORE-LIST", scoreList);
+        pagePanel.add("SCORE", score);
 
         containerPanel.add(pagePanel, BorderLayout.CENTER);
 
@@ -176,10 +186,13 @@ public class Controller extends JFrame implements ActionListener, ConfigParamete
     }
 
     @Override
-    public void actionPerformed(ActionEvent actionEvent) {
+    public void actionPerformed(ActionEvent actionEvent) { // button action listeners
 
         String actionCommand = actionEvent.getActionCommand();
         switch (actionCommand) {
+            ////////////////////////////
+            ////////// Navbar //////////
+            ////////////////////////////
             case "HOME" -> {
                 homeNav.setBackground(backgroundColor);
                 recordsNav.setBackground(pageColor);
@@ -189,14 +202,14 @@ public class Controller extends JFrame implements ActionListener, ConfigParamete
                 setTitle("Home - Dog Show");
                 pageLayout.show(pagePanel, "HOME");
             }
-            case "RECORDS" -> {
+            case "RECORD-LIST" -> {
                 recordsNav.setBackground(backgroundColor);
                 homeNav.setBackground(pageColor);
                 registrationNav.setBackground(pageColor);
                 scoreNav.setBackground(pageColor);
 
                 setTitle("Records - Dog Show");
-                pageLayout.show(pagePanel, "RECORDS");
+                pageLayout.show(pagePanel, "RECORD-LIST");
             }
             case "REGISTRATION" -> {
                 registrationNav.setBackground(backgroundColor);
@@ -207,16 +220,20 @@ public class Controller extends JFrame implements ActionListener, ConfigParamete
                 setTitle("Registration - Dog Show");
                 pageLayout.show(pagePanel, "REGISTRATION");
             }
-            case "SCORE" -> {
+            case "SCORE-LIST" -> {
                 scoreNav.setBackground(backgroundColor);
                 homeNav.setBackground(pageColor);
                 recordsNav.setBackground(pageColor);
                 registrationNav.setBackground(pageColor);
 
                 setTitle("Score - Dog Show");
-                pageLayout.show(pagePanel, "SCORE");
+                pageLayout.show(pagePanel, "SCORE-LIST");
 
             }
+
+            ////////////////////////////
+            ////// Authentication //////
+            ////////////////////////////
             case "LOGIN" -> {
                 //get credentials
                 RoundedTextField username = homePage.getLoginUsername();
@@ -227,7 +244,8 @@ public class Controller extends JFrame implements ActionListener, ConfigParamete
                 if (username.getText().equals("Username")) {
                     username.setInvalid("Please specify a username");
                     error = true;
-                } if (String.valueOf(password.getPassword()).equals("Password")) {
+                }
+                if (String.valueOf(password.getPassword()).equals("Password")) {
                     password.setInvalid("Please specify a password");
                     error = true;
                 }
@@ -235,7 +253,7 @@ public class Controller extends JFrame implements ActionListener, ConfigParamete
                 //attempt to connect to database
                 if (!error) {
                     if (!Database.login(username.getText(), password.getPassword())) { //connects to database. false if incorrect credentials
-                        username.setInvalid("Invalid username or password");
+                        JOptionPane.showMessageDialog(this, "Incorrect username or password", "Error", JOptionPane.ERROR_MESSAGE);
                     } else {
                         System.out.println("Logged in!");
                         recordsNav.setEnabled(true);
@@ -243,35 +261,8 @@ public class Controller extends JFrame implements ActionListener, ConfigParamete
                         scoreNav.setEnabled(true);
                         homePage.hideAuthPanel();
 
-                        Object[][] sample = {
-                                {4512, "Balto", 10, 8, 2, 7, true},
-                                {9231, "Fideo", 6, 3, 5, 1, true},
-                                {1824, "Percy", 6, 1, 3, 0, false},
-                                {3491, "Cerberus", 10, 10, 10, 10, true},
-                                {1923, "Precious", 5, 1, 2, 3, true},
-                                {5383, "Kohl", 0, 3, 4, 1, false},
-                                {3481, "Roast", 8, 7, 0, 3, false},
-                                {2812, "Mouse", 0, 0, 7, 0, false},
-                                {2319, "Boo", 2, 3, 1, 9, true},
-                                {7912, "Bella", 6, 8, 5, 7, true},
-                                {4554, "Max", 9, 5, 4, 9, true},
-                                {2808, "Charlie", 9, 0, 5, 6, false},
-                                {6429, "Benito", 10, 8, 9, 7, true},
-                                {6776, "Daisy", 4, 6, 8, 6, true},
-                                {1198, "Milo", 3, 9, 0, 8, false},
-                                {8175, "Cooper", 7, 8, 9, 5, true}
-                        };
-
-
-
-                        recordList.setData(sample);
-                        scoreList.setData(sample);
-
-                        scoreList.repaint();
-
-                        System.out.println(scoreList.getTable());
-
-
+                        recordList.setData(Database.getScores(false), Database.getYears());
+                        scoreList.setData(Database.getScores(true));
                     }
                 }
 
@@ -323,7 +314,7 @@ public class Controller extends JFrame implements ActionListener, ConfigParamete
                 } else if (!passwordString.matches("(.{8,40})")) {
                     password.setInvalid("Must be 8-40 characters");
                     error = true;
-                } else if (passwordString.matches("\\d") || passwordString.matches("[a-zA-Z]") || passwordString.matches("[!@#$%^&*_]") ) {
+                } else if (passwordString.matches("\\d") || passwordString.matches("[a-zA-Z]") || passwordString.matches("[!@#$%^&*_]")) {
                     password.setInvalid("Enter one digit, one char, and one special char");
                     error = true;
                 } else if (!String.valueOf(password.getPassword()).matches("^[\\w!@#$%^&*]*$")) {
@@ -333,7 +324,8 @@ public class Controller extends JFrame implements ActionListener, ConfigParamete
                     password.setInvalid("Passwords do not match");
                     passwordConfirm.setInvalid("Passwords do not match");
                     error = true;
-                } if (new String(passwordConfirm.getPassword()).equals("Confirm Password")) {
+                }
+                if (new String(passwordConfirm.getPassword()).equals("Confirm Password")) {
                     passwordConfirm.setInvalid("Please specify a password");
                     error = true;
                 }
@@ -342,14 +334,207 @@ public class Controller extends JFrame implements ActionListener, ConfigParamete
                     recordsNav.setEnabled(true);
                     registrationNav.setEnabled(true);
                     scoreNav.setEnabled(true);
+                    homePage.hideAuthPanel();
                     System.out.println("Registered user and created database!");
                 }
 
                 System.out.println("REGISTER");
             }
-            case "SET_ICON" -> {
+
+            ////////////////////////////
+            /////// Registration ///////
+            ////////////////////////////
+            case "REGISTER-DOG" -> {
+                //get fields:
+                RoundedTextField familyName = registrationPage.getFamilyName();
+                RoundedTextField familyEmail = registrationPage.getFamilyEmail();
+                RoundedTextField dogName = registrationPage.getDogName();
+                RoundedTextField breed = registrationPage.getBreed();
+                RoundedTextField age = registrationPage.getAge();
+                RoundedTextField color = registrationPage.getDogColor();
+                RoundedTextField markings = registrationPage.getMarkings();
+                RoundedCheckbox obedience = registrationPage.getObedience();
+                RoundedCheckbox socialization = registrationPage.getSocialization();
+                RoundedCheckbox grooming = registrationPage.getGrooming();
+                RoundedCheckbox fetch = registrationPage.getFetch();
+                int year = Calendar.getInstance().get(Calendar.YEAR);
+                ImageLoaderButton imageLoaderButton = registrationPage.getImageLoaderButton();
+
+                String obedienceString = obedience.isSelected() ? " " : "-"; //" " if registered, "-" if not
+                String socializationString = socialization.isSelected() ? " " : "-";
+                String groomingString = grooming.isSelected() ? " " : "-";
+                String fetchString = fetch.isSelected() ? " " : "-";
+
+                //validate fields
+                boolean error = false;
+                if (familyName.getText().equals("Family Name")) {
+                    familyName.setInvalid("Please specify a family name");
+                    error = true;
+                } else if (!familyName.getText().matches("^[a-zA-Z\\s]*$")) {
+                    familyName.setInvalid("Invalid family name");
+                    error = true;
+                }
+
+                if (familyEmail.getText().equals("Family Email")) {
+                    familyEmail.setInvalid("Please specify a family email");
+                    error = true;
+                } else if (!familyEmail.getText().matches("^(.+)@(.+)$")) {
+                    familyEmail.setInvalid("Invalid family email");
+                    error = true;
+                }
+
+                if (dogName.getText().equals("Dog Name")) {
+                    dogName.setInvalid("Please specify a dog name");
+                    error = true;
+                } else if (!dogName.getText().matches("^[a-zA-Z\\s]*$")) {
+                    dogName.setInvalid("Invalid dog name");
+                    error = true;
+                }
+
+                if (breed.getText().equals("Breed")) {
+                    breed.setInvalid("Please specify a breed");
+                    error = true;
+                } else if (!breed.getText().matches("^[a-zA-Z\\s]*$")) {
+                    breed.setInvalid("Invalid breed");
+                    error = true;
+                }
+
+                if (age.getText().equals("Age")) {
+                    age.setInvalid("Please specify an age");
+                    error = true;
+                } else if (!age.getText().matches("^(100)?\\d{1,2}$")) { //valid age is 0-100
+                    age.setInvalid("Age must be between 0-100 years");
+                    error = true;
+                }
+
+                if (color.getText().equals("Color")) {
+                    color.setInvalid("Please specify a color");
+                    error = true;
+                } else if (!color.getText().matches("^[a-zA-Z\\s]*$")) {
+                    color.setInvalid("Invalid color");
+                    error = true;
+                }
+
+               if (!markings.getText().matches("^[a-zA-Z\\s]*$")) {
+                    markings.setInvalid("Invalid markings");
+                    error = true;
+                }
+
+                if (!(obedience.isSelected() || socialization.isSelected() || grooming.isSelected() || fetch.isSelected())) {
+                    JOptionPane.showMessageDialog(this, "You must register for at least one contest.", "No Contest Selected", JOptionPane.ERROR_MESSAGE);
+                    error = true;
+                }
+
+                //verify that image is selected
+                if (registrationPage.getImage() == null) {
+                    JOptionPane.showMessageDialog(this, "You must select an image.", "No Image Selected", JOptionPane.ERROR_MESSAGE);
+                    error = true;
+                }
+
+                if (!error) {
+                    int regID = Database.registerContestant(familyName.getText(), familyEmail.getText(), dogName.getText(), breed.getText(), Integer.parseInt(age.getText()), color.getText(), markings.getText(), obedienceString, socializationString, groomingString, fetchString, registrationPage.getImage(), year);
+                    scoreList.addRow(new Object[]{regID, dogName.getText(), obedienceString, socializationString, groomingString, fetchString, obedience.isSelected() && socialization.isSelected() && grooming.isSelected() && fetch.isSelected()});
+                    JOptionPane.showMessageDialog(this, "Successfully registered!", "Success", JOptionPane.INFORMATION_MESSAGE);
+
+                    //reset fields
+                    familyName.setText("Family Name");
+                    familyEmail.setText("Family Email");
+                    dogName.setText("Dog Name");
+                    breed.setText("Breed");
+                    age.setText("Age");
+                    color.setText("Color");
+                    markings.setText("Markings");
+                    obedience.setSelected(false);
+                    socialization.setSelected(false);
+                    grooming.setSelected(false);
+                    fetch.setSelected(false);
+                    imageLoaderButton.setImage(null);
+                }
+
+
+            }
+
+            ////////////////////////////
+            ////////// Scores //////////
+            ////////////////////////////
+            case "SCORE-SAVE" -> {
+                ScoreInput obedience = score.getObedience();
+                ScoreInput socialization = score.getSocialization();
+                ScoreInput grooming = score.getGrooming();
+                ScoreInput fetch = score.getFetch();
+                int regID = score.getRegID();
+
+                boolean error = false;
+                //TODO:  setting error message like in registration (currently, setting text of JLabel in ScoreInput to message causes the grid to resize)
+                if (obedience.isEnabled() && !obedience.getScores().matches("^(([0-9]|10);){3}([0-9]|10)$")) {
+                    JOptionPane.showMessageDialog(this, "Scores must be between 0-10", "Invalid Score(s)", JOptionPane.ERROR_MESSAGE);
+                    error = true;
+                } else if (socialization.isEnabled() && !socialization.getScores().matches("^(([0-9]|10);){3}([0-9]|10)$")) {
+                    JOptionPane.showMessageDialog(this, "Scores must be between 0-10", "Invalid Score(s)", JOptionPane.ERROR_MESSAGE);
+                    error = true;
+                } else if (grooming.isEnabled() && !grooming.getScores().matches("^(([0-9]|10);){3}([0-9]|10)$")) {
+                    JOptionPane.showMessageDialog(this, "Scores must be between 0-10", "Invalid Score(s)", JOptionPane.ERROR_MESSAGE);
+                    error = true;
+                } else if (fetch.isEnabled() && !fetch.getScores().matches("^(([0-9]|10);){3}([0-9]|10)$")) {
+                    JOptionPane.showMessageDialog(this, "Scores must be between 0-10", "Invalid Score(s)", JOptionPane.ERROR_MESSAGE);
+                    error = true;
+                }
+
+                //set scores
+                if (!error) {
+                    String obedienceScore = obedience.isEnabled() ? obedience.getScores() : "-";
+                    String socializationScore = socialization.isEnabled() ? socialization.getScores() : "-";
+                    String groomingScore = grooming.isEnabled() ? grooming.getScores() : "-";
+                    String fetchScore = fetch.isEnabled() ? fetch.getScores() : "-";
+                    Database.editScore(regID, obedienceScore, socializationScore, groomingScore, fetchScore);
+
+                    JOptionPane.showMessageDialog(this, "Saved scores!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                    pageLayout.show(pagePanel, "SCORE-LIST");
+
+                    //update score in table
+                    scoreList.setData(Database.getScores(true));
+                }
+
+
+            }
+            case "SCORE-COMMIT" -> {
+                boolean error = false;
+                for (Object[] row : Database.getScores(true)) {
+                    String obedienceScore = (String) row[2];
+                    String socializationScore = (String) row[3];
+                    String groomingScore = (String) row[4];
+                    String fetchScore = (String) row[5];
+
+                    if (obedienceScore.equals(" ") || socializationScore.equals(" ") || groomingScore.equals(" ") || fetchScore.equals(" ")) { //check if any scores are unentered
+                        error = true;
+                        JOptionPane.showMessageDialog(this, "All scores must be entered before committing.", "Missing Scores", JOptionPane.ERROR_MESSAGE);
+                        break; //don't send duplicate error messages
+                    }
+                }
+
+                if (!error) {
+                    Database.commitScores();
+                    JOptionPane.showMessageDialog(this, "Successfully committed scores!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                    recordsNav.setBackground(backgroundColor);
+                    homeNav.setBackground(pageColor);
+                    registrationNav.setBackground(pageColor);
+                    scoreNav.setBackground(pageColor);
+
+
+                    recordList.setData(Database.getScores(false), Database.getYears());
+                    scoreList.setData(Database.getScores(true));
+
+                    scoreList.repaint();
+                }
+
+            }
+
+            ////////////////////////////
+            /////// Image Button ///////
+            ////////////////////////////
+            case "SET-ICON" -> {
                 JFileChooser chooser = new JFileChooser(System.getProperty("user.home"));
-                FileNameExtensionFilter filter = new FileNameExtensionFilter("PNG, JPG, & GIF Images", "png", "jpg", "gif" );
+                FileNameExtensionFilter filter = new FileNameExtensionFilter("PNG, JPG, & GIF Images", "png", "jpg", "gif");
                 chooser.setFileFilter(filter);
 
                 int returnValue = chooser.showOpenDialog(this);
@@ -359,29 +544,46 @@ public class Controller extends JFrame implements ActionListener, ConfigParamete
                     registrationPage.setDogImage(selectedFile);
                 }
             }
-            case "BALTO" -> {
-                System.out.println("Filter clicked!");
-            }
+
         }
     }
+
     @Override
-    public void mouseClicked(MouseEvent e) {
-        JTable target = (JTable)e.getSource();
+    public void mouseClicked(MouseEvent e) { //table event handler
+        //TODO: Fix resizing of content on multiple loads, maybe b/c of setData()?
+        //TODO: Add balto winner logic and field
+        JTable target = (JTable) e.getSource();
         int row = target.getSelectedRow();
         int column = target.getSelectedColumn();
         if (column == 7) {
-            System.out.println(target.getValueAt(row, 0));
-//            Database.
+            Object[] result = Database.getContestant((int) target.getValueAt(row, 0));
+            if ((Boolean) result[14]) { //if current
+                pageLayout.show(pagePanel, "SCORE");
+                score.setData(result);
+            } else {
+                pageLayout.show(pagePanel, "RECORD");
+                record.setData(result);
+            }
+
         }
     }
+
     @Override
-    public void mousePressed(MouseEvent e) {}
+    public void mousePressed(MouseEvent e) {
+    }
+
     @Override
-    public void mouseReleased(MouseEvent e) {}
+    public void mouseReleased(MouseEvent e) {
+    }
+
     @Override
-    public void mouseEntered(MouseEvent e) {}
+    public void mouseEntered(MouseEvent e) {
+    }
+
     @Override
-    public void mouseExited(MouseEvent e) {}
+    public void mouseExited(MouseEvent e) {
+    }
+
     public static Dimension screenSize() {
         Controller controller = Controller.getInstance();
         Insets screenInsets = controller.getToolkit().getScreenInsets(controller.getGraphicsConfiguration());
@@ -389,7 +591,8 @@ public class Controller extends JFrame implements ActionListener, ConfigParamete
         return new Dimension(screenSize.width - screenInsets.right - screenInsets.left,
                 screenSize.height - screenInsets.bottom - screenInsets.top);
     }
+
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(()-> Controller.getInstance("Dog Show"));
+        SwingUtilities.invokeLater(() -> Controller.getInstance("Dog Show"));
     }
 }

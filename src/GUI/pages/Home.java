@@ -18,13 +18,8 @@ public class Home extends JPanel implements ConfigParameters {
     private final Controller controller;
     private CardLayout authLayout;
     private JPanel authPanel;
-    RoundedTextField registerName;
-    RoundedTextField registerEmail;
-    RoundedTextField registerUsername;
-    RoundedPasswordField registerPassword;
-    RoundedPasswordField registerConfirmPassword;
-    RoundedTextField loginUsername;
-    RoundedPasswordField loginPassword;
+    RoundedTextField registerName, registerEmail , registerUsername, loginUsername;
+    RoundedPasswordField registerPassword, registerConfirmPassword, loginPassword;
     public Home() {
         this.controller = Controller.getInstance();
         addComponents();
