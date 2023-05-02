@@ -49,6 +49,8 @@ public class Home extends JPanel implements ConfigParameters {
 
         loginUsername = new RoundedTextField("Username", controller);
         loginPassword = new RoundedPasswordField("Password", controller);
+        loginPassword.setActionCommand("LOGIN");
+
         RoundedButton loginButton = new RoundedButton("Login", lightPurpleButtonColor, Color.BLACK, controller);
 
         loginButton.setActionCommand("LOGIN");
@@ -80,6 +82,8 @@ public class Home extends JPanel implements ConfigParameters {
         registerUsername = new RoundedTextField("Username", controller);
         registerPassword = new RoundedPasswordField("Password", controller);
         registerConfirmPassword = new RoundedPasswordField("Confirm Password", controller);
+        registerConfirmPassword.setActionCommand("REGISTER");
+
         RoundedButton registerButton = new RoundedButton("Register", lightPurpleButtonColor, Color.BLACK, controller);
 
         registerButton.setActionCommand("REGISTER");
