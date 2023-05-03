@@ -23,7 +23,6 @@ public class Score extends TableView implements ConfigParameters {
         JLabel recordsHeader = new JLabel("Score:");
         recordsHeader.setFont(headerFont);
         recordsHeader.setForeground(Color.WHITE);
-        recordsHeader.setHorizontalAlignment(SwingConstants.LEFT);
 
         familyName = new RoundedTextField("Family Name", false, controller);
         familyEmail = new RoundedTextField("Family Email", false, controller);
