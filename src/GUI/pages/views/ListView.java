@@ -107,7 +107,7 @@ public class ListView extends JPanel implements ConfigParameters {
         }
 
         for (int i = 0; i < data.length; i++) { //for each row
-            for (int j = 2; j < 5; j++) { //for scores in each row
+            for (int j = 2; j < 6; j++) { //for scores in each row
                 if (((String) data[i][j]).matches("^(([0-9]|10);){3}([0-9]|10)$")) { //if scores are saved
                     double average = 0.0;
                     for (String n : ((String) data[i][j]).split(";")) { //get each score
