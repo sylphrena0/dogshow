@@ -72,7 +72,7 @@ public class ListView extends JPanel implements ConfigParameters {
         JScrollPane tableScrollable = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         tableScrollable.setOpaque(false);
         tableScrollable.setBackground(transparent);
-        tableScrollable.setBorder(BorderFactory.createLineBorder(pageColor, 2));
+        tableScrollable.setBorder(BorderFactory.createEmptyBorder());
         tableScrollable.getViewport().setOpaque(false);
 
         JTableHeader tableHeader = table.getTableHeader();
