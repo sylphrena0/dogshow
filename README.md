@@ -9,6 +9,8 @@ This repository contains the source code for an application produced for the 202
  - [MigLayout](https://github.com/mikaelgrev/miglayout)
  - [SQLite JDBC Driver](https://github.com/Willena/sqlite-jdbc-crypt)
  - [FlatLaf](https://github.com/JFormDesigner/FlatLaf)
+ - [Caveat Font](https://fonts.google.com/specimen/Caveat)
+ - [Material Icons](https://fonts.google.com/icons)
 
 <!-- <details open>
 <summary><font size=4>Project Filestructure:</font></summary> 
