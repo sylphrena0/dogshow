@@ -11,13 +11,8 @@ import java.awt.*;
 
 public class RoundedPanel extends JPanel implements Parameters {  //stroke size. it is recommended to set it to 1 for better view
     protected int strokeSize = 1; //sets if it drops shadow
-    protected Color shadowColor = Color.black; //color of shadow
-    protected boolean shady = true; //sets if it has a High Quality view
-    protected boolean highQuality = true; //double values for Horizontal and Vertical radius of corner arcs
-    protected Dimension arcs = new Dimension(Utilities.relativeHeight(12), Utilities.relativeHeight(12)); //distance between shadow border and opaque panel border
-    protected int shadowGap = 5; //the offset of shadow.
-    protected int shadowOffset = 4; //the transparency value of shadow. ( 0 - 255)
-    protected int shadowAlpha = 0;
+    protected boolean highQuality = true; // sets if it has a High Quality view
+    protected Dimension arcs = new Dimension(Utilities.relativeHeight(12), Utilities.relativeHeight(12)); //double values for Horizontal and Vertical radius of corner arcs
     private Color color;
     public RoundedPanel() {
         this.setOpaque(false);
@@ -36,28 +31,12 @@ public class RoundedPanel extends JPanel implements Parameters {  //stroke size.
         super.paintComponent(g);
         int width = getWidth();
         int height = getHeight();
-        int shadowGap = this.shadowGap;
-        Color shadowColorA = new Color(shadowColor.getRed(),
-                shadowColor.getGreen(), shadowColor.getBlue(), shadowAlpha);
+        int shadowGap = 1;
         Graphics2D graphics = (Graphics2D) g;
 
         //sets antialiasing if HQ.
         if (highQuality) {
-            graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-                    RenderingHints.VALUE_ANTIALIAS_ON);
-        }
-
-        //draws shadow borders if any.
-        if (shady) {
-            graphics.setColor(shadowColorA);
-            graphics.fillRoundRect(
-                    shadowOffset, //x position
-                    shadowOffset, //y position
-                    width - strokeSize - shadowOffset, //width
-                    height - strokeSize - shadowOffset, //height
-                    arcs.width, arcs.height); //arc Dimension
-        } else {
-            shadowGap = 1;
+            graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         }
 
         //draws the rounded opaque panel with borders.
