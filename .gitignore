@@ -22,10 +22,4 @@
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
-/out/production/SoftwareEngineering/images/checked.png
-/out/production/SoftwareEngineering/images/close.png
-/out/production/SoftwareEngineering/db/database.db
-/out/production/SoftwareEngineering/images/dogs.png
-/out/production/SoftwareEngineering/images/noImage.png
-/out/production/SoftwareEngineering/auth/passwords
-/out/production/SoftwareEngineering/images/unchecked.png
+/out/
