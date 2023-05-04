@@ -7,6 +7,7 @@ import GUI.components.RoundedPasswordField;
 import GUI.components.RoundedTextField;
 import net.miginfocom.swing.MigLayout;
 import utilities.Parameters;
+import utilities.Utilities;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -114,18 +115,13 @@ public class Home extends JPanel implements Parameters {
         authPanel.add(registerPanel);
         authLayout.first(authPanel);
 
-        try {
-            //scaling solution from https://stackoverflow.com/questions/6714045/how-to-resize-jlabel-imageicon
-            ImageIcon imageIcon = new ImageIcon(ImageIO.read(new File("images/dogs.png"))); //load the image to a imageIcon
-            Image scaledImage = imageIcon.getImage().getScaledInstance(screenSize.width, (int) (screenSize.width*15.0/64.0),  java.awt.Image.SCALE_SMOOTH); //scale it the smooth way
-            imageIcon = new ImageIcon(scaledImage);  //transform it back
+        //scaling solution from https://stackoverflow.com/questions/6714045/how-to-resize-jlabel-imageicon
+        ImageIcon imageIcon = Utilities.getImageIcon("dogs.png"); //load the image to a imageIcon
+        Image scaledImage = imageIcon.getImage().getScaledInstance(screenSize.width, (int) (screenSize.width*15.0/64.0),  Image.SCALE_SMOOTH); //scale it the smooth way
+        imageIcon = new ImageIcon(scaledImage);  //transform it back
 
-            JLabel dogImageLabel = new JLabel(imageIcon);
-            this.add(dogImageLabel, BorderLayout.CENTER);
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-            System.exit(0);
-        }
+        JLabel dogImageLabel = new JLabel(imageIcon);
+        this.add(dogImageLabel, BorderLayout.CENTER);
         this.add(authPanel, BorderLayout.NORTH);
     }
 

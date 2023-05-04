@@ -2,6 +2,7 @@ package GUI.components;
 
 import GUI.Controller;
 import utilities.Parameters;
+import utilities.Utilities;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -11,28 +12,18 @@ import java.io.IOException;
 
 public class IconButton extends JButton implements Parameters {
     public IconButton(String imageName, int iconWidth, int iconHeight, Controller controller) {
-        try {
-            ImageIcon imageIcon = new ImageIcon(ImageIO.read(new File("images/" + imageName))); // load the image to a imageIcon
-            Image scaledImage = imageIcon.getImage().getScaledInstance(iconWidth, iconHeight,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
-            this.setIcon(new ImageIcon(scaledImage));
-            this.setBorderPainted(false);
-            this.setOpaque(false);
-            this.addActionListener(controller);
-            this.setBackground(null);
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-            System.exit(0);
-        }
+        ImageIcon imageIcon = Utilities.getImageIcon(imageName); // load the image to a imageIcon
+        Image scaledImage = imageIcon.getImage().getScaledInstance(iconWidth, iconHeight,  Image.SCALE_SMOOTH); // scale it the smooth way
+        this.setIcon(new ImageIcon(scaledImage));
+        this.setBorderPainted(false);
+        this.setOpaque(false);
+        this.addActionListener(controller);
+        this.setBackground(null);
     }
 
     public void setIcon(String imageName, int iconWidth, int iconHeight) {
-        try {
-            ImageIcon imageIcon = new ImageIcon(ImageIO.read(new File("images/" + imageName))); // load the image to a imageIcon
-            Image scaledImage = imageIcon.getImage().getScaledInstance(iconWidth, iconHeight,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
-            this.setIcon(new ImageIcon(scaledImage));
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-            System.exit(0);
-        }
+        ImageIcon imageIcon = Utilities.getImageIcon(imageName); // load the image to a imageIcon
+        Image scaledImage = imageIcon.getImage().getScaledInstance(iconWidth, iconHeight,  Image.SCALE_SMOOTH); // scale it the smooth way
+        this.setIcon(new ImageIcon(scaledImage));
     }
 }

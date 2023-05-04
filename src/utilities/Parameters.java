@@ -7,6 +7,7 @@ import javax.swing.border.Border;
 import java.awt.*;
 
 public interface Parameters {
+    String pathSeparator = System.getProperty("file.separator");
     Dimension screenSize = Controller.screenSize();
     Dimension pageSize = new Dimension(screenSize.width, screenSize.height - Utilities.relativeHeight(6.5));
     Color lightPurpleButtonColor = new Color(0xBB86FC);
