@@ -20,10 +20,4 @@ public class NavButton extends JButton implements Parameters {
         this.setBorderPainted(false);
         this.addActionListener(controller);
     }
-
-//    @Override
-//    public void setEnabled(boolean b) {
-//        super.setEnabled(b);
-//        this.setBackground(backgroundColor);
-//    }
 }
