@@ -138,13 +138,8 @@ public class Controller extends JFrame implements ActionListener, Parameters, Mo
 
         homePage = new Home();
 
-        try {
-            FileInputStream fis = new FileInputStream("src/db/salt.txt");
-            fis.read();
-            fis.close();
-        } catch (FileNotFoundException e) {
+        if (!Database.databaseExists()) {
             homePage.switchAuthPanel(); //database does not exist, thus user is not registered
-        } catch (IOException ignored) {
         }
 
         recordList = new RecordList();

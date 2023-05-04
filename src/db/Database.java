@@ -21,9 +21,26 @@ import java.util.ArrayList;
 
 public class Database {
 
-    private static final String url = "jdbc:sqlite:%sdatabase.db".formatted(Utilities.getPath("db" + Utilities.pathSeparator));
+    private static final String dbPath = "jdbc:sqlite:%sdatabase.db".formatted(Utilities.getPath("db" + Utilities.pathSeparator));
+    private static final String saltPath = Utilities.getPath("db" + Utilities.pathSeparator + "salt.txt");
     private static Connection connection = null;
     private static byte[] salt = null;
+
+    /**
+     * Check if the database exists
+     * @return true if the database exists, false otherwise
+     **/
+    public static boolean databaseExists() {
+        try {
+            FileInputStream fis = new FileInputStream(saltPath);
+            fis.close();
+        } catch (FileNotFoundException e) {
+            return false;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return true;
+    }
 
     /**
      * Creates a database if it does not exist and connects to it
@@ -31,16 +48,8 @@ public class Database {
      **/
     private static void createDatabase(char[] password) {
         //check if we already have a database by checking if the salt file exists
-        try {
-            salt = new byte[16];
-            FileInputStream fis = new FileInputStream(Utilities.getPath("db" + Utilities.pathSeparator + "salt.txt"));
-            fis.read();
-            fis.close();
-            return;
-        } catch (FileNotFoundException e) {
-            //database does not exist, create it
-        } catch (IOException e) { //TODO: check if this works :) (I don't think it does)
-            return; //database exists, return nothing
+        if (databaseExists()) {
+            throw new RuntimeException("Attempted to create database when it already exists. Does salt.txt exist?");
         }
 
         //generate a secret key using the registrar's password
@@ -50,14 +59,14 @@ public class Database {
             SecureRandom random = new SecureRandom();
             random.nextBytes(salt);
             //write salt to src/db/salt.txt
-            FileOutputStream fos = new FileOutputStream(Utilities.getPath("db" + Utilities.pathSeparator + "salt.txt"));
+            FileOutputStream fos = new FileOutputStream(saltPath);
             fos.write(salt);
             fos.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
-        try (Connection conn = DriverManager.getConnection(url)) {
+        try (Connection conn = DriverManager.getConnection(dbPath)) {
             if (conn != null) {
                 DatabaseMetaData meta = conn.getMetaData();
                 System.out.println("The driver name is " + meta.getDriverName());
@@ -112,7 +121,7 @@ public class Database {
         if (salt == null) {
             try {
                 salt = new byte[8];
-                FileInputStream fis = new FileInputStream(Utilities.getPath("db" + Utilities.pathSeparator + "salt.txt"));
+                FileInputStream fis = new FileInputStream(saltPath);
                 salt = fis.readNBytes(8);
                 fis.close();
             } catch (FileNotFoundException e) {
@@ -134,8 +143,8 @@ public class Database {
             return;
         } // connection already exists
 
-        DriverManager.getConnection(url, new SQLiteMCConfig.Builder().withKey(key.toString()).build().toProperties());
-        connection = new SQLiteMCConfig.Builder().withKey(key.toString()).build().createConnection(url);
+        DriverManager.getConnection(dbPath, new SQLiteMCConfig.Builder().withKey(key.toString()).build().toProperties());
+        connection = new SQLiteMCConfig.Builder().withKey(key.toString()).build().createConnection(dbPath);
 
     }
 
