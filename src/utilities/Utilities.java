@@ -5,7 +5,6 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.util.Objects;
 
 import static java.awt.Font.createFont;
 
@@ -15,12 +14,12 @@ public class Utilities implements Parameters {
      * @param relativePath The relative path to the file
      * @return The URL of the file
      */
-    public static URL getPath(String relativePath) {
+    public static URL getURL(String relativePath) {
         return Utilities.class.getResource(".." + pathSeparator + relativePath); //since Utilities is in a package, we need to go up one directory with ".."
     }
 
     public static ImageIcon getImageIcon(String name) {
-        return new ImageIcon(getPath("images" + pathSeparator + name));
+        return new ImageIcon(getURL("images" + pathSeparator + name));
     }
 
     /**
@@ -30,7 +29,7 @@ public class Utilities implements Parameters {
      */
     public static Font getCaveatFont(int style, int size) {
         try {
-            Font font = createFont(java.awt.Font.TRUETYPE_FONT, new File("Caveat-Regular.ttf"));
+            Font font = createFont(java.awt.Font.TRUETYPE_FONT, new File("src/external/Caveat-Regular.ttf"));
             return font.deriveFont(style, size);
         } catch (FontFormatException | IOException e) {
             throw new RuntimeException(e);
