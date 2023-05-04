@@ -1,7 +1,7 @@
 package GUI.components;
 
 import GUI.Controller;
-import utilities.ConfigParameters;
+import utilities.Parameters;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -9,7 +9,7 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 
-public class IconButton extends JButton implements ConfigParameters {
+public class IconButton extends JButton implements Parameters {
     public IconButton(String imageName, int iconWidth, int iconHeight, Controller controller) {
         try {
             ImageIcon imageIcon = new ImageIcon(ImageIO.read(new File("images/" + imageName))); // load the image to a imageIcon

@@ -5,22 +5,22 @@ import GUI.pages.*;
 import GUI.pages.Record;
 import com.formdev.flatlaf.FlatDarculaLaf;
 import db.Database;
-import utilities.ConfigParameters;
-import utilities.Scaling;
+import utilities.Parameters;
+import utilities.Utilities;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.*;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Objects;
 
-public class Controller extends JFrame implements ActionListener, ConfigParameters, MouseListener {
+public class Controller extends JFrame implements ActionListener, Parameters, MouseListener {
     private NavButton homeNav, recordsNav, registrationNav, scoreNav;
     private Registration registrationPage;
     RecordList recordList;
@@ -48,7 +48,7 @@ public class Controller extends JFrame implements ActionListener, ConfigParamete
         addComponents();
 
         try {
-            setIconImage(ImageIO.read(new File("images/" + "icon.png")));
+            setIconImage(ImageIO.read(Objects.requireNonNull(getClass().getResource("/images/icon.png"))));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -74,8 +74,6 @@ public class Controller extends JFrame implements ActionListener, ConfigParamete
             System.out.println("Error setting UI look and feel!");
             System.exit(0);
         }
-
-
         setVisible(true);
     }
 
@@ -98,7 +96,7 @@ public class Controller extends JFrame implements ActionListener, ConfigParamete
         containerPanel.setBackground(backgroundColor);
 
         JPanel navPanel = new JPanel();
-        navPanel.setPreferredSize(new Dimension(screenSize.width, Scaling.relativeHeight(6.5)));
+        navPanel.setPreferredSize(new Dimension(screenSize.width, Utilities.relativeHeight(6.5)));
         navPanel.setBackground(pageColor);
         navPanel.setForeground(Color.WHITE);
 
@@ -128,32 +126,14 @@ public class Controller extends JFrame implements ActionListener, ConfigParamete
         titlePanel.setBackground(pageColor);
         titlePanel.add(header);
 
-        IconButton closeButton = new IconButton("close.png", (int) (Scaling.relativeHeight(6.5) * 0.75), (int) (Scaling.relativeHeight(6.5) * 0.75), getInstance());
+        IconButton closeButton = new IconButton("close.png", (int) (Utilities.relativeHeight(6.5) * 0.75), (int) (Utilities.relativeHeight(6.5) * 0.75), getInstance());
         closeButton.addActionListener(actionEvent -> Controller.super.dispose());
 
         GroupLayout navLayout = new GroupLayout(navPanel);
         navLayout.setAutoCreateGaps(false);
         navLayout.setAutoCreateContainerGaps(false);
-        navLayout.setHorizontalGroup(
-                navLayout.createSequentialGroup()
-                        .addComponent(titlePanel)
-                        .addComponent(homeNav)
-                        .addComponent(recordsNav)
-                        .addComponent(registrationNav)
-                        .addComponent(scoreNav)
-                        .addComponent(closeButton)
-        );
-        navLayout.setVerticalGroup(
-                navLayout.createSequentialGroup()
-                        .addGroup(navLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                .addComponent(titlePanel)
-                                .addComponent(homeNav)
-                                .addComponent(recordsNav)
-                                .addComponent(registrationNav)
-                                .addComponent(scoreNav)
-                                .addComponent(closeButton, Scaling.relativeHeight(6.5), Scaling.relativeHeight(6.5), Scaling.relativeHeight(6.5))
-                        )
-        );
+        navLayout.setHorizontalGroup(navLayout.createSequentialGroup().addComponent(titlePanel).addComponent(homeNav).addComponent(recordsNav).addComponent(registrationNav).addComponent(scoreNav).addComponent(closeButton));
+        navLayout.setVerticalGroup(navLayout.createSequentialGroup().addGroup(navLayout.createParallelGroup(GroupLayout.Alignment.BASELINE).addComponent(titlePanel).addComponent(homeNav).addComponent(recordsNav).addComponent(registrationNav).addComponent(scoreNav).addComponent(closeButton, Utilities.relativeHeight(6.5), Utilities.relativeHeight(6.5), Utilities.relativeHeight(6.5))));
 
         navPanel.setLayout(navLayout);
         containerPanel.add(navPanel, BorderLayout.NORTH);
@@ -423,7 +403,7 @@ public class Controller extends JFrame implements ActionListener, ConfigParamete
                     error = true;
                 }
 
-               if (!markings.getText().matches("^[a-zA-Z\\s]*$")) {
+                if (!markings.getText().matches("^[a-zA-Z\\s]*$")) {
                     markings.setInvalid("Invalid markings");
                     error = true;
                 }
@@ -558,13 +538,15 @@ public class Controller extends JFrame implements ActionListener, ConfigParamete
 
     @Override
     public void mouseClicked(MouseEvent e) { //table event handler
-        //TODO: Fix resizing of content on multiple loads, maybe b/c of setData()?
+        //TODO: Fix resizing of content on multiple loads, caused by miglayout cells growing when a component's setText() is called
         //TODO: Add balto winner logic and field
         JTable target = (JTable) e.getSource();
         int row = target.getSelectedRow();
         int column = target.getSelectedColumn();
         if (column == 7) {
-            Object[] result = Database.getContestant((int) target.getValueAt(row, 0));
+            int regID = (int) target.getValueAt(row, 0);
+            Object[] result = Database.getContestant(regID);
+
             if ((Boolean) result[14]) { //if current
                 pageLayout.show(pagePanel, "SCORE");
                 score.setData(result);
@@ -596,8 +578,7 @@ public class Controller extends JFrame implements ActionListener, ConfigParamete
         Controller controller = Controller.getInstance();
         Insets screenInsets = controller.getToolkit().getScreenInsets(controller.getGraphicsConfiguration());
         Rectangle screenSize = controller.getGraphicsConfiguration().getBounds();
-        return new Dimension(screenSize.width - screenInsets.right - screenInsets.left,
-                screenSize.height - screenInsets.bottom - screenInsets.top);
+        return new Dimension(screenSize.width - screenInsets.right - screenInsets.left, screenSize.height - screenInsets.bottom - screenInsets.top);
     }
 
     public static void main(String[] args) {

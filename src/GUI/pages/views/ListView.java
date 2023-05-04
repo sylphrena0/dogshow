@@ -3,21 +3,21 @@ package GUI.pages.views;
 import GUI.Controller;
 import GUI.components.*;
 import net.miginfocom.swing.MigLayout;
-import utilities.ConfigParameters;
-import utilities.Scaling;
+import utilities.Parameters;
+import utilities.Utilities;
 
 import javax.swing.*;
 import javax.swing.table.*;
 import java.awt.*;
 import java.util.Arrays;
 
-public class ListView extends JPanel implements ConfigParameters {
+public class ListView extends JPanel implements Parameters {
 
     private final Controller controller;
     protected JTable table;
     private String[] columnNames;
     private DefaultTableModel tableModel;
-    ImageIcon inspect = new ImageIcon((new ImageIcon("images/inspect.png")).getImage().getScaledInstance((int) (Scaling.relativeHeight(6.5) * 0.5), (int) (Scaling.relativeHeight(6.5) * 0.5), java.awt.Image.SCALE_SMOOTH));  // use scaled icon
+    ImageIcon inspect = new ImageIcon((new ImageIcon("images/inspect.png")).getImage().getScaledInstance((int) (Utilities.relativeHeight(6.5) * 0.5), (int) (Utilities.relativeHeight(6.5) * 0.5), java.awt.Image.SCALE_SMOOTH));  // use scaled icon
 
     public ListView() {
         this.controller = Controller.getInstance();
@@ -65,8 +65,8 @@ public class ListView extends JPanel implements ConfigParameters {
         table.setBackground(null);
         table.setOpaque(false);
         table.setFocusable(false);
-        table.setRowHeight(Scaling.relativeHeight(6.5));
-        table.setPreferredSize(new Dimension(Scaling.relativeWidth(100 - 4.5), Scaling.relativeHeight(6.5)));
+        table.setRowHeight(Utilities.relativeHeight(6.5));
+        table.setPreferredSize(new Dimension(Utilities.relativeWidth(100 - 4.5), Utilities.relativeHeight(6.5)));
         table.setFont(inputFont);
 
         JScrollPane tableScrollable = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
@@ -77,7 +77,7 @@ public class ListView extends JPanel implements ConfigParameters {
 
         JTableHeader tableHeader = table.getTableHeader();
         tableHeader.setBackground(backgroundColor);
-        tableHeader.setPreferredSize(new Dimension(Scaling.relativeWidth(100 - 4.5), Scaling.relativeHeight(6.5)));
+        tableHeader.setPreferredSize(new Dimension(Utilities.relativeWidth(100 - 4.5), Utilities.relativeHeight(6.5)));
         tableHeader.setBorder(BorderFactory.createEmptyBorder());
         tableHeader.setDefaultRenderer(new TableComponentRenderer(new TableComponentRenderer(tableHeader.getDefaultRenderer())));
         tableHeader.setReorderingAllowed(false);
@@ -119,14 +119,14 @@ public class ListView extends JPanel implements ConfigParameters {
         }
 
         tableModel.setDataVector(data, columnNames);
-        table.setPreferredSize(new Dimension(Scaling.relativeWidth(100 - 4.5), data.length * Scaling.relativeHeight(6.5)));
+        table.setPreferredSize(new Dimension(Utilities.relativeWidth(100 - 4.5), data.length * Utilities.relativeHeight(6.5)));
     }
 
     public void addRow(Object[] row) {
         row = Arrays.copyOf(row, row.length + 1);
         row[row.length - 1] = inspect;
         tableModel.addRow(row);
-        table.setPreferredSize(new Dimension(Scaling.relativeWidth(100 - 4.5), table.getHeight() + Scaling.relativeHeight(6.5)));
+        table.setPreferredSize(new Dimension(Utilities.relativeWidth(100 - 4.5), table.getHeight() + Utilities.relativeHeight(6.5)));
     }
 
 }

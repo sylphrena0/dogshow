@@ -3,7 +3,7 @@ package GUI.pages;
 import GUI.Controller;
 import GUI.components.*;
 import GUI.pages.views.TableView;
-import utilities.ConfigParameters;
+import utilities.Parameters;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -11,12 +11,10 @@ import java.awt.*;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
-public class Record extends TableView implements ConfigParameters {
+public class Record extends TableView implements Parameters {
     RoundedTextField familyName, familyEmail, name, breed, age, color, markings;
     ScoreInput obedience, socialization, grooming, fetch;
     ImageLoaderButton imageLoaderButton;
-    int regID;
-
     public Record() {
         Controller controller = Controller.getInstance();
 
@@ -33,10 +31,10 @@ public class Record extends TableView implements ConfigParameters {
         color = new RoundedTextField("Color", false, controller);
         markings = new RoundedTextField("Identifiable Markings", false, controller);
 
-        obedience = new ScoreInput("Obedience Score", false, controller);
-        socialization = new ScoreInput("Socialization Score", false, controller);
-        grooming = new ScoreInput("Grooming Score", false, controller);
-        fetch = new ScoreInput("Fetch Score", false, controller);
+        obedience = new ScoreInput("Obedience", false, controller);
+        socialization = new ScoreInput("Socialization", false, controller);
+        grooming = new ScoreInput("Grooming", false, controller);
+        fetch = new ScoreInput("Fetch", false, controller);
 
         RoundedButton back = new RoundedButton("Back", pageColor, lightPurpleButtonColor, controller);
         RoundedButton winnerBanner = new RoundedButton("2022 Balto Award Winner", lightPurpleButtonColor, Color.BLACK, controller);
@@ -57,7 +55,6 @@ public class Record extends TableView implements ConfigParameters {
     }
 
     public void setData(Object[] data) {
-        regID = (Integer) data[0];
         familyName.setText((String) data[1]);
         familyEmail.setText((String) data[2]);
         name.setText((String) data[3]);
@@ -96,5 +93,4 @@ public class Record extends TableView implements ConfigParameters {
             throw new RuntimeException("Error recovering image from database: " + e);
         }
     }
-
 }

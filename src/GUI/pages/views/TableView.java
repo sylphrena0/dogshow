@@ -2,53 +2,47 @@ package GUI.pages.views;
 
 import GUI.components.*;
 import net.miginfocom.swing.MigLayout;
-import utilities.ConfigParameters;
-import utilities.Scaling;
+import utilities.Parameters;
+import utilities.Utilities;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class TableView extends JPanel implements ConfigParameters {
-    protected JComponent imagePanel;
+public class TableView extends JPanel implements Parameters {
+    protected ImageLoaderButton imageButton;
 
-    protected int gridPaddingRegistration = Scaling.relativeHeight(3);
+    protected int gridPaddingRegistration = Utilities.relativeHeight(3);
 
-    protected void addComponents(JComponent header,
-                                 JComponent familyName, JComponent markings,
-                                 JComponent email, JComponent obedience,
-                                 JComponent name, JComponent socialization,
-                                 JComponent breed, JComponent grooming,
-                                 JComponent age, JComponent color, JComponent fetch,
-                                 JComponent back, JComponent register,
-                                 JComponent imageLoaderButton) {
+    protected void addComponents(JLabel header,
+                                 RoundedTextField familyName, RoundedTextField markings,
+                                 RoundedTextField email, JComponent obedience,
+                                 RoundedTextField name, JComponent socialization,
+                                 RoundedTextField breed, JComponent grooming,
+                                 RoundedTextField age, RoundedTextField color, JComponent fetch,
+                                 RoundedButton back, RoundedButton register,
+                                 ImageLoaderButton imageLoaderButton) {
 
-        this.imagePanel = imageLoaderButton;
+        this.imageButton = imageLoaderButton;
 
         //"this" is the JPanel we are adding to the super, as this class extends JPanel
         this.setBackground(backgroundColor);
         this.setPreferredSize(pageSize);
         this.setLayout(new BorderLayout());
-        this.setBorder(BorderFactory.createEmptyBorder(pagePadding, pagePadding, 2 * pagePadding, pagePadding));
+        this.setBorder(BorderFactory.createEmptyBorder(pagePadding, pagePadding, pagePadding, pagePadding));
 
-        JPanel tablePanel = new RoundedPanel();
-        tablePanel.setLayout(new BorderLayout());
-        tablePanel.setBackground(pageColor);
-
-        JPanel contentPanel = new JPanel();
-        contentPanel.setMaximumSize(new Dimension(Scaling.relativeWidth(100.0 - 4 * Scaling.heightToWidth(4.5) - Scaling.heightToWidth(4)), Scaling.relativeHeight(75.5 - 2.0 * 4.5 - 2.0 * 4 - 4.2)));
-        contentPanel.setOpaque(false);
-
+        JPanel contentPanel = new RoundedPanel();
+        contentPanel.setBackground(pageColor);
         contentPanel.setLayout(new MigLayout(
-                "insets %d, gap %d, fill".formatted(gridPaddingRegistration, gridPaddingRegistration), // Layout Constraints
-                "[fill, sg][fill, sg][fill, sg]", // Column constraints (fill makes components grow to row size, sg constrains each row/column to be the same size)
-                "[fill, sg][fill, sg][fill, sg][fill, sg][fill, sg][fill, sg][fill, sg]" // Row constraints
+                "fill, insets %d, gap %d".formatted(gridPaddingRegistration, gridPaddingRegistration), // Layout Constraints
+                "[sgx, fill][sgx, fill][sgx, fill]", // Column constraints (fill makes components grow to row size, sg constrains each row/column to be the same size)
+                "[sgy, fill][sgy, fill][sgy, fill][sgy, fill][sgy, fill][sgy, fill][sgy, fill]" // Row constraints
         ));
 
         contentPanel.add(header, "span 3, wrap");
 
         contentPanel.add(familyName);
         contentPanel.add(markings);
-        contentPanel.add(imagePanel, "span 1 5, wrap");
+        contentPanel.add(imageButton, "spany 5, wrap");
 
         contentPanel.add(email);
         contentPanel.add(obedience, "wrap");
@@ -70,10 +64,7 @@ public class TableView extends JPanel implements ConfigParameters {
             contentPanel.add(register, "span 4");
         }
 
-
-        tablePanel.add(contentPanel, BorderLayout.CENTER);
-
-        this.add(tablePanel);
+        this.add(contentPanel, BorderLayout.CENTER);
     }
 }
 

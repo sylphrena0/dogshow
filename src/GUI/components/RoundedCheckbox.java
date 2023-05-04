@@ -1,17 +1,14 @@
 package GUI.components;
 
 import GUI.Controller;
-import utilities.ConfigParameters;
-import utilities.Scaling;
+import utilities.Parameters;
+import utilities.Utilities;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.RoundRectangle2D;
-import java.io.File;
-import java.io.IOException;
 
-public class RoundedCheckbox extends JCheckBox implements ConfigParameters{
+public class RoundedCheckbox extends JCheckBox implements Parameters {
         private Shape shape;
         private final Color color;
         public RoundedCheckbox(String text, Controller controller) {
@@ -24,8 +21,8 @@ public class RoundedCheckbox extends JCheckBox implements ConfigParameters{
             this.setFocusPainted(false);
             this.setBorder(componentInsets);
 
-            this.setIcon(new ImageIcon((new ImageIcon("images/unchecked.png")).getImage().getScaledInstance((int) (Scaling.relativeHeight(6.5)*0.5), (int) (Scaling.relativeHeight(6.5)*0.5),  java.awt.Image.SCALE_SMOOTH))); //set default icon for checkbox
-            this.setSelectedIcon(new ImageIcon((new ImageIcon("images/checked.png")).getImage().getScaledInstance((int) (Scaling.relativeHeight(6.5)*0.5), (int) (Scaling.relativeHeight(6.5)*0.5),  java.awt.Image.SCALE_SMOOTH))); //set selected icon when checkbox state is selected
+            this.setIcon(new ImageIcon((new ImageIcon("images/unchecked.png")).getImage().getScaledInstance((int) (Utilities.relativeHeight(6.5)*0.5), (int) (Utilities.relativeHeight(6.5)*0.5),  java.awt.Image.SCALE_SMOOTH))); //set default icon for checkbox
+            this.setSelectedIcon(new ImageIcon((new ImageIcon("images/checked.png")).getImage().getScaledInstance((int) (Utilities.relativeHeight(6.5)*0.5), (int) (Utilities.relativeHeight(6.5)*0.5),  java.awt.Image.SCALE_SMOOTH))); //set selected icon when checkbox state is selected
 
         }
         protected void paintComponent(Graphics g) {

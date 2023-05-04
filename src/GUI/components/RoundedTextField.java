@@ -1,7 +1,7 @@
 package GUI.components;
 
 import GUI.Controller;
-import utilities.ConfigParameters;
+import utilities.Parameters;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,7 +11,7 @@ import java.awt.geom.RoundRectangle2D;
 
 // Author: Graywolf
 // Source: https://stackoverflow.com/questions/16213836/java-swing-jtextfield-set-placeholder
-public class RoundedTextField extends JFormattedTextField implements ConfigParameters {
+public class RoundedTextField extends JFormattedTextField implements Parameters {
     private Shape shape;
     private Color color;
     private String placeholder;

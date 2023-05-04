@@ -6,7 +6,7 @@ import GUI.components.RoundedPanel;
 import GUI.components.RoundedPasswordField;
 import GUI.components.RoundedTextField;
 import net.miginfocom.swing.MigLayout;
-import utilities.ConfigParameters;
+import utilities.Parameters;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -14,7 +14,7 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 
-public class Home extends JPanel implements ConfigParameters {
+public class Home extends JPanel implements Parameters {
     private final Controller controller;
     private CardLayout authLayout;
     private JPanel authPanel;

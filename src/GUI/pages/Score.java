@@ -3,7 +3,7 @@ package GUI.pages;
 import GUI.Controller;
 import GUI.components.*;
 import GUI.pages.views.TableView;
-import utilities.ConfigParameters;
+import utilities.Parameters;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -11,7 +11,7 @@ import java.awt.*;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
-public class Score extends TableView implements ConfigParameters {
+public class Score extends TableView implements Parameters {
     RoundedTextField familyName, familyEmail, name, breed, age, color, markings;
     ScoreInput obedience, socialization, grooming, fetch;
     ImageLoaderButton imageLoaderButton;

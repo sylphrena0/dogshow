@@ -1,13 +1,13 @@
 package GUI.components;
 
 import GUI.Controller;
-import utilities.ConfigParameters;
+import utilities.Parameters;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.RoundRectangle2D;
 
-public class RoundedDropdown extends JComboBox<String> implements ConfigParameters {
+public class RoundedDropdown extends JComboBox<String> implements Parameters {
     private Shape shape;
     private final String text;
     private final Color color;

@@ -1,17 +1,17 @@
 package GUI.components;
 
 import GUI.Controller;
-import utilities.ConfigParameters;
-import utilities.Scaling;
+import utilities.Parameters;
+import utilities.Utilities;
 
 import java.awt.*;
 import java.awt.geom.RoundRectangle2D;
 
-public class ImageLoaderButton extends IconButton implements ConfigParameters {
+public class ImageLoaderButton extends IconButton implements Parameters {
     private Shape shape;
     private Image image;
     public ImageLoaderButton(Controller controller) {
-        super("noImageIcon.png", Scaling.relativeHeight(20), Scaling.relativeHeight(20), controller);
+        super("noImageIcon.png", Utilities.relativeHeight(20), Utilities.relativeHeight(20), controller);
         this.setBackground(transparent); //otherwise, paint component will draw over image with flatlaf dracula L&F
     }
 
@@ -41,7 +41,7 @@ public class ImageLoaderButton extends IconButton implements ConfigParameters {
     public void setImage(Image image) {
         if (image == null) {
             this.image = null;
-            setIcon("noImageIcon.png", Scaling.relativeHeight(20), Scaling.relativeHeight(20));
+            setIcon("noImageIcon.png", Utilities.relativeHeight(20), Utilities.relativeHeight(20));
         } else {
             this.image = image;
             setIcon(null);

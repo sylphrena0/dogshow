@@ -3,14 +3,14 @@ package GUI.pages;
 import GUI.Controller;
 import GUI.components.*;
 import GUI.pages.views.ListView;
-import utilities.ConfigParameters;
+import utilities.Parameters;
 
 import javax.swing.*;
 import java.awt.*;
 
 
 
-public class ScoreList extends ListView implements ConfigParameters {
+public class ScoreList extends ListView implements Parameters {
     public ScoreList() {
         Controller controller = Controller.getInstance();
 

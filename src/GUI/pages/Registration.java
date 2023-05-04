@@ -3,7 +3,7 @@ package GUI.pages;
 import GUI.Controller;
 import GUI.components.*;
 import GUI.pages.views.TableView;
-import utilities.Scaling;
+import utilities.Utilities;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -64,9 +64,7 @@ public class Registration extends TableView {
         try {
             //scaling solution from https://stackoverflow.com/questions/6714045/how-to-resize-jlabel-imageicon
             ImageIcon imageIcon = new ImageIcon(ImageIO.read(new File(file))); // load the image to a imageIcon
-            System.out.println(new Dimension(imageButton.getWidth(), imageButton.getHeight()));
-            Dimension letterboxed = Scaling.letterboxImage(new Dimension(imageIcon.getIconWidth(), imageIcon.getIconHeight()), new Dimension(imageButton.getWidth(), imageButton.getHeight())); // group2width and group1height are protected ints in TableLayout.java
-            System.out.println(letterboxed);
+            Dimension letterboxed = Utilities.letterboxImage(new Dimension(imageIcon.getIconWidth(), imageIcon.getIconHeight()), new Dimension(imageButton.getWidth(), imageButton.getHeight())); // group2width and group1height are protected ints in TableLayout.java
             scaledImage = imageIcon.getImage().getScaledInstance(letterboxed.width, letterboxed.height, java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
             imageLoaderButton.setImage(scaledImage);
         } catch (IOException e) {

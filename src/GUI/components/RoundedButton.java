@@ -1,13 +1,13 @@
 package GUI.components;
 
 import GUI.Controller;
-import utilities.ConfigParameters;
+import utilities.Parameters;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.RoundRectangle2D;
 
-public class RoundedButton extends JButton implements ConfigParameters {
+public class RoundedButton extends JButton implements Parameters {
     private Shape shape;
     private final Color color;
     public RoundedButton(String text, Color color, Color textColor, Controller controller) {

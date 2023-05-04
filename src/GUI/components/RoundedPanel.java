@@ -1,7 +1,7 @@
 package GUI.components;
 
-import utilities.ConfigParameters;
-import utilities.Scaling;
+import utilities.Parameters;
+import utilities.Utilities;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,12 +9,12 @@ import java.awt.*;
 // Author: b4rc0ll0
 // Source: https://www.codeproject.com/Articles/114959/Rounded-Border-JPanel-JPanel-graphics-improvements
 
-public class RoundedPanel extends JPanel implements ConfigParameters {  //stroke size. it is recommended to set it to 1 for better view
+public class RoundedPanel extends JPanel implements Parameters {  //stroke size. it is recommended to set it to 1 for better view
     protected int strokeSize = 1; //sets if it drops shadow
     protected Color shadowColor = Color.black; //color of shadow
     protected boolean shady = true; //sets if it has a High Quality view
     protected boolean highQuality = true; //double values for Horizontal and Vertical radius of corner arcs
-    protected Dimension arcs = new Dimension(Scaling.relativeHeight(12), Scaling.relativeHeight(12)); //distance between shadow border and opaque panel border
+    protected Dimension arcs = new Dimension(Utilities.relativeHeight(12), Utilities.relativeHeight(12)); //distance between shadow border and opaque panel border
     protected int shadowGap = 5; //the offset of shadow.
     protected int shadowOffset = 4; //the transparency value of shadow. ( 0 - 255)
     protected int shadowAlpha = 0;

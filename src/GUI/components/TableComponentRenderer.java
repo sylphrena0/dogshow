@@ -1,14 +1,13 @@
 package GUI.components;
 
-import utilities.ConfigParameters;
-import utilities.Scaling;
+import utilities.Parameters;
+import utilities.Utilities;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableCellRenderer;
 import java.awt.*;
 
-public class TableComponentRenderer implements TableCellRenderer, ConfigParameters {
+public class TableComponentRenderer implements TableCellRenderer, Parameters {
 
     private TableCellRenderer defaultRenderer;
 
@@ -23,7 +22,7 @@ public class TableComponentRenderer implements TableCellRenderer, ConfigParamete
         c.setBorder(BorderFactory.createEmptyBorder());
 
         if (row == -1) {//make font bold if c is header
-            c.setFont(c.getFont().deriveFont(Font.BOLD, Scaling.relativeHeight(2)));
+            c.setFont(c.getFont().deriveFont(Font.BOLD, Utilities.relativeHeight(2)));
         }
         if (row % 2 == 0){
             c.setBackground(pageColor);
