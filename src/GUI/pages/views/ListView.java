@@ -17,8 +17,7 @@ public class ListView extends JPanel implements Parameters {
     protected JTable table;
     private String[] columnNames;
     private DefaultTableModel tableModel;
-    ImageIcon inspect = new ImageIcon((new ImageIcon("images/inspect.png")).getImage().getScaledInstance((int) (Utilities.relativeHeight(6.5) * 0.5), (int) (Utilities.relativeHeight(6.5) * 0.5), java.awt.Image.SCALE_SMOOTH));  // use scaled icon
-
+    ImageIcon inspect = Utilities.getScaledImageIcon("inspect.png", (int) (Utilities.relativeHeight(6.5) * 0.5), (int) (Utilities.relativeHeight(6.5) * 0.5));
     public ListView() {
         this.controller = Controller.getInstance();
     }

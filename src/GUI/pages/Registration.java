@@ -62,10 +62,8 @@ public class Registration extends TableView {
 
     public void setDogImage(String file) {
         try {
-            //scaling solution from https://stackoverflow.com/questions/6714045/how-to-resize-jlabel-imageicon
             ImageIcon imageIcon = new ImageIcon(ImageIO.read(new File(file))); // load the image to a imageIcon
-            Dimension letterboxed = Utilities.letterboxImage(new Dimension(imageIcon.getIconWidth(), imageIcon.getIconHeight()), new Dimension(imageButton.getWidth(), imageButton.getHeight())); // group2width and group1height are protected ints in TableLayout.java
-            scaledImage = imageIcon.getImage().getScaledInstance(letterboxed.width, letterboxed.height, java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
+            scaledImage = Utilities.letterboxImage(imageIcon, imageButton.getWidth(), imageButton.getHeight());
             imageLoaderButton.setImage(scaledImage);
         } catch (IOException e) {
             System.out.println(e.getMessage());
