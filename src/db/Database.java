@@ -3,6 +3,7 @@ package db;
 //import org.sqlite.mc.SQLiteMCConfig;
 
 import org.sqlite.mc.SQLiteMCConfig;
+import utilities.Utilities;
 
 import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
@@ -20,7 +21,7 @@ import java.util.ArrayList;
 
 public class Database {
 
-    private static final String url = "jdbc:sqlite:database.db";
+    private static final String url = "jdbc:sqlite:%sdatabase.db".formatted(Utilities.getPath("db" + Utilities.pathSeparator));
     private static Connection connection = null;
     private static byte[] salt = null;
 
@@ -32,7 +33,7 @@ public class Database {
         //check if we already have a database by checking if the salt file exists
         try {
             salt = new byte[16];
-            FileInputStream fis = new FileInputStream("src/db/salt.txt");
+            FileInputStream fis = new FileInputStream(Utilities.getPath("db" + Utilities.pathSeparator + "salt.txt"));
             fis.read();
             fis.close();
             return;
@@ -49,7 +50,7 @@ public class Database {
             SecureRandom random = new SecureRandom();
             random.nextBytes(salt);
             //write salt to src/db/salt.txt
-            FileOutputStream fos = new FileOutputStream("src/db/salt.txt");
+            FileOutputStream fos = new FileOutputStream(Utilities.getPath("db" + Utilities.pathSeparator + "salt.txt"));
             fos.write(salt);
             fos.close();
         } catch (IOException e) {
@@ -107,11 +108,11 @@ public class Database {
         * @throws RuntimeException if the database does not exist
      **/
     private static void connect(char[] password) throws SQLException {
-        //get salt from salt.txt if it isn't already set
+        //get salt from salt.txt if it isn't already retrieved
         if (salt == null) {
             try {
                 salt = new byte[8];
-                FileInputStream fis = new FileInputStream("src/db/salt.txt");
+                FileInputStream fis = new FileInputStream(Utilities.getPath("db" + Utilities.pathSeparator + "salt.txt"));
                 salt = fis.readNBytes(8);
                 fis.close();
             } catch (FileNotFoundException e) {
@@ -185,8 +186,6 @@ public class Database {
 
     public static int registerContestant(String familyName, String email, String name, String breed, int age, String color, String markings, String obedience, String socialization, String grooming, String fetch, byte[] photo, int year) {
         try {
-            //TODO: parse obedience, socialization, grooming, fetch arrays into strings
-
             boolean current = true;
 
             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO records(familyName, email, name, breed, age, color, markings, obedience, socialization, grooming, fetch, photo, year, current) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
@@ -236,12 +235,6 @@ public class Database {
             if (!resultSet.next() || !resultSet.getBoolean("current")) {
                 throw new RuntimeException("Error: registrationID does not exist or is not current");
             }
-
-            //TODO: check that scores are valid
-            //return false if any scores arrays contain values that are not ints between 0 and 10
-
-            //TODO: parse obedience, socialization, grooming, fetch arrays into strings
-
             PreparedStatement updateScore = connection.prepareStatement("UPDATE records SET obedience = ?, socialization = ?, grooming = ?, fetch = ? WHERE regID = ?");
             updateScore.setString(1, obedience);
             updateScore.setString(2, socialization);

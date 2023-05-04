@@ -4,7 +4,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.Objects;
 
 import static java.awt.Font.createFont;
 
@@ -18,6 +20,18 @@ public class Utilities implements Parameters {
         return Utilities.class.getResource(".." + pathSeparator + relativePath); //since Utilities is in a package, we need to go up one directory with ".."
     }
 
+    public static String getPath(String relativePath) {
+        try {
+            return Objects.requireNonNull(Utilities.class.getResource(".." + pathSeparator + relativePath)).toURI().getPath();
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static File getFile(String relativePath) {
+        return new File(getPath(relativePath));
+    }
+
     public static ImageIcon getImageIcon(String name) {
         return new ImageIcon(getURL("images" + pathSeparator + name));
     }
@@ -29,7 +43,7 @@ public class Utilities implements Parameters {
      */
     public static Font getCaveatFont(int style, int size) {
         try {
-            Font font = createFont(java.awt.Font.TRUETYPE_FONT, new File("src/external/Caveat-Regular.ttf"));
+            Font font = createFont(java.awt.Font.TRUETYPE_FONT, getFile("external" + pathSeparator + "Caveat-Regular.ttf"));
             return font.deriveFont(style, size);
         } catch (FontFormatException | IOException e) {
             throw new RuntimeException(e);

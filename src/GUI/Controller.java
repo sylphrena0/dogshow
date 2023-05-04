@@ -40,18 +40,13 @@ public class Controller extends JFrame implements ActionListener, Parameters, Mo
         setUndecorated(true);
         setSize(screenSize);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setIconImage(Utilities.getImageIcon("icon.png").getImage());
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent evt) {
                 Database.disconnect();
             }
         });
         addComponents();
-
-        try {
-            setIconImage(ImageIO.read(Objects.requireNonNull(getClass().getResource("/images/icon.png"))));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
 
         try {
             UIManager.setLookAndFeel(new FlatDarculaLaf());
