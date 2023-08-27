@@ -1,6 +1,6 @@
 # Software Engineering Project: Dog Show
 
-Authors: [Sylphrena Kleinsasser](https://github.com/sylphrena0), [Dominick Garcia](https://github.com/DomG06)
+Authors: [Sylphrena Kleinsasser](https://github.com/sylphrena0), [Dominick Garcia](https://github.com/DomG06)   
 Instructor: [Dr. Krish Pillai](https://www.lycoming.edu/faculty/pillai-krish.aspx)
 
 This repository contains the source code for an application produced for the 2023 Software Engineering Capstone at Lycoming College. The application was built according to specifications outlined in the [Project Request for Proposals](https://github.com/sylphrena0/dogshow/blob/master/Request%20for%20Proposals.pdf). The intitial UI design we created for this project is available on [Google Slides](https://docs.google.com/presentation/d/162Y0hAee3gJy2oXr8UxHopVxCYejSRz8XLDjT958Fn4/edit#slide=id.g181d91624ff_0_23).
