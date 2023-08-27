@@ -55,6 +55,8 @@ public class Score extends TableView implements Parameters {
     }
 
     public void setData(Object[] data) {
+        contentPanel.setLayout(null); //reset layout to prevent wierd resizing issue
+
         regID = (Integer) data[0];
         familyName.setText((String) data[1]);
         familyEmail.setText((String) data[2]);
@@ -93,6 +95,8 @@ public class Score extends TableView implements Parameters {
         } catch (IOException e) {
             throw new RuntimeException("Error recovering image from database: " + e);
         }
+
+        contentPanel.setLayout(tableLayout); //set to use miglayout again after setText()
     }
 
     public ScoreInput getObedience() {

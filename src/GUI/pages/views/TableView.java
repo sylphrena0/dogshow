@@ -12,6 +12,8 @@ public class TableView extends JPanel implements Parameters {
     protected ImageLoaderButton imageButton;
 
     protected int gridPaddingRegistration = Utilities.relativeHeight(3);
+    protected MigLayout tableLayout;
+    protected RoundedPanel contentPanel;
 
     protected void addComponents(JLabel header,
                                  RoundedTextField familyName, RoundedTextField markings,
@@ -30,13 +32,14 @@ public class TableView extends JPanel implements Parameters {
         this.setLayout(new BorderLayout());
         this.setBorder(BorderFactory.createEmptyBorder(pagePadding, pagePadding, pagePadding, pagePadding));
 
-        JPanel contentPanel = new RoundedPanel();
+        contentPanel = new RoundedPanel();
         contentPanel.setBackground(pageColor);
-        contentPanel.setLayout(new MigLayout(
+        tableLayout = new MigLayout(
                 "fill, insets %d, gap %d".formatted(gridPaddingRegistration, gridPaddingRegistration), // Layout Constraints
                 "[sgx, fill][sgx, fill][sgx, fill]", // Column constraints (fill makes components grow to row size, sg constrains each row/column to be the same size)
                 "[sgy, fill][sgy, fill][sgy, fill][sgy, fill][sgy, fill][sgy, fill][sgy, fill]" // Row constraints
-        ));
+        );
+        contentPanel.setLayout(tableLayout);
 
         contentPanel.add(header, "span 3, wrap");
 
