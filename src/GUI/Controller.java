@@ -8,17 +8,12 @@ import db.Database;
 import utilities.Parameters;
 import utilities.Utilities;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.*;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Objects;
 
 public class Controller extends JFrame implements ActionListener, Parameters, MouseListener {
     private NavButton homeNav, recordsNav, registrationNav, scoreNav;
@@ -528,7 +523,6 @@ public class Controller extends JFrame implements ActionListener, Parameters, Mo
 
     @Override
     public void mouseClicked(MouseEvent e) { //table event handler
-        //TODO: Fix resizing of content on multiple loads, caused by miglayout cells growing when a component's setText() is called
         //TODO: Add balto winner logic and field
         JTable target = (JTable) e.getSource();
         int row = target.getSelectedRow();
