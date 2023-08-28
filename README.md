@@ -19,8 +19,11 @@ This repository contains the source code for an application produced for the 202
 - Add ability to run more than one contest per year. Currently, if you commit scores multiple times in a year, it will be added to the same contest in the scores panel.
 - Add detailed filestructure documentation.
 
+<!--
+Build Instructions:
+jpackage --name DogShow --app-version 0.9.0 --input ./ --main-jar DogShow.jar --type deb --icon ../../../src/images/icon.png
 
-<!-- <details open>
+ <details open>
 <summary><font size=4>Project Filestructure:</font></summary> 
 
 using template from https://stackoverflow.com/questions/19699059/representing-directory-file-structure-in-markdown-syntax
