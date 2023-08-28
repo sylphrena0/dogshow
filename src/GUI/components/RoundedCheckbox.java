@@ -21,7 +21,7 @@ public class RoundedCheckbox extends JCheckBox implements Parameters {
             this.setFocusPainted(false);
             this.setBorder(componentInsets);
             this.setIcon(Utilities.getScaledImageIcon("unchecked.png", (int) (Utilities.relativeHeight(6.5)*0.5), (int) (Utilities.relativeHeight(6.5)*0.5))); //set default icon for checkbox
-            this.setIcon(Utilities.getScaledImageIcon("checked.png", (int) (Utilities.relativeHeight(6.5)*0.5), (int) (Utilities.relativeHeight(6.5)*0.5))); //set default icon for checkbox
+            this.setSelectedIcon(Utilities.getScaledImageIcon("checked.png", (int) (Utilities.relativeHeight(6.5)*0.5), (int) (Utilities.relativeHeight(6.5)*0.5))); //set default icon for checkbox
         }
         protected void paintComponent(Graphics g) {
             g.setColor(color);
