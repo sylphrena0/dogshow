@@ -3,7 +3,7 @@ package db;
 //import org.sqlite.mc.SQLiteMCConfig;
 
 import org.sqlite.mc.SQLiteMCConfig;
-import utilities.Utilities;
+import utilities.Parameters;
 
 import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
@@ -19,10 +19,12 @@ import java.security.spec.InvalidKeySpecException;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class Database {
-
-    private static final String dbPath = "jdbc:sqlite:%sdatabase.db".formatted(Utilities.getPath("db" + Utilities.pathSeparator));
-    private static final String saltPath = Utilities.getPath("db" + Utilities.pathSeparator + "salt.txt");
+public class Database implements Parameters {
+    private static final String classPath = System.getProperty("java.class.path");
+    //remove everything after the last path separator
+    private static final String curDir = classPath.substring(0, classPath.lastIndexOf(pathSeparator));
+    private static final String dbPath = "jdbc:sqlite:%sdatabase.db".formatted(curDir + pathSeparator);
+    private static final String saltPath = curDir + pathSeparator + "salt.txt";
     private static Connection connection = null;
     private static byte[] salt = null;
 
