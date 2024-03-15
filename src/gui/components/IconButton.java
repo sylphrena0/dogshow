@@ -1,14 +1,11 @@
-package GUI.components;
+package gui.components;
 
-import GUI.Controller;
+import gui.Controller;
 import utilities.Parameters;
 import utilities.Utilities;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.io.File;
-import java.io.IOException;
 
 public class IconButton extends JButton implements Parameters {
     public IconButton(String imageName, int iconWidth, int iconHeight, Controller controller) {

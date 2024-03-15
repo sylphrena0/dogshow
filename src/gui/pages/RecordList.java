@@ -1,8 +1,8 @@
-package GUI.pages;
+package gui.pages;
 
-import GUI.Controller;
-import GUI.components.RoundedDropdown;
-import GUI.pages.views.ListView;
+import gui.Controller;
+import gui.components.RoundedDropdown;
+import gui.pages.views.ListView;
 
 import javax.swing.*;
 import java.awt.*;

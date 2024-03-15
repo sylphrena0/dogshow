@@ -1,4 +1,4 @@
-package GUI.components;
+package gui.components;
 
 import utilities.Parameters;
 import utilities.Utilities;
@@ -9,7 +9,7 @@ import java.awt.*;
 
 public class TableComponentRenderer implements TableCellRenderer, Parameters {
 
-    private TableCellRenderer defaultRenderer;
+    private final TableCellRenderer defaultRenderer;
 
     public TableComponentRenderer(TableCellRenderer defaultRenderer){
         this.defaultRenderer = defaultRenderer;

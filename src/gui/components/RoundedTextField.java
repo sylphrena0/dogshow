@@ -1,6 +1,6 @@
-package GUI.components;
+package gui.components;
 
-import GUI.Controller;
+import gui.Controller;
 import utilities.Parameters;
 
 import javax.swing.*;
@@ -11,51 +11,66 @@ import java.awt.geom.RoundRectangle2D;
 
 // Author: Graywolf
 // Source: https://stackoverflow.com/questions/16213836/java-swing-jtextfield-set-placeholder
-
-public class RoundedPasswordField extends JPasswordField implements Parameters {
+public class RoundedTextField extends JFormattedTextField implements Parameters {
     private Shape shape;
-    private final Color color;
-    private String placeholder;
-    public RoundedPasswordField(String placeholder, Controller controller) {
-        setOpaque(false);
+    private Color color;
+    private final String placeholder;
+    public RoundedTextField(String placeholder, Controller controller) {
         this.color = inputColor;
         this.placeholder = placeholder;
+        this.setOpaque(false); // As suggested by @AVD in comment.
         this.addActionListener(controller);
         this.setForeground(Color.WHITE);
-        this.setBackground(inputColor);
+        this.setBackground(color);
         this.setCaretColor(Color.WHITE);
         this.setBorder(componentInsets);
         this.setFont(inputFont);
-        this.setEchoChar((char) 0); //sets password to visible
         this.setText(placeholder);
 
-        RoundedPasswordField passwordField = this;
-        passwordField.addFocusListener(new FocusListener() {
+        JTextField textField = this;
+        textField.addFocusListener(new FocusListener() {
             @Override
             public void focusGained(FocusEvent e) {
-                if (new String(passwordField.getPassword()).equals(placeholder)) {
-                    passwordField.setText("");
-                    passwordField.setEchoChar('*'); //sets password to invisible
+                if (textField.getText().equals(placeholder)) {
+                    textField.setText("");
                 }
             }
             @Override
             public void focusLost(FocusEvent e) {
-                if (new String(passwordField.getPassword()).isEmpty()) {
-                    passwordField.setText(placeholder);
-                    passwordField.setEchoChar((char) 0); //sets password to visible
+                if (textField.getText().isEmpty()) {
+                    textField.setText(placeholder);
                 }
             }
         });
+
     }
+    public RoundedTextField(String placeholder, Controller controller, Color color) {
+        this(placeholder, controller);
+        this.color = color;
+        this.setBackground(color);
+        this.setHorizontalAlignment(SwingConstants.CENTER);
+    }
+    public RoundedTextField(String placeholder, Boolean enabled, Controller controller) {
+        this(placeholder, controller);
+        if (Boolean.FALSE.equals(enabled)) {
+            this.setEnabled(false);
+        }
+    }
+
+    @Override
     protected void paintComponent(Graphics g) {
         g.setColor(color);
         g.fillRoundRect(0, 0, getWidth()-1, getHeight()-1, 15, 15);
         super.paintComponent(g);
     }
+
+    @Override
     protected void paintBorder(Graphics g) {
         g.setColor(color);
         g.drawRoundRect(0, 0, getWidth()-1, getHeight()-1, 15, 15);
     }
+
+    @Override
     public boolean contains(int x, int y) {
         if (shape == null || !shape.getBounds().equals(getBounds())) {
             shape = new RoundRectangle2D.Float(0, 0, getWidth()-1, getHeight()-1, 15, 15);
@@ -66,20 +81,19 @@ public class RoundedPasswordField extends JPasswordField implements Parameters {
     public void setInvalid(String error) {
         //set a red placeholder error for 3 seconds before reverting to normal
         this.setForeground(errorRed);
-        this.setEchoChar((char) 0); //sets password to visible
         this.setText(error);
-        JPasswordField passwordField = this;
+        RoundedTextField textField = this;
         new java.util.Timer().schedule(
                 new java.util.TimerTask() {
                     @Override
                     public void run() {
-                        passwordField.setText(placeholder);
-                        passwordField.setForeground(Color.WHITE);
+                        textField.setText(placeholder);
+                        textField.setForeground(Color.WHITE);
+                        textField.setEnabled(true);
                     }
                 },
                 3000
         );
 
     }
-
 }

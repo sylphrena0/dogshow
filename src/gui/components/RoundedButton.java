@@ -1,6 +1,6 @@
-package GUI.components;
+package gui.components;
 
-import GUI.Controller;
+import gui.Controller;
 import utilities.Parameters;
 
 import javax.swing.*;
@@ -21,15 +21,21 @@ public class RoundedButton extends JButton implements Parameters {
         this.setFocusPainted(false);
         this.setBorderPainted(false);
     }
+
+    @Override
     protected void paintComponent(Graphics g) {
         g.setColor(color);
         g.fillRoundRect(0, 0, getWidth()-1, getHeight()-1, 15, 15);
         super.paintComponent(g);
     }
+
+    @Override
     protected void paintBorder(Graphics g) {
         g.setColor(color);
         g.drawRoundRect(0, 0, getWidth()-1, getHeight()-1, 15, 15);
     }
+
+    @Override
     public boolean contains(int x, int y) {
         if (shape == null || !shape.getBounds().equals(getBounds())) {
             shape = new RoundRectangle2D.Float(0, 0, getWidth()-1, getHeight()-1, 15, 15);

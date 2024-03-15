@@ -1,8 +1,8 @@
-package GUI.pages;
+package gui.pages;
 
-import GUI.Controller;
-import GUI.components.*;
-import GUI.pages.views.ListView;
+import gui.Controller;
+import gui.components.RoundedButton;
+import gui.pages.views.ListView;
 import utilities.Parameters;
 
 import javax.swing.*;

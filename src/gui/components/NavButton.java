@@ -1,6 +1,6 @@
-package GUI.components;
+package gui.components;
 
-import GUI.Controller;
+import gui.Controller;
 import utilities.Parameters;
 import utilities.Utilities;
 

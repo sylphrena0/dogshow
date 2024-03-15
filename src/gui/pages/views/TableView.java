@@ -1,6 +1,9 @@
-package GUI.pages.views;
+package gui.pages.views;
 
-import GUI.components.*;
+import gui.components.ImageLoaderButton;
+import gui.components.RoundedButton;
+import gui.components.RoundedPanel;
+import gui.components.RoundedTextField;
 import net.miginfocom.swing.MigLayout;
 import utilities.Parameters;
 import utilities.Utilities;
@@ -30,7 +33,7 @@ public class TableView extends JPanel implements Parameters {
         this.setBackground(backgroundColor);
         this.setPreferredSize(pageSize);
         this.setLayout(new BorderLayout());
-        this.setBorder(BorderFactory.createEmptyBorder(pagePadding, pagePadding, pagePadding, pagePadding));
+        this.setBorder(BorderFactory.createEmptyBorder(PAGE_PADDING, PAGE_PADDING, PAGE_PADDING, PAGE_PADDING));
 
         contentPanel = new RoundedPanel();
         contentPanel.setBackground(pageColor);

@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.MissingResourceException;
 import java.util.Objects;
 
 import static java.awt.Font.createFont;
@@ -16,7 +17,7 @@ public class Utilities implements Parameters {
      * @return The image icon
      */
     public static ImageIcon getImageIcon(String name) {
-        return new ImageIcon(Objects.requireNonNull(Utilities.class.getResource(pathSeparator + "images" + pathSeparator + name)));
+        return new ImageIcon(Objects.requireNonNull(Utilities.class.getResource(PATH_SEPARATOR + "images" + PATH_SEPARATOR + name)));
     }
 
     /**
@@ -39,13 +40,13 @@ public class Utilities implements Parameters {
      */
     public static Font getCaveatFont(int style, int size) {
         try {
-            InputStream fontStream = Utilities.class.getResourceAsStream(pathSeparator + "external" + pathSeparator + "Caveat-Regular.ttf");
+            InputStream fontStream = Utilities.class.getResourceAsStream(PATH_SEPARATOR + "external" + PATH_SEPARATOR + "Caveat-Regular.ttf");
             assert fontStream != null;
             Font font = createFont(java.awt.Font.TRUETYPE_FONT, fontStream);
             fontStream.close();
             return font.deriveFont(style, size);
         } catch (FontFormatException | IOException e) {
-            throw new RuntimeException(e);
+            throw new MissingResourceException("Unable to load font!", "Utilities", "Caveat-Regular.ttf");
         }
     }
 

@@ -1,10 +1,10 @@
-package GUI;
+package gui;
 
-import GUI.components.*;
-import GUI.pages.*;
-import GUI.pages.Record;
 import com.formdev.flatlaf.FlatDarculaLaf;
 import db.Database;
+import gui.components.*;
+import gui.pages.Record;
+import gui.pages.*;
 import utilities.Parameters;
 import utilities.Utilities;
 
@@ -14,6 +14,8 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Controller extends JFrame implements ActionListener, Parameters, MouseListener {
     private NavButton homeNav, recordsNav, registrationNav, scoreNav;
@@ -28,15 +30,18 @@ public class Controller extends JFrame implements ActionListener, Parameters, Mo
     private JPanel pagePanel;
 
     private Controller(String title) {
+        Logger logger = Logger.getLogger(getClass().getName());
+
         FlatDarculaLaf.setup();
         instance = this;
         setTitle(title);
         setResizable(false);
         setUndecorated(true);
         setSize(screenSize);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setIconImage(Utilities.getImageIcon("icon.png").getImage());
         addWindowListener(new WindowAdapter() {
+            @Override
             public void windowClosing(WindowEvent evt) {
                 Database.disconnect();
             }
@@ -61,7 +66,7 @@ public class Controller extends JFrame implements ActionListener, Parameters, Mo
 
             SwingUtilities.updateComponentTreeUI(this);
         } catch (Exception e) {
-            System.out.println("Error setting UI look and feel!");
+            logger.log(Level.SEVERE, "Error setting UI look and feel!");
             System.exit(0);
         }
         setVisible(true);

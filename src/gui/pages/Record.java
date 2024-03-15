@@ -1,8 +1,11 @@
-package GUI.pages;
+package gui.pages;
 
-import GUI.Controller;
-import GUI.components.*;
-import GUI.pages.views.TableView;
+import gui.Controller;
+import gui.components.ImageLoaderButton;
+import gui.components.RoundedButton;
+import gui.components.RoundedTextField;
+import gui.components.ScoreInput;
+import gui.pages.views.TableView;
 import utilities.Parameters;
 
 import javax.imageio.ImageIO;

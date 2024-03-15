@@ -1,6 +1,6 @@
-package GUI.components;
+package gui.components;
 
-import GUI.Controller;
+import gui.Controller;
 import utilities.Parameters;
 import utilities.Utilities;
 
@@ -12,7 +12,7 @@ public class ImageLoaderButton extends IconButton implements Parameters {
     private Image image;
     public ImageLoaderButton(Controller controller) {
         super("noImageIcon.png", Utilities.relativeHeight(20), Utilities.relativeHeight(20), controller);
-        this.setBackground(transparent); //otherwise, paint component will draw over image with flatlaf dracula L&F
+        this.setBackground(transparent); // otherwise, paint component will draw over image with flatlaf dracula L&F
     }
 
     protected void paintComponent(Graphics g) {

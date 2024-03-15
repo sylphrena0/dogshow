@@ -1,13 +1,17 @@
-package GUI.pages.views;
+package gui.pages.views;
 
-import GUI.Controller;
-import GUI.components.*;
+import gui.Controller;
+import gui.components.RoundedPanel;
+import gui.components.TableComponentRenderer;
 import net.miginfocom.swing.MigLayout;
 import utilities.Parameters;
 import utilities.Utilities;
 
 import javax.swing.*;
-import javax.swing.table.*;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 import java.awt.*;
 import java.util.Arrays;
 
@@ -23,11 +27,11 @@ public class ListView extends JPanel implements Parameters {
     }
 
     protected void addComponents(JComponent header, JComponent option, String[] columnNames) {
-        //"this" is the JPanel we are adding to the super, as this class extends JPanel
+        // "this" is the JPanel we are adding to the super, as this class extends JPanel
         this.setBackground(backgroundColor);
         this.setPreferredSize(pageSize);
         this.setLayout(new BorderLayout());
-        this.setBorder(BorderFactory.createEmptyBorder(pagePadding, pagePadding, pagePadding, pagePadding));
+        this.setBorder(BorderFactory.createEmptyBorder(PAGE_PADDING, PAGE_PADDING, PAGE_PADDING, PAGE_PADDING));
 
         this.columnNames = columnNames;
 
@@ -68,7 +72,7 @@ public class ListView extends JPanel implements Parameters {
         table.setPreferredSize(new Dimension(Utilities.relativeWidth(100 - 4.5), Utilities.relativeHeight(6.5)));
         table.setFont(inputFont);
 
-        JScrollPane tableScrollable = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        JScrollPane tableScrollable = new JScrollPane(table, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         tableScrollable.setOpaque(false);
         tableScrollable.setBackground(transparent);
         tableScrollable.setBorder(BorderFactory.createEmptyBorder());
@@ -87,7 +91,7 @@ public class ListView extends JPanel implements Parameters {
 
 
         listPanel.add(header, "gapbefore 2%, gaptop 4%, w 70%");
-        listPanel.add(option, "gap %d %d %d %d, wrap".formatted(gridPadding, gridPadding, gridPadding, gridPadding / 4));
+        listPanel.add(option, "gap %d %d %d %d, wrap".formatted(GRID_PADDING, GRID_PADDING, GRID_PADDING, GRID_PADDING / 4));
         listPanel.add(tableScrollable, "span 2, h 91%!, dock south");
 
         this.add(listPanel, BorderLayout.CENTER);
@@ -98,21 +102,21 @@ public class ListView extends JPanel implements Parameters {
         if (data.length == 0) {
             return;
         }
-        //add a column to the end of each row with inspect
+        // add a column to the end of each row with inspect
         for (int i = 0; i < data.length; i++) {
             data[i] = Arrays.copyOf(data[i], data[i].length + 2);
             data[i][data[i].length - 2] = (data[i][data[i].length - 3] != "-" && data[i][data[i].length - 4] != "-" && data[i][data[i].length - 5] != "-"  && data[i][data[i].length - 6] != "-"); //determines if balto eligible by checking that all contests are registered
             data[i][data[i].length - 1] = inspect;
         }
 
-        for (int i = 0; i < data.length; i++) { //for each row
-            for (int j = 2; j < 6; j++) { //for scores in each row
-                if (((String) data[i][j]).matches("^(([0-9]|10);){3}([0-9]|10)$")) { //if scores are saved
+        for (int i = 0; i < data.length; i++) { // for each row
+            for (int j = 2; j < 6; j++) { // for scores in each row
+                if (((String) data[i][j]).matches("^((\\d|10);){3}(\\d|10)$")) { //i f scores are saved
                     double average = 0.0;
-                    for (String n : ((String) data[i][j]).split(";")) { //get each score
-                        average += Double.parseDouble(n); //add to average
+                    for (String n : ((String) data[i][j]).split(";")) { // get each score
+                        average += Double.parseDouble(n); // add to average
                     }
-                    data[i][j] = String.format("%.3g%n",average / 4.0); //set field to average, formatted to 3 sig figs
+                    data[i][j] = String.format("%.3g%n",average / 4.0); // set field to average, formatted to 3 sig figs
                 }
             }
         }

@@ -1,13 +1,13 @@
 package utilities;
 
-import GUI.Controller;
+import gui.Controller;
 
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 
 public interface Parameters {
-    String pathSeparator = System.getProperty("file.separator");
+    String PATH_SEPARATOR = System.getProperty("file.separator");
     Dimension screenSize = Controller.screenSize();
     Dimension pageSize = new Dimension(screenSize.width, screenSize.height - Utilities.relativeHeight(6.5));
     Color lightPurpleButtonColor = new Color(0xBB86FC);
@@ -21,6 +21,6 @@ public interface Parameters {
     Font inputFont = new Font("Arial", Font.PLAIN, Utilities.relativeHeight(1.5));
     Font headerFont = Utilities.getCaveatFont(Font.BOLD, Utilities.relativeHeight(4.2)); //used font that is included with package
     Font buttonFont = Utilities.getCaveatFont(Font.BOLD, Utilities.relativeHeight(2));
-    int gridPadding = Utilities.relativeHeight(2.2);
-    int pagePadding = Utilities.relativeHeight(4.5);
+    int GRID_PADDING = Utilities.relativeHeight(2.2);
+    int PAGE_PADDING = Utilities.relativeHeight(4.5);
 }

@@ -1,6 +1,6 @@
-package GUI.components;
+package gui.components;
 
-import GUI.Controller;
+import gui.Controller;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
@@ -9,19 +9,15 @@ import java.awt.*;
 public class ScoreInput extends RoundedPanel {
 
     private RoundedTextField score1, score2, score3, score4;
-    private JLabel scoreLabel;
-    private String placeholder;
+    private final JLabel scoreLabel;
 
     public ScoreInput(String label, Controller controller) {
         super(15, inputColor);
-        this.placeholder = label;
         this.setLayout(new MigLayout(
                 "fill",
                 "[fill][fill, sg][fill, sg][fill, sg][fill, sg]", // Column constraints (fill makes components grow to row size, sg constrains each row/column to be the same size)
                 "[fill]" // Row constraints
         ));
-
-        //this.setBorder(null);
 
         scoreLabel = new JLabel(label);
         scoreLabel.setFont(inputFont);
@@ -41,7 +37,7 @@ public class ScoreInput extends RoundedPanel {
 
     public ScoreInput(String label, Boolean enabled, Controller controller) {
         this(label, controller);
-        if (!enabled) {
+        if (Boolean.FALSE.equals(enabled)) {
             this.setEnabled(false);
         }
     }

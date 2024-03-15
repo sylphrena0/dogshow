@@ -22,9 +22,9 @@ import java.util.ArrayList;
 public class Database implements Parameters {
     private static final String classPath = System.getProperty("java.class.path");
     //remove everything after the last path separator
-    private static final String curDir = classPath.substring(0, classPath.lastIndexOf(pathSeparator));
-    private static final String dbPath = "jdbc:sqlite:%sdatabase.db".formatted(curDir + pathSeparator);
-    private static final String saltPath = curDir + pathSeparator + "salt.txt";
+    private static final String curDir = classPath.substring(0, classPath.lastIndexOf(PATH_SEPARATOR));
+    private static final String dbPath = "jdbc:sqlite:%sdatabase.db".formatted(curDir + PATH_SEPARATOR);
+    private static final String saltPath = curDir + PATH_SEPARATOR + "salt.txt";
     private static Connection connection = null;
     private static byte[] salt = null;
 

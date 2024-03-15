@@ -1,19 +1,16 @@
-package GUI.pages;
+package gui.pages;
 
-import GUI.Controller;
-import GUI.components.RoundedButton;
-import GUI.components.RoundedPanel;
-import GUI.components.RoundedPasswordField;
-import GUI.components.RoundedTextField;
+import gui.Controller;
+import gui.components.RoundedButton;
+import gui.components.RoundedPanel;
+import gui.components.RoundedPasswordField;
+import gui.components.RoundedTextField;
 import net.miginfocom.swing.MigLayout;
 import utilities.Parameters;
 import utilities.Utilities;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.io.File;
-import java.io.IOException;
 
 public class Home extends JPanel implements Parameters {
     private final Controller controller;
@@ -27,7 +24,7 @@ public class Home extends JPanel implements Parameters {
     }
 
     private void addComponents() {
-        //"this" is the JPanel we are adding to the super, as this class extends JPanel
+        // "this" is the JPanel we are adding to the super, as this class extends JPanel
         this.setBackground(backgroundColor);
         this.setPreferredSize(pageSize);
         this.setLayout(new BorderLayout());
@@ -35,7 +32,7 @@ public class Home extends JPanel implements Parameters {
         authLayout = new CardLayout();
         authPanel = new JPanel(authLayout);
 
-        authPanel.setBorder(BorderFactory.createEmptyBorder(pagePadding, pagePadding, pagePadding, pagePadding));
+        authPanel.setBorder(BorderFactory.createEmptyBorder(PAGE_PADDING, PAGE_PADDING, PAGE_PADDING, PAGE_PADDING));
         authPanel.setOpaque(false);
 
         ///////////////////////////////////
@@ -57,7 +54,7 @@ public class Home extends JPanel implements Parameters {
         loginButton.setActionCommand("LOGIN");
 
         loginPanel.setLayout(new MigLayout(
-                "insets %d, gap %d, al left".formatted(gridPadding, gridPadding), // Layout Constraints
+                "insets %d, gap %d, al left".formatted(GRID_PADDING, GRID_PADDING), // Layout Constraints
                 "[fill, sg]", // Column constraints (fill makes components grow to row size, sg constrains each row/column to be the same size)
                 "[fill, sg][fill, sg][fill, sg][fill, sg]" // Row constraints
         ));
@@ -92,7 +89,7 @@ public class Home extends JPanel implements Parameters {
 
 
         registerPanel.setLayout(new MigLayout(
-                "insets %d, gap %d, al left".formatted(gridPadding, gridPadding), // Layout Constraints
+                "insets %d, gap %d, al left".formatted(GRID_PADDING, GRID_PADDING), // Layout Constraints
                 "[fill, sg][fill, sg]", // Column constraints (fill makes components grow to row size, sg constrains each row/column to be the same size)
                 "[fill, sg][fill, sg][fill, sg][fill, sg]" // Row constraints
         ));
@@ -115,10 +112,10 @@ public class Home extends JPanel implements Parameters {
         authPanel.add(registerPanel);
         authLayout.first(authPanel);
 
-        //scaling solution from https://stackoverflow.com/questions/6714045/how-to-resize-jlabel-imageicon
-        ImageIcon imageIcon = Utilities.getImageIcon("dogs.png"); //load the image to a imageIcon
-        Image scaledImage = imageIcon.getImage().getScaledInstance(screenSize.width, (int) (screenSize.width*15.0/64.0),  Image.SCALE_SMOOTH); //scale it the smooth way
-        imageIcon = new ImageIcon(scaledImage);  //transform it back
+        // scaling solution from https://stackoverflow.com/questions/6714045/how-to-resize-jlabel-imageicon
+        ImageIcon imageIcon = Utilities.getImageIcon("dogs.png"); // load the image to a imageIcon
+        Image scaledImage = imageIcon.getImage().getScaledInstance(screenSize.width, (int) (screenSize.width*15.0/64.0),  Image.SCALE_SMOOTH); // scale it the smooth way
+        imageIcon = new ImageIcon(scaledImage);  // transform it back
 
         JLabel dogImageLabel = new JLabel(imageIcon);
         this.add(dogImageLabel, BorderLayout.CENTER);

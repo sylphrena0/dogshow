@@ -1,4 +1,4 @@
-package GUI.components;
+package gui.components;
 
 import utilities.Parameters;
 import utilities.Utilities;
@@ -9,10 +9,10 @@ import java.awt.*;
 // Author: b4rc0ll0
 // Source: https://www.codeproject.com/Articles/114959/Rounded-Border-JPanel-JPanel-graphics-improvements
 
-public class RoundedPanel extends JPanel implements Parameters {  //stroke size. it is recommended to set it to 1 for better view
-    protected int strokeSize = 1; //sets if it drops shadow
+public class RoundedPanel extends JPanel implements Parameters {  // stroke size. it is recommended to set it to 1 for better view
+    protected int strokeSize = 1; // sets if it drops shadow
     protected boolean highQuality = true; // sets if it has a High Quality view
-    protected Dimension arcs = new Dimension(Utilities.relativeHeight(12), Utilities.relativeHeight(12)); //double values for Horizontal and Vertical radius of corner arcs
+    protected Dimension arcs = new Dimension(Utilities.relativeHeight(12), Utilities.relativeHeight(12)); // double values for Horizontal and Vertical radius of corner arcs
     private Color color;
     public RoundedPanel() {
         this.setOpaque(false);
@@ -34,12 +34,12 @@ public class RoundedPanel extends JPanel implements Parameters {  //stroke size.
         int shadowGap = 1;
         Graphics2D graphics = (Graphics2D) g;
 
-        //sets antialiasing if HQ.
+        // sets antialiasing if HQ.
         if (highQuality) {
             graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         }
 
-        //draws the rounded opaque panel with borders.
+        // draws the rounded opaque panel with borders.
         graphics.setColor(color);
         graphics.fillRoundRect(0, 0, width - shadowGap,
                 height - shadowGap, arcs.width, arcs.height);
@@ -48,7 +48,7 @@ public class RoundedPanel extends JPanel implements Parameters {  //stroke size.
         graphics.drawRoundRect(0, 0, width - shadowGap,
                 height - shadowGap, arcs.width, arcs.height);
 
-        //sets strokes to default, is better.
+        // sets strokes to default, is better.
         graphics.setStroke(new BasicStroke());
     }
 }
