@@ -14,7 +14,6 @@ This repository contains the source code for an application produced for the 202
 
 
 **TODO:**
-- Add windows installer to pre-release.
 - Add logic to determine winners. Currently, all contestants that are scored are marked as winners.
 - Add ability to run more than one contest per year. Currently, if you commit scores multiple times in a year, it will be added to the same contest in the scores panel.
 - Add detailed filestructure documentation.
