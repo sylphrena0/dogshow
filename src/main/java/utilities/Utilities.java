@@ -1,11 +1,14 @@
 package utilities;
 
+import gui.Controller;
+
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.MissingResourceException;
 import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import static java.awt.Font.createFont;
 
@@ -50,7 +53,9 @@ public class Utilities {
             fontStream.close();
             return font.deriveFont(style, size);
         } catch (FontFormatException | IOException e) {
-            throw new MissingResourceException("Unable to load font!", "Utilities", "Caveat-Regular.ttf");
+            Utilities.showInternalError("Unable to load font!", Logger.getLogger(Controller.class.getName()), e);
+            System.exit(1);
+            return null;
         }
     }
 
@@ -88,4 +93,25 @@ public class Utilities {
         return imageIcon.getImage().getScaledInstance(scaledWidth, scaledHeight, java.awt.Image.SCALE_SMOOTH);
     }
 
+    /**
+     * Shows an internal error message
+     * @param message The message to show
+     * @param logger The logger to log to
+     * @param e The exception to log
+     */
+    public static void showInternalError(String message, Logger logger, Exception e) {
+        logger.log(Level.SEVERE, "Internal.", e);
+        JOptionPane.showMessageDialog(Controller.getInstance(), message, "Internal Error", JOptionPane.ERROR_MESSAGE);
+    }
+
+    /**
+     * Shows an error message
+     * @param message The message to show
+     * @param logger The logger to log to
+     * @param e The exception to log
+     */
+    public static void showError(String message, Logger logger, Exception e) {
+        logger.log(Level.WARNING, "", e);
+        JOptionPane.showMessageDialog(Controller.getInstance(), message, "Error", JOptionPane.ERROR_MESSAGE);
+    }
 }

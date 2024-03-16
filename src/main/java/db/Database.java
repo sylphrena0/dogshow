@@ -4,6 +4,7 @@ package db;
 import lombok.SneakyThrows;
 import org.sqlite.mc.SQLiteMCConfig;
 import utilities.Constants;
+import utilities.Utilities;
 
 import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
@@ -12,7 +13,10 @@ import javax.crypto.spec.SecretKeySpec;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+import java.security.spec.InvalidKeySpecException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -26,6 +30,7 @@ public class Database {
     private static Connection connection = null;
     private static byte[] salt = null;
     private static final Logger logger = Logger.getLogger(Database.class.getName());
+    private static final String DATABASE_ERROR = "Critical database error! Contact the developer if the issue persists.";
 
     private Database() {
         throw new IllegalStateException("Database class");
@@ -49,11 +54,10 @@ public class Database {
      * Creates a database if it does not exist and connects to it
      * @param password the password to use to encrypt the database
      **/
-    @SneakyThrows
     private static void createDatabase(char[] password) {
         // check if we already have a database by checking if the salt file exists
         if (databaseExists()) {
-            throw new IllegalStateException("Attempted to create database when it already exists. Does salt.txt exist?");
+            Utilities.showError("Attempted to create database when it already exists - check if the salt.txt file was moved or deleted", logger, null);
         }
 
         // generate a secret key using the registrar's password
@@ -61,13 +65,12 @@ public class Database {
         SecureRandom random = new SecureRandom();
         random.nextBytes(salt);
 
-        // write salt to src/db/salt.txt
-        try (FileOutputStream fos = new FileOutputStream(SALT_PATH)) {
-            fos.write(salt);
-        }
-
-
         try (Connection conn = DriverManager.getConnection(DB_PATH)) {
+            // write salt to src/db/salt.txt
+            try (FileOutputStream fos = new FileOutputStream(SALT_PATH)) {
+                fos.write(salt);
+            }
+
             if (conn != null) {
                 DatabaseMetaData meta = conn.getMetaData();
                 logger.log(Level.INFO, "The driver name is {}", meta.getDriverName());
@@ -113,18 +116,16 @@ public class Database {
                 logger.log(Level.INFO, "Database tables created.");
             }
 
-        } catch (SQLException e) {
-            throw new SQLException("Error initializing database: " +  e.getMessage());
+        } catch (SQLException | IOException e) {
+            Utilities.showInternalError(DATABASE_ERROR, logger, e);
+            System.exit(1);
         }
     }
 
     /**
-     * Connects to the database
-     * @param password the password to use to decrypt the database
+     * Sets the salt from the salt file
      **/
-    @SneakyThrows
-    private static void connect(char[] password) throws SQLException {
-        // get salt from salt.txt if it isn't already retrieved
+    private static void setSalt() throws IOException {
         if (salt == null) {
             try {
                 salt = new byte[8];
@@ -132,14 +133,28 @@ public class Database {
                 salt = fis.readNBytes(8);
                 fis.close();
             } catch (FileNotFoundException e) {
-                throw new IllegalStateException("Database does not exist!");
+                Utilities.showError("Salt file not found. Database may be corrupted.", logger, e);
             }
         }
+    }
 
+    /**
+     * Connects to the database
+     * @param password the password to use to decrypt the database
+     **/
+    private static void connect(char[] password) throws SQLException {
         SecretKey key;
-        // get secret key from password using salt
-        key = new SecretKeySpec(SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256").generateSecret(new PBEKeySpec(password, salt, 65536, 256)).getEncoded(), "AES");
+        try {
+            // get salt from salt.txt if it isn't already retrieved
+            setSalt();
 
+            // get secret key from password using salt
+            key = new SecretKeySpec(SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256").generateSecret(new PBEKeySpec(password, salt, 65536, 256)).getEncoded(), "AES");
+        } catch (IOException | NoSuchAlgorithmException | InvalidKeySpecException e) {
+            Utilities.showInternalError(DATABASE_ERROR, logger, e);
+            System.exit(1);
+            return;
+        }
 
         if (connection != null) { // connection already exists
             logger.log(Level.INFO, "Connection to SQLite already exists.");
@@ -148,7 +163,6 @@ public class Database {
 
         DriverManager.getConnection(DB_PATH, new SQLiteMCConfig.Builder().withKey(key.toString()).build().toProperties());
         connection = new SQLiteMCConfig.Builder().withKey(key.toString()).build().createConnection(DB_PATH);
-
     }
 
     /**
@@ -164,7 +178,6 @@ public class Database {
     }
 
 
-    @SneakyThrows
     public static void register(String username, char[] password, String name, String email) {
         createDatabase(password); // create database if it does not exist and connect to the database
 
@@ -173,8 +186,9 @@ public class Database {
             preparedStatement.setString(2, name);
             preparedStatement.setString(3, email);
             preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            Utilities.showInternalError(DATABASE_ERROR, logger, e);
         }
-
     }
 
     public static boolean login(String username, char[] password) {
@@ -193,7 +207,6 @@ public class Database {
         return true;
     }
 
-    @SneakyThrows
     public static int registerContestant(String familyName, String email, String name, String breed, int age, String color, String markings, String obedience, String socialization, String grooming, String fetch, byte[] photo, int year) {
         try {
             boolean current = true;
@@ -228,15 +241,16 @@ public class Database {
                 getRegID.setBoolean(8, current);
                 ResultSet resultSet = getRegID.executeQuery();
                 if (!resultSet.next()) {
-                    throw new RuntimeException("Error getting regID");
+                    Utilities.showInternalError(DATABASE_ERROR, logger, null);
                 }
                 return resultSet.getInt("regID");
             }
         } catch (SQLException e) {
-            throw new SQLException("Error registering contestant: " + e.getMessage());
+            Utilities.showInternalError(DATABASE_ERROR, logger, e);
+            System.exit(1);
+            return -1;
         }
     }
-    @SneakyThrows
     public static void editScore(Integer registrationID, String obedience, String socialization, String grooming, String fetch) {
         // check if current is false, if so, throw an error
         try (PreparedStatement currentCheck = connection.prepareStatement("SELECT * FROM records WHERE regID = ?")) {
@@ -245,6 +259,8 @@ public class Database {
             if (!resultSet.next() || !resultSet.getBoolean("current")) {
                 throw new IllegalStateException("Error: registrationID does not exist or is not current");
             }
+        } catch (SQLException e) {
+            Utilities.showInternalError(DATABASE_ERROR, logger, e);
         }
 
         try (PreparedStatement updateScore = connection.prepareStatement("UPDATE records SET obedience = ?, socialization = ?, grooming = ?, fetch = ? WHERE regID = ?")) {
@@ -254,17 +270,19 @@ public class Database {
             updateScore.setString(4, fetch);
             updateScore.setInt(5, registrationID);
             updateScore.executeUpdate();
+        } catch (SQLException e) {
+            Utilities.showInternalError(DATABASE_ERROR, logger, e);
         }
     }
 
-    @SneakyThrows
     public static void commitScores() {
         try (Statement stmt = connection.createStatement()) {
             stmt.execute("UPDATE records SET current = false WHERE current = true");
+        } catch (SQLException e) {
+            Utilities.showInternalError(DATABASE_ERROR, logger, e);
         }
     }
 
-    @SneakyThrows
     public static Object[] getContestant(int regID) {
         try (PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM records WHERE regID = ?")) {
             preparedStatement.setInt(1, regID);
@@ -290,10 +308,12 @@ public class Database {
             dbRecord[13] = resultSet.getInt("year");
             dbRecord[14] = resultSet.getBoolean("current");
             return dbRecord;
+        } catch (SQLException e) {
+            Utilities.showInternalError(DATABASE_ERROR, logger, e);
+            return new Object[0];
         }
     }
 
-    @SneakyThrows
     public static Object[][] getScores(boolean current) {
         try (PreparedStatement preparedStatement = connection.prepareStatement("SELECT regID, name, obedience, socialization, grooming, fetch FROM records WHERE current = ?")) {
             preparedStatement.setBoolean(1, current);
@@ -310,10 +330,12 @@ public class Database {
                 records.add(dbRecord);
             }
             return records.toArray(new Object[0][0]);
+        } catch (SQLException e) {
+            Utilities.showInternalError(DATABASE_ERROR, logger, e);
+            return new Object[0][0];
         }
     }
 
-    @SneakyThrows
     public static String[] getYears() {
         ArrayList<String> years = new ArrayList<>();
         try (Statement stmt = connection.createStatement()) {
@@ -321,6 +343,8 @@ public class Database {
             while (resultSet.next()) {
                 years.add(resultSet.getString("year"));
             }
+        } catch (SQLException e) {
+            Utilities.showInternalError(DATABASE_ERROR, logger, e);
         }
         return years.toArray(new String[0]);
     }

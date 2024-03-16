@@ -6,19 +6,21 @@ import gui.components.RoundedButton;
 import gui.components.RoundedTextField;
 import gui.components.ScoreInput;
 import gui.pages.views.TableView;
-import lombok.SneakyThrows;
 import utilities.Constants;
+import utilities.Utilities;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.util.logging.Logger;
 
 public class Record extends TableView {
     RoundedTextField familyName, familyEmail, name, breed, age, color, markings;
     ScoreInput obedience, socialization, grooming, fetch;
     ImageLoaderButton imageLoaderButton;
+    private final transient Logger logger = Logger.getLogger(getClass().getName());
     public Record() {
         Controller controller = Controller.getInstance();
 
@@ -58,7 +60,6 @@ public class Record extends TableView {
                 imageLoaderButton);
     }
 
-    @SneakyThrows
     public void setData(Object[] data) {
         contentPanel.setLayout(null); //reset layout to prevent wierd resizing issue
 
@@ -97,7 +98,7 @@ public class Record extends TableView {
         try {
             imageLoaderButton.setImage(ImageIO.read(new ByteArrayInputStream((byte[]) data[12])));
         } catch (IOException e) {
-            throw new IOException("Error recovering image from database: " + e);
+            Utilities.showInternalError("Unable to recover image from database.", logger, e);
         }
 
         contentPanel.setLayout(tableLayout); //set to use miglayout again after setText()

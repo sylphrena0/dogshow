@@ -7,7 +7,6 @@ import gui.components.RoundedCheckbox;
 import gui.components.RoundedTextField;
 import gui.pages.views.TableView;
 import lombok.Getter;
-import lombok.SneakyThrows;
 import utilities.Constants;
 import utilities.Utilities;
 
@@ -18,6 +17,7 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.util.logging.Logger;
 
 public class Registration extends TableView {
     @Getter
@@ -25,6 +25,7 @@ public class Registration extends TableView {
     @Getter RoundedTextField familyName, familyEmail, dogName, breed, age, dogColor, markings;
     @Getter RoundedCheckbox obedience, socialization, grooming, fetch;
     Image scaledImage;
+    private final transient Logger logger = Logger.getLogger(getClass().getName());
 
     public Registration() {
         Controller controller = Controller.getInstance();
@@ -79,14 +80,17 @@ public class Registration extends TableView {
 
     }
 
-    @SneakyThrows
     public byte[] getImage() {
         // get scaledImage and turn to byte array:
         if (scaledImage != null) {
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
             BufferedImage image = new BufferedImage(scaledImage.getWidth(null), scaledImage.getHeight(null), BufferedImage.TYPE_INT_ARGB);
             image.getGraphics().drawImage(scaledImage, 0, 0 , null);
-            ImageIO.write(image, "png", bos);
+            try {
+                ImageIO.write(image, "png", bos);
+            } catch (IOException e) {
+                Utilities.showInternalError("Unable to save image to database.", logger, e);
+            }
             return bos.toByteArray();
         }
         return null;
