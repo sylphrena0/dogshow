@@ -27,3 +27,4 @@ src/db/database.db
 src/db/salt.txt
 
 .idea
+target
