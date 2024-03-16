@@ -5,7 +5,7 @@ import db.Database;
 import gui.components.*;
 import gui.pages.Record;
 import gui.pages.*;
-import utilities.Parameters;
+import utilities.Constants;
 import utilities.Utilities;
 
 import javax.swing.*;
@@ -14,30 +14,30 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class Controller extends JFrame implements ActionListener, Parameters, MouseListener {
+public class Controller extends JFrame implements ActionListener, MouseListener {
     private NavButton homeNav, recordsNav, registrationNav, scoreNav;
     private Registration registrationPage;
     RecordList recordList;
     ScoreList scoreList;
-    Record record;
+    Record tableRecord;
     Score score;
     private static Controller instance;
     private Home homePage;
     private CardLayout pageLayout;
     private JPanel pagePanel;
+    private final transient Logger logger = Logger.getLogger(getClass().getName());
 
     private Controller(String title) {
-        Logger logger = Logger.getLogger(getClass().getName());
-
-        FlatDarculaLaf.setup();
         instance = this;
+        FlatDarculaLaf.setup();
         setTitle(title);
         setResizable(false);
         setUndecorated(true);
-        setSize(screenSize);
+        setSize(Constants.screenSize);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setIconImage(Utilities.getImageIcon("icon.png").getImage());
         addWindowListener(new WindowAdapter() {
@@ -55,14 +55,14 @@ public class Controller extends JFrame implements ActionListener, Parameters, Mo
             ////////////////////////////////////
             ////// Dropdown Customization //////
             ////////////////////////////////////
-            UIManager.put("ComboBox.focusedBackground", inputColor);
-            UIManager.put("ComboBox.selectionBackground", inputColor);
+            UIManager.put("ComboBox.focusedBackground", Constants.inputColor);
+            UIManager.put("ComboBox.selectionBackground", Constants.inputColor);
             UIManager.put("ComboBox.popupInsets", new Insets(3, 3, 3, 3)); //outer inset for set of items in dropdown menu
             UIManager.put("ComboBox.selectionInsets", new Insets(3, 3, 3, 3)); //insets for items in dropdown menu
             ////////////////////////////////////
 
             //set background color of disabled buttons
-            UIManager.put("Button.disabledBackground", pageColor);
+            UIManager.put("Button.disabledBackground", Constants.pageColor);
 
             SwingUtilities.updateComponentTreeUI(this);
         } catch (Exception e) {
@@ -78,7 +78,7 @@ public class Controller extends JFrame implements ActionListener, Parameters, Mo
 
     public static Controller getInstance(String title) {
         if (instance == null) {
-            new Controller(title); //constructor sets instance variable
+            new Controller(title); // constructor sets instance variable
         } else if (!instance.getTitle().equals(title)) {
             instance.setTitle(title);
         }
@@ -88,15 +88,15 @@ public class Controller extends JFrame implements ActionListener, Parameters, Mo
     private void addComponents() {
         JPanel containerPanel = new JPanel();
         containerPanel.setLayout(new BorderLayout());
-        containerPanel.setBackground(backgroundColor);
+        containerPanel.setBackground(Constants.backgroundColor);
 
         JPanel navPanel = new JPanel();
-        navPanel.setPreferredSize(new Dimension(screenSize.width, Utilities.relativeHeight(6.5)));
-        navPanel.setBackground(pageColor);
+        navPanel.setPreferredSize(new Dimension(Constants.screenSize.width, Utilities.relativeHeight(6.5)));
+        navPanel.setBackground(Constants.pageColor);
         navPanel.setForeground(Color.WHITE);
 
         JLabel header = new JLabel("  Williamsport Area Kennel Club");
-        header.setFont(headerFont);
+        header.setFont(Constants.headerFont);
         header.setForeground(Color.WHITE);
         header.setHorizontalAlignment(SwingConstants.LEFT);
 
@@ -105,7 +105,7 @@ public class Controller extends JFrame implements ActionListener, Parameters, Mo
         registrationNav = new NavButton(" Registration ");
         scoreNav = new NavButton(" Score ");
 
-        homeNav.setBackground(backgroundColor);
+        homeNav.setBackground(Constants.backgroundColor);
 
         homeNav.setActionCommand("HOME");
         recordsNav.setActionCommand("RECORD-LIST");
@@ -118,7 +118,7 @@ public class Controller extends JFrame implements ActionListener, Parameters, Mo
 
         JPanel titlePanel = new JPanel();
         titlePanel.setLayout(new BorderLayout());
-        titlePanel.setBackground(pageColor);
+        titlePanel.setBackground(Constants.pageColor);
         titlePanel.add(header);
 
         IconButton closeButton = new IconButton("close.png", (int) (Utilities.relativeHeight(6.5) * 0.75), (int) (Utilities.relativeHeight(6.5) * 0.75), getInstance());
@@ -139,21 +139,21 @@ public class Controller extends JFrame implements ActionListener, Parameters, Mo
         homePage = new Home();
 
         if (!Database.databaseExists()) {
-            homePage.switchAuthPanel(); //database does not exist, thus user is not registered
+            homePage.switchAuthPanel(); // database does not exist, thus user is not registered
         }
 
         recordList = new RecordList();
         scoreList = new ScoreList();
 
         score = new Score();
-        record = new Record();
+        tableRecord = new Record();
 
         registrationPage = new Registration();
 
 
         pagePanel.add("HOME", homePage);
         pagePanel.add("RECORD-LIST", recordList);
-        pagePanel.add("RECORD", record);
+        pagePanel.add("RECORD", tableRecord);
         pagePanel.add("REGISTRATION", registrationPage);
         pagePanel.add("SCORE-LIST", scoreList);
         pagePanel.add("SCORE", score);
@@ -172,53 +172,52 @@ public class Controller extends JFrame implements ActionListener, Parameters, Mo
             ////////// Navbar //////////
             ////////////////////////////
             case "HOME" -> {
-                homeNav.setBackground(backgroundColor);
-                recordsNav.setBackground(pageColor);
-                registrationNav.setBackground(pageColor);
-                scoreNav.setBackground(pageColor);
+                homeNav.setBackground(Constants.backgroundColor);
+                recordsNav.setBackground(Constants.pageColor);
+                registrationNav.setBackground(Constants.pageColor);
+                scoreNav.setBackground(Constants.pageColor);
 
                 setTitle("Home - Dog Show");
                 pageLayout.show(pagePanel, "HOME");
             }
             case "RECORD-LIST" -> {
-                recordsNav.setBackground(backgroundColor);
-                homeNav.setBackground(pageColor);
-                registrationNav.setBackground(pageColor);
-                scoreNav.setBackground(pageColor);
+                recordsNav.setBackground(Constants.backgroundColor);
+                homeNav.setBackground(Constants.pageColor);
+                registrationNav.setBackground(Constants.pageColor);
+                scoreNav.setBackground(Constants.pageColor);
 
                 setTitle("Records - Dog Show");
                 pageLayout.show(pagePanel, "RECORD-LIST");
             }
             case "REGISTRATION" -> {
-                registrationNav.setBackground(backgroundColor);
-                homeNav.setBackground(pageColor);
-                recordsNav.setBackground(pageColor);
-                scoreNav.setBackground(pageColor);
+                registrationNav.setBackground(Constants.backgroundColor);
+                homeNav.setBackground(Constants.pageColor);
+                recordsNav.setBackground(Constants.pageColor);
+                scoreNav.setBackground(Constants.pageColor);
 
                 setTitle("Registration - Dog Show");
                 pageLayout.show(pagePanel, "REGISTRATION");
             }
             case "SCORE-LIST" -> {
-                scoreNav.setBackground(backgroundColor);
-                homeNav.setBackground(pageColor);
-                recordsNav.setBackground(pageColor);
-                registrationNav.setBackground(pageColor);
+                scoreNav.setBackground(Constants.backgroundColor);
+                homeNav.setBackground(Constants.pageColor);
+                recordsNav.setBackground(Constants.pageColor);
+                registrationNav.setBackground(Constants.pageColor);
 
                 setTitle("Score - Dog Show");
                 pageLayout.show(pagePanel, "SCORE-LIST");
-
             }
 
             ////////////////////////////
             ////// Authentication //////
             ////////////////////////////
             case "LOGIN" -> {
-                //get credentials
+                // get credentials
                 RoundedTextField username = homePage.getLoginUsername();
                 RoundedPasswordField password = homePage.getLoginPassword();
                 boolean error = false;
 
-                //validate that user entered credentials
+                // validate that user entered credentials
                 if (username.getText().equals("Username")) {
                     username.setInvalid("Please specify a username");
                     error = true;
@@ -228,12 +227,12 @@ public class Controller extends JFrame implements ActionListener, Parameters, Mo
                     error = true;
                 }
 
-                //attempt to connect to database
+                // attempt to connect to database
                 if (!error) {
                     if (!Database.login(username.getText(), password.getPassword())) { //connects to database. false if incorrect credentials
                         JOptionPane.showMessageDialog(this, "Incorrect username or password", "Error", JOptionPane.ERROR_MESSAGE);
                     } else {
-                        System.out.println("Logged in!");
+                        logger.log(Level.INFO, "Logged in!");
                         recordsNav.setEnabled(true);
                         registrationNav.setEnabled(true);
                         scoreNav.setEnabled(true);
@@ -255,7 +254,7 @@ public class Controller extends JFrame implements ActionListener, Parameters, Mo
 
                 boolean error = false;
 
-                //validate name
+                // validate name
                 if (name.getText().equals("Name")) {
                     name.setInvalid("Please specify a name");
                     error = true;
@@ -264,7 +263,7 @@ public class Controller extends JFrame implements ActionListener, Parameters, Mo
                     error = true;
                 }
 
-                //validate email
+                // validate email
                 if (email.getText().equals("Email")) {
                     email.setInvalid("Please specify an email");
                     error = true;
@@ -273,7 +272,7 @@ public class Controller extends JFrame implements ActionListener, Parameters, Mo
                     error = true;
                 }
 
-                //validate username
+                // validate username
                 if (username.getText().equals("Username")) {
                     username.setInvalid("Please specify a username");
                     error = true;
@@ -285,7 +284,7 @@ public class Controller extends JFrame implements ActionListener, Parameters, Mo
                     error = true;
                 }
 
-                //validate password
+                // validate password
                 if (passwordString.equals("Password")) {
                     password.setInvalid("Please specify a password");
                     error = true;
@@ -313,17 +312,15 @@ public class Controller extends JFrame implements ActionListener, Parameters, Mo
                     registrationNav.setEnabled(true);
                     scoreNav.setEnabled(true);
                     homePage.hideAuthPanel();
-                    System.out.println("Registered user and created database!");
+                    logger.log(Level.INFO, "Registered user and created database!");
                 }
-
-                System.out.println("REGISTER");
             }
 
             ////////////////////////////
             /////// Registration ///////
             ////////////////////////////
             case "REGISTER-DOG" -> {
-                //get fields:
+                // get fields:
                 RoundedTextField familyName = registrationPage.getFamilyName();
                 RoundedTextField familyEmail = registrationPage.getFamilyEmail();
                 RoundedTextField dogName = registrationPage.getDogName();
@@ -343,7 +340,7 @@ public class Controller extends JFrame implements ActionListener, Parameters, Mo
                 String groomingString = grooming.isSelected() ? " " : "-";
                 String fetchString = fetch.isSelected() ? " " : "-";
 
-                //validate fields
+                // validate fields
                 boolean error = false;
                 if (familyName.getText().equals("Family Name")) {
                     familyName.setInvalid("Please specify a family name");
@@ -403,7 +400,7 @@ public class Controller extends JFrame implements ActionListener, Parameters, Mo
                     error = true;
                 }
 
-                //verify that image is selected
+                // verify that image is selected
                 if (registrationPage.getImage() == null) {
                     JOptionPane.showMessageDialog(this, "You must select an image.", "No Image Selected", JOptionPane.ERROR_MESSAGE);
                     error = true;
@@ -414,7 +411,7 @@ public class Controller extends JFrame implements ActionListener, Parameters, Mo
                     scoreList.addRow(new Object[]{regID, dogName.getText(), obedienceString, socializationString, groomingString, fetchString, obedience.isSelected() && socialization.isSelected() && grooming.isSelected() && fetch.isSelected()});
                     JOptionPane.showMessageDialog(this, "Successfully registered!", "Success", JOptionPane.INFORMATION_MESSAGE);
 
-                    //reset fields
+                    // reset fields
                     familyName.setText("Family Name");
                     familyEmail.setText("Family Email");
                     dogName.setText("Dog Name");
@@ -443,22 +440,17 @@ public class Controller extends JFrame implements ActionListener, Parameters, Mo
                 int regID = score.getRegID();
 
                 boolean error = false;
-                //TODO:  setting error message like in registration (currently, setting text of JLabel in ScoreInput to message causes the grid to resize)
-                if (obedience.isEnabled() && !obedience.getScores().matches("^(([0-9]|10);){3}([0-9]|10)$")) {
-                    JOptionPane.showMessageDialog(this, "Scores must be between 0-10", "Invalid Score(s)", JOptionPane.ERROR_MESSAGE);
-                    error = true;
-                } else if (socialization.isEnabled() && !socialization.getScores().matches("^(([0-9]|10);){3}([0-9]|10)$")) {
-                    JOptionPane.showMessageDialog(this, "Scores must be between 0-10", "Invalid Score(s)", JOptionPane.ERROR_MESSAGE);
-                    error = true;
-                } else if (grooming.isEnabled() && !grooming.getScores().matches("^(([0-9]|10);){3}([0-9]|10)$")) {
-                    JOptionPane.showMessageDialog(this, "Scores must be between 0-10", "Invalid Score(s)", JOptionPane.ERROR_MESSAGE);
-                    error = true;
-                } else if (fetch.isEnabled() && !fetch.getScores().matches("^(([0-9]|10);){3}([0-9]|10)$")) {
+                // TODO:  setting error message like in registration (currently, setting text of JLabel in ScoreInput to message causes the grid to resize)
+                String validScores = "^((\\d|10);){3}(\\d|10)$";
+                if (obedience.isEnabled() && !obedience.getScores().matches(validScores) ||
+                        (socialization.isEnabled() && !socialization.getScores().matches(validScores)) ||
+                        (grooming.isEnabled() && !grooming.getScores().matches(validScores)) ||
+                        (fetch.isEnabled() && !fetch.getScores().matches(validScores))) {
                     JOptionPane.showMessageDialog(this, "Scores must be between 0-10", "Invalid Score(s)", JOptionPane.ERROR_MESSAGE);
                     error = true;
                 }
 
-                //set scores
+                // set scores
                 if (!error) {
                     String obedienceScore = obedience.isEnabled() ? obedience.getScores() : "-";
                     String socializationScore = socialization.isEnabled() ? socialization.getScores() : "-";
@@ -469,7 +461,7 @@ public class Controller extends JFrame implements ActionListener, Parameters, Mo
                     JOptionPane.showMessageDialog(this, "Saved scores!", "Success", JOptionPane.INFORMATION_MESSAGE);
                     pageLayout.show(pagePanel, "SCORE-LIST");
 
-                    //update score in table
+                    // update score in table
                     scoreList.setData(Database.getScores(true));
                 }
 
@@ -486,17 +478,17 @@ public class Controller extends JFrame implements ActionListener, Parameters, Mo
                     if (obedienceScore.equals(" ") || socializationScore.equals(" ") || groomingScore.equals(" ") || fetchScore.equals(" ")) { //check if any scores are unentered
                         error = true;
                         JOptionPane.showMessageDialog(this, "All scores must be entered before committing.", "Missing Scores", JOptionPane.ERROR_MESSAGE);
-                        break; //don't send duplicate error messages
+                        break; // don't send duplicate error messages
                     }
                 }
 
                 if (!error) {
                     Database.commitScores();
                     JOptionPane.showMessageDialog(this, "Successfully committed scores!", "Success", JOptionPane.INFORMATION_MESSAGE);
-                    recordsNav.setBackground(backgroundColor);
-                    homeNav.setBackground(pageColor);
-                    registrationNav.setBackground(pageColor);
-                    scoreNav.setBackground(pageColor);
+                    recordsNav.setBackground(Constants.backgroundColor);
+                    homeNav.setBackground(Constants.pageColor);
+                    registrationNav.setBackground(Constants.pageColor);
+                    scoreNav.setBackground(Constants.pageColor);
 
 
                     recordList.setData(Database.getScores(false), Database.getYears());
@@ -527,7 +519,7 @@ public class Controller extends JFrame implements ActionListener, Parameters, Mo
     }
 
     @Override
-    public void mouseClicked(MouseEvent e) { //table event handler
+    public void mouseClicked(MouseEvent e) { // table event handler
         // TODO: Add balto winner logic and field
         JTable target = (JTable) e.getSource();
         int row = target.getSelectedRow();
@@ -536,12 +528,12 @@ public class Controller extends JFrame implements ActionListener, Parameters, Mo
             int regID = (int) target.getValueAt(row, 0);
             Object[] result = Database.getContestant(regID);
 
-            if ((Boolean) result[14]) { //if current
+            if (Boolean.TRUE.equals(result[14])) { // if current
                 pageLayout.show(pagePanel, "SCORE");
                 score.setData(result);
             } else {
                 pageLayout.show(pagePanel, "RECORD");
-                record.setData(result);
+                tableRecord.setData(result);
             }
 
         }
@@ -564,7 +556,7 @@ public class Controller extends JFrame implements ActionListener, Parameters, Mo
     }
 
     public static Dimension screenSize() {
-        Controller controller = Controller.getInstance();
+        Controller controller = Objects.requireNonNull(Controller.getInstance());
         Insets screenInsets = controller.getToolkit().getScreenInsets(controller.getGraphicsConfiguration());
         Rectangle screenSize = controller.getGraphicsConfiguration().getBounds();
         return new Dimension(screenSize.width - screenInsets.right - screenInsets.left, screenSize.height - screenInsets.bottom - screenInsets.top);
