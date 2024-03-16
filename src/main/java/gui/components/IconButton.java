@@ -1,13 +1,12 @@
 package gui.components;
 
 import gui.Controller;
-import utilities.Parameters;
 import utilities.Utilities;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class IconButton extends JButton implements Parameters {
+public class IconButton extends JButton {
     public IconButton(String imageName, int iconWidth, int iconHeight, Controller controller) {
         ImageIcon imageIcon = Utilities.getImageIcon(imageName); // load the image to a imageIcon
         Image scaledImage = imageIcon.getImage().getScaledInstance(iconWidth, iconHeight,  Image.SCALE_SMOOTH); // scale it the smooth way

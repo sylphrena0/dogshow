@@ -6,7 +6,8 @@ import gui.components.RoundedButton;
 import gui.components.RoundedTextField;
 import gui.components.ScoreInput;
 import gui.pages.views.TableView;
-import utilities.Parameters;
+import lombok.SneakyThrows;
+import utilities.Constants;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -14,7 +15,7 @@ import java.awt.*;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
-public class Record extends TableView implements Parameters {
+public class Record extends TableView {
     RoundedTextField familyName, familyEmail, name, breed, age, color, markings;
     ScoreInput obedience, socialization, grooming, fetch;
     ImageLoaderButton imageLoaderButton;
@@ -22,7 +23,7 @@ public class Record extends TableView implements Parameters {
         Controller controller = Controller.getInstance();
 
         JLabel recordsHeader = new JLabel("View Records:");
-        recordsHeader.setFont(headerFont);
+        recordsHeader.setFont(Constants.headerFont);
         recordsHeader.setForeground(Color.WHITE);
         recordsHeader.setHorizontalAlignment(SwingConstants.LEFT);
 
@@ -39,8 +40,8 @@ public class Record extends TableView implements Parameters {
         grooming = new ScoreInput("Grooming", false, controller);
         fetch = new ScoreInput("Fetch", false, controller);
 
-        RoundedButton back = new RoundedButton("Back", pageColor, lightPurpleButtonColor, controller);
-        RoundedButton winnerBanner = new RoundedButton("2022 Balto Award Winner", lightPurpleButtonColor, Color.BLACK, controller);
+        RoundedButton back = new RoundedButton("Back", Constants.pageColor, Constants.lightPurpleButtonColor, controller);
+        RoundedButton winnerBanner = new RoundedButton("2022 Balto Award Winner", Constants.lightPurpleButtonColor, Color.BLACK, controller);
         winnerBanner.setEnabled(false);
 
         back.setActionCommand("RECORD-LIST");
@@ -57,6 +58,7 @@ public class Record extends TableView implements Parameters {
                 imageLoaderButton);
     }
 
+    @SneakyThrows
     public void setData(Object[] data) {
         contentPanel.setLayout(null); //reset layout to prevent wierd resizing issue
 
@@ -95,7 +97,7 @@ public class Record extends TableView implements Parameters {
         try {
             imageLoaderButton.setImage(ImageIO.read(new ByteArrayInputStream((byte[]) data[12])));
         } catch (IOException e) {
-            throw new RuntimeException("Error recovering image from database: " + e);
+            throw new IOException("Error recovering image from database: " + e);
         }
 
         contentPanel.setLayout(tableLayout); //set to use miglayout again after setText()

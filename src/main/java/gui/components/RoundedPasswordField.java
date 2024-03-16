@@ -1,7 +1,7 @@
 package gui.components;
 
 import gui.Controller;
-import utilities.Parameters;
+import utilities.Constants;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,20 +12,20 @@ import java.awt.geom.RoundRectangle2D;
 // Author: Graywolf
 // Source: https://stackoverflow.com/questions/16213836/java-swing-jtextfield-set-placeholder
 
-public class RoundedPasswordField extends JPasswordField implements Parameters {
+public class RoundedPasswordField extends JPasswordField {
     private Shape shape;
     private final Color color;
     private final String placeholder;
     public RoundedPasswordField(String placeholder, Controller controller) {
         setOpaque(false);
-        this.color = inputColor;
+        this.color = Constants.inputColor;
         this.placeholder = placeholder;
         this.addActionListener(controller);
         this.setForeground(Color.WHITE);
-        this.setBackground(inputColor);
+        this.setBackground(Constants.inputColor);
         this.setCaretColor(Color.WHITE);
-        this.setBorder(componentInsets);
-        this.setFont(inputFont);
+        this.setBorder(Constants.componentInsets);
+        this.setFont(Constants.inputFont);
         this.setEchoChar((char) 0); //sets password to visible
         this.setText(placeholder);
 
@@ -71,7 +71,7 @@ public class RoundedPasswordField extends JPasswordField implements Parameters {
 
     public void setInvalid(String error) {
         // set a red placeholder error for 3 seconds before reverting to normal
-        this.setForeground(errorRed);
+        this.setForeground(Constants.errorRed);
         this.setEchoChar((char) 0); // sets password to visible
         this.setText(error);
         JPasswordField passwordField = this;

@@ -1,24 +1,22 @@
 package gui.components;
 
 import gui.Controller;
-import utilities.Parameters;
+import utilities.Constants;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class RoundedDropdown extends JComboBox<String> implements Parameters {
+public class RoundedDropdown extends JComboBox<String> {
     private final String text;
     public RoundedDropdown(String text, Controller controller) {
         // TODO: make this actually rounded
         super(new String[] {});
-        // this.color = inputColor;
-        // this.setSelectedIndex(0);
         this.text = text;
         this.addActionListener(controller);
         this.setForeground(Color.WHITE);
-        this.setBackground(inputColor);
-        this.setFont(inputFont);
-        this.setBorder(componentInsets);
+        this.setBackground(Constants.inputColor);
+        this.setFont(Constants.inputFont);
+        this.setBorder(Constants.componentInsets);
     }
 
     @Override

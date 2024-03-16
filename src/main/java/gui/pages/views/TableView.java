@@ -5,13 +5,13 @@ import gui.components.RoundedButton;
 import gui.components.RoundedPanel;
 import gui.components.RoundedTextField;
 import net.miginfocom.swing.MigLayout;
-import utilities.Parameters;
+import utilities.Constants;
 import utilities.Utilities;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class TableView extends JPanel implements Parameters {
+public class TableView extends JPanel {
     protected ImageLoaderButton imageButton;
 
     protected int gridPaddingRegistration = Utilities.relativeHeight(3);
@@ -30,13 +30,13 @@ public class TableView extends JPanel implements Parameters {
         this.imageButton = imageLoaderButton;
 
         //"this" is the JPanel we are adding to the super, as this class extends JPanel
-        this.setBackground(backgroundColor);
-        this.setPreferredSize(pageSize);
+        this.setBackground(Constants.backgroundColor);
+        this.setPreferredSize(Constants.pageSize);
         this.setLayout(new BorderLayout());
-        this.setBorder(BorderFactory.createEmptyBorder(PAGE_PADDING, PAGE_PADDING, PAGE_PADDING, PAGE_PADDING));
+        this.setBorder(BorderFactory.createEmptyBorder(Constants.PAGE_PADDING, Constants.PAGE_PADDING, Constants.PAGE_PADDING, Constants.PAGE_PADDING));
 
         contentPanel = new RoundedPanel();
-        contentPanel.setBackground(pageColor);
+        contentPanel.setBackground(Constants.pageColor);
         tableLayout = new MigLayout(
                 "fill, insets %d, gap %d".formatted(gridPaddingRegistration, gridPaddingRegistration), // Layout Constraints
                 "[sgx, fill][sgx, fill][sgx, fill]", // Column constraints (fill makes components grow to row size, sg constrains each row/column to be the same size)

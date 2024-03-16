@@ -3,6 +3,7 @@ package gui.pages;
 import gui.Controller;
 import gui.components.RoundedDropdown;
 import gui.pages.views.ListView;
+import utilities.Constants;
 
 import javax.swing.*;
 import java.awt.*;
@@ -22,7 +23,7 @@ public class RecordList extends ListView {
                 ""};
 
         JLabel recordsListHeader = new JLabel("View Contestant Records:");
-        recordsListHeader.setFont(headerFont);
+        recordsListHeader.setFont(Constants.headerFont);
         recordsListHeader.setForeground(Color.WHITE);
         recordsListHeader.setHorizontalAlignment(SwingConstants.LEFT);
 

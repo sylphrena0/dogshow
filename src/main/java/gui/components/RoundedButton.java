@@ -1,13 +1,13 @@
 package gui.components;
 
 import gui.Controller;
-import utilities.Parameters;
+import utilities.Constants;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.RoundRectangle2D;
 
-public class RoundedButton extends JButton implements Parameters {
+public class RoundedButton extends JButton {
     private Shape shape;
     private final Color color;
     public RoundedButton(String text, Color color, Color textColor, Controller controller) {
@@ -16,7 +16,7 @@ public class RoundedButton extends JButton implements Parameters {
         this.setText(text);
         this.addActionListener(controller);
         this.setForeground(textColor);
-        this.setFont(buttonFont);
+        this.setFont(Constants.buttonFont);
         this.setBackground(color);
         this.setFocusPainted(false);
         this.setBorderPainted(false);
@@ -45,10 +45,6 @@ public class RoundedButton extends JButton implements Parameters {
 
     @Override
     public void setEnabled(boolean b) {
-        if (b) {
-            this.setRolloverEnabled(true);
-        } else {
-            this.setRolloverEnabled(false);
-        }
+        this.setRolloverEnabled(b);
     }
 }

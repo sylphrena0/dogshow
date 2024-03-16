@@ -6,7 +6,8 @@ import gui.components.RoundedButton;
 import gui.components.RoundedTextField;
 import gui.components.ScoreInput;
 import gui.pages.views.TableView;
-import utilities.Parameters;
+import lombok.Getter;
+import utilities.Constants;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -14,17 +15,17 @@ import java.awt.*;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
-public class Score extends TableView implements Parameters {
+public class Score extends TableView {
     RoundedTextField familyName, familyEmail, name, breed, age, color, markings;
-    ScoreInput obedience, socialization, grooming, fetch;
+    @Getter ScoreInput obedience, socialization, grooming, fetch;
     ImageLoaderButton imageLoaderButton;
-    Integer regID;
+    @Getter Integer regID;
 
     public Score() {
         Controller controller = Controller.getInstance();
 
         JLabel recordsHeader = new JLabel("Score:");
-        recordsHeader.setFont(headerFont);
+        recordsHeader.setFont(Constants.headerFont);
         recordsHeader.setForeground(Color.WHITE);
 
         familyName = new RoundedTextField("Family Name", false, controller);
@@ -39,10 +40,9 @@ public class Score extends TableView implements Parameters {
         socialization = new ScoreInput("Socialization Score", controller);
         grooming = new ScoreInput("Grooming Score", controller);
         fetch = new ScoreInput("Fetch Score", controller);
-
-        RoundedButton back = new RoundedButton("Back", pageColor, lightPurpleButtonColor, controller);
+        RoundedButton back = new RoundedButton("Back", Constants.pageColor, Constants.lightPurpleButtonColor, controller);
         back.setActionCommand("SCORE-LIST");
-        RoundedButton save = new RoundedButton("Save Scores", lightPurpleButtonColor, Color.BLACK, controller);
+        RoundedButton save = new RoundedButton("Save Scores", Constants.lightPurpleButtonColor, Color.BLACK, controller);
         save.setActionCommand("SCORE-SAVE");
 
         imageLoaderButton = new ImageLoaderButton(controller);
@@ -100,25 +100,5 @@ public class Score extends TableView implements Parameters {
         }
 
         contentPanel.setLayout(tableLayout); //set to use miglayout again after setText()
-    }
-
-    public ScoreInput getObedience() {
-        return obedience;
-    }
-
-    public ScoreInput getSocialization() {
-        return socialization;
-    }
-
-    public ScoreInput getGrooming() {
-        return grooming;
-    }
-
-    public ScoreInput getFetch() {
-        return fetch;
-    }
-
-    public Integer getRegID() {
-        return regID;
     }
 }

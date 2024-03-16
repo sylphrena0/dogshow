@@ -4,7 +4,7 @@ import gui.Controller;
 import gui.components.RoundedPanel;
 import gui.components.TableComponentRenderer;
 import net.miginfocom.swing.MigLayout;
-import utilities.Parameters;
+import utilities.Constants;
 import utilities.Utilities;
 
 import javax.swing.*;
@@ -15,7 +15,7 @@ import javax.swing.table.TableRowSorter;
 import java.awt.*;
 import java.util.Arrays;
 
-public class ListView extends JPanel implements Parameters {
+public class ListView extends JPanel {
 
     private final Controller controller;
     protected JTable table;
@@ -28,10 +28,10 @@ public class ListView extends JPanel implements Parameters {
 
     protected void addComponents(JComponent header, JComponent option, String[] columnNames) {
         // "this" is the JPanel we are adding to the super, as this class extends JPanel
-        this.setBackground(backgroundColor);
-        this.setPreferredSize(pageSize);
+        this.setBackground(Constants.backgroundColor);
+        this.setPreferredSize(Constants.pageSize);
         this.setLayout(new BorderLayout());
-        this.setBorder(BorderFactory.createEmptyBorder(PAGE_PADDING, PAGE_PADDING, PAGE_PADDING, PAGE_PADDING));
+        this.setBorder(BorderFactory.createEmptyBorder(Constants.PAGE_PADDING, Constants.PAGE_PADDING, Constants.PAGE_PADDING, Constants.PAGE_PADDING));
 
         this.columnNames = columnNames;
 
@@ -41,7 +41,7 @@ public class ListView extends JPanel implements Parameters {
                 "[fill][fill]", // Column constraints (fill makes components grow to row size, sg constrains each row/column to be the same size)
                 "[fill][fill]" // Row constraints
         ));
-        listPanel.setBackground(pageColor);
+        listPanel.setBackground(Constants.pageColor);
 
         tableModel = new DefaultTableModel(columnNames, 0) {
             @Override
@@ -70,16 +70,16 @@ public class ListView extends JPanel implements Parameters {
         table.setFocusable(false);
         table.setRowHeight(Utilities.relativeHeight(6.5));
         table.setPreferredSize(new Dimension(Utilities.relativeWidth(100 - 4.5), Utilities.relativeHeight(6.5)));
-        table.setFont(inputFont);
+        table.setFont(Constants.inputFont);
 
         JScrollPane tableScrollable = new JScrollPane(table, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         tableScrollable.setOpaque(false);
-        tableScrollable.setBackground(transparent);
+        tableScrollable.setBackground(Constants.transparent);
         tableScrollable.setBorder(BorderFactory.createEmptyBorder());
         tableScrollable.getViewport().setOpaque(false);
 
         JTableHeader tableHeader = table.getTableHeader();
-        tableHeader.setBackground(backgroundColor);
+        tableHeader.setBackground(Constants.backgroundColor);
         tableHeader.setPreferredSize(new Dimension(Utilities.relativeWidth(100 - 4.5), Utilities.relativeHeight(6.5)));
         tableHeader.setBorder(BorderFactory.createEmptyBorder());
         tableHeader.setDefaultRenderer(new TableComponentRenderer(new TableComponentRenderer(tableHeader.getDefaultRenderer())));
@@ -91,7 +91,7 @@ public class ListView extends JPanel implements Parameters {
 
 
         listPanel.add(header, "gapbefore 2%, gaptop 4%, w 70%");
-        listPanel.add(option, "gap %d %d %d %d, wrap".formatted(GRID_PADDING, GRID_PADDING, GRID_PADDING, GRID_PADDING / 4));
+        listPanel.add(option, "gap %d %d %d %d, wrap".formatted(Constants.GRID_PADDING, Constants.GRID_PADDING, Constants.GRID_PADDING, Constants.GRID_PADDING / 4));
         listPanel.add(tableScrollable, "span 2, h 91%!, dock south");
 
         this.add(listPanel, BorderLayout.CENTER);

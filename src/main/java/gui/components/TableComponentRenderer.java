@@ -1,13 +1,13 @@
 package gui.components;
 
-import utilities.Parameters;
+import utilities.Constants;
 import utilities.Utilities;
 
 import javax.swing.*;
 import javax.swing.table.TableCellRenderer;
 import java.awt.*;
 
-public class TableComponentRenderer implements TableCellRenderer, Parameters {
+public class TableComponentRenderer implements TableCellRenderer {
 
     private final TableCellRenderer defaultRenderer;
 
@@ -25,10 +25,10 @@ public class TableComponentRenderer implements TableCellRenderer, Parameters {
             c.setFont(c.getFont().deriveFont(Font.BOLD, Utilities.relativeHeight(2)));
         }
         if (row % 2 == 0){
-            c.setBackground(pageColor);
+            c.setBackground(Constants.pageColor);
         }
         else {
-            c.setBackground(backgroundColor);
+            c.setBackground(Constants.backgroundColor);
         }
 
         return c;

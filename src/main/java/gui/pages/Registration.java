@@ -6,6 +6,9 @@ import gui.components.RoundedButton;
 import gui.components.RoundedCheckbox;
 import gui.components.RoundedTextField;
 import gui.pages.views.TableView;
+import lombok.Getter;
+import lombok.SneakyThrows;
+import utilities.Constants;
 import utilities.Utilities;
 
 import javax.imageio.ImageIO;
@@ -17,25 +20,26 @@ import java.io.File;
 import java.io.IOException;
 
 public class Registration extends TableView {
+    @Getter
     private final ImageLoaderButton imageLoaderButton;
-    RoundedTextField familyName, familyEmail, name, breed, age, color, markings;
-    RoundedCheckbox obedience, socialization, grooming, fetch;
+    @Getter RoundedTextField familyName, familyEmail, dogName, breed, age, dogColor, markings;
+    @Getter RoundedCheckbox obedience, socialization, grooming, fetch;
     Image scaledImage;
 
     public Registration() {
         Controller controller = Controller.getInstance();
 
         JLabel registrationHeader = new JLabel("Register a contestant:");
-        registrationHeader.setFont(headerFont);
+        registrationHeader.setFont(Constants.headerFont);
         registrationHeader.setForeground(Color.WHITE);
         registrationHeader.setHorizontalAlignment(SwingConstants.LEFT);
 
         familyName = new RoundedTextField("Family Name", controller);
         familyEmail = new RoundedTextField("Family Email", controller);
-        name = new RoundedTextField("Dog Name", controller);
+        dogName = new RoundedTextField("Dog Name", controller);
         breed = new RoundedTextField("Breed", controller);
         age = new RoundedTextField("Age", controller);
-        color = new RoundedTextField("Color", controller);
+        dogColor = new RoundedTextField("Color", controller);
 
         markings = new RoundedTextField("Identifiable Markings", controller);
         obedience = new RoundedCheckbox("Register for Obedience Contest", controller);
@@ -46,7 +50,7 @@ public class Registration extends TableView {
         imageLoaderButton = new ImageLoaderButton(controller);
         imageLoaderButton.setActionCommand("SET-ICON");
 
-        RoundedButton registerButton = new RoundedButton("Register", lightPurpleButtonColor, Color.BLACK, controller);
+        RoundedButton registerButton = new RoundedButton("Register", Constants.lightPurpleButtonColor, Color.BLACK, controller);
         registerButton.setActionCommand("REGISTER-DOG");
 
 
@@ -56,9 +60,9 @@ public class Registration extends TableView {
         addComponents(registrationHeader,
                 familyName, markings,
                 familyEmail, obedience,
-                name, socialization,
+                dogName, socialization,
                 breed, grooming,
-                age, color, fetch,
+                age, dogColor, fetch,
                 null, registerButton,
                 imageLoaderButton);
     }
@@ -74,65 +78,16 @@ public class Registration extends TableView {
         }
 
     }
-    public RoundedTextField getFamilyName() {
-        return familyName;
-    }
 
-    public RoundedTextField getFamilyEmail() {
-        return familyEmail;
-    }
-
-    public RoundedTextField getDogName() {
-        return name;
-    }
-
-    public RoundedTextField getBreed() {
-        return breed;
-    }
-
-    public RoundedTextField getAge() {
-        return age;
-    }
-
-    public RoundedTextField getDogColor() {
-        return color;
-    }
-
-    public RoundedTextField getMarkings() {
-        return markings;
-    }
-
-    public RoundedCheckbox getObedience() {
-        return obedience;
-    }
-
-    public RoundedCheckbox getSocialization() {
-        return socialization;
-    }
-
-    public RoundedCheckbox getGrooming() {
-        return grooming;
-    }
-
-    public RoundedCheckbox getFetch() {
-        return fetch;
-    }
-
-    public ImageLoaderButton getImageLoaderButton() { return imageLoaderButton; }
-
+    @SneakyThrows
     public byte[] getImage() {
-        //get scaledImage and turn to byte array:
+        // get scaledImage and turn to byte array:
         if (scaledImage != null) {
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            try {
-                BufferedImage image = new BufferedImage(scaledImage.getWidth(null), scaledImage.getHeight(null), BufferedImage.TYPE_INT_ARGB);
-                image.getGraphics().drawImage(scaledImage, 0, 0 , null);
-                ImageIO.write(image, "png", bos);
-                return bos.toByteArray();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-
+            BufferedImage image = new BufferedImage(scaledImage.getWidth(null), scaledImage.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+            image.getGraphics().drawImage(scaledImage, 0, 0 , null);
+            ImageIO.write(image, "png", bos);
+            return bos.toByteArray();
         }
         return null;
     }

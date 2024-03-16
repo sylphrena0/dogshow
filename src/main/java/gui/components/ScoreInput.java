@@ -2,17 +2,18 @@ package gui.components;
 
 import gui.Controller;
 import net.miginfocom.swing.MigLayout;
+import utilities.Constants;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class ScoreInput extends RoundedPanel {
 
-    private RoundedTextField score1, score2, score3, score4;
+    private final RoundedTextField score1, score2, score3, score4;
     private final JLabel scoreLabel;
 
     public ScoreInput(String label, Controller controller) {
-        super(15, inputColor);
+        super(15, Constants.inputColor);
         this.setLayout(new MigLayout(
                 "fill",
                 "[fill][fill, sg][fill, sg][fill, sg][fill, sg]", // Column constraints (fill makes components grow to row size, sg constrains each row/column to be the same size)
@@ -20,13 +21,13 @@ public class ScoreInput extends RoundedPanel {
         ));
 
         scoreLabel = new JLabel(label);
-        scoreLabel.setFont(inputFont);
+        scoreLabel.setFont(Constants.inputFont);
         scoreLabel.setForeground(Color.WHITE);
 
-        score1 = new RoundedTextField("-", controller, pageColor);
-        score2 = new RoundedTextField("-", controller, pageColor);
-        score3 = new RoundedTextField("-", controller, pageColor);
-        score4 = new RoundedTextField("-", controller, pageColor);
+        score1 = new RoundedTextField("-", controller, Constants.pageColor);
+        score2 = new RoundedTextField("-", controller, Constants.pageColor);
+        score3 = new RoundedTextField("-", controller, Constants.pageColor);
+        score4 = new RoundedTextField("-", controller, Constants.pageColor);
 
         this.add(scoreLabel, "w 32%!");
         this.add(score1, "w 14%!");
@@ -51,7 +52,7 @@ public class ScoreInput extends RoundedPanel {
             score3.setEnabled(true);
             score4.setEnabled(true);
         } else {
-            scoreLabel.setForeground(disabledText);
+            scoreLabel.setForeground(Constants.disabledText);
             score1.setEnabled(false);
             score2.setEnabled(false);
             score3.setEnabled(false);

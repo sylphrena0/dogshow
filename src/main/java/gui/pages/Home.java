@@ -5,19 +5,20 @@ import gui.components.RoundedButton;
 import gui.components.RoundedPanel;
 import gui.components.RoundedPasswordField;
 import gui.components.RoundedTextField;
+import lombok.Getter;
 import net.miginfocom.swing.MigLayout;
-import utilities.Parameters;
+import utilities.Constants;
 import utilities.Utilities;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class Home extends JPanel implements Parameters {
+public class Home extends JPanel {
     private final Controller controller;
     private CardLayout authLayout;
     private JPanel authPanel;
-    RoundedTextField registerName, registerEmail , registerUsername, loginUsername;
-    RoundedPasswordField registerPassword, registerConfirmPassword, loginPassword;
+    @Getter RoundedTextField registerName, registerEmail, registerUsername, loginUsername;
+    @Getter RoundedPasswordField registerPassword, registerConfirmPassword, loginPassword;
     public Home() {
         this.controller = Controller.getInstance();
         addComponents();
@@ -25,14 +26,14 @@ public class Home extends JPanel implements Parameters {
 
     private void addComponents() {
         // "this" is the JPanel we are adding to the super, as this class extends JPanel
-        this.setBackground(backgroundColor);
-        this.setPreferredSize(pageSize);
+        this.setBackground(Constants.backgroundColor);
+        this.setPreferredSize(Constants.pageSize);
         this.setLayout(new BorderLayout());
 
         authLayout = new CardLayout();
         authPanel = new JPanel(authLayout);
 
-        authPanel.setBorder(BorderFactory.createEmptyBorder(PAGE_PADDING, PAGE_PADDING, PAGE_PADDING, PAGE_PADDING));
+        authPanel.setBorder(BorderFactory.createEmptyBorder(Constants.PAGE_PADDING, Constants.PAGE_PADDING, Constants.PAGE_PADDING, Constants.PAGE_PADDING));
         authPanel.setOpaque(false);
 
         ///////////////////////////////////
@@ -41,7 +42,7 @@ public class Home extends JPanel implements Parameters {
         RoundedPanel loginPanel = new RoundedPanel();
 
         JLabel loginHeader = new JLabel("Welcome! Please Login:");
-        loginHeader.setFont(headerFont);
+        loginHeader.setFont(Constants.headerFont);
         loginHeader.setForeground(Color.WHITE);
         loginHeader.setHorizontalAlignment(SwingConstants.LEFT);
 
@@ -49,12 +50,12 @@ public class Home extends JPanel implements Parameters {
         loginPassword = new RoundedPasswordField("Password", controller);
         loginPassword.setActionCommand("LOGIN");
 
-        RoundedButton loginButton = new RoundedButton("Login", lightPurpleButtonColor, Color.BLACK, controller);
+        RoundedButton loginButton = new RoundedButton("Login", Constants.lightPurpleButtonColor, Color.BLACK, controller);
 
         loginButton.setActionCommand("LOGIN");
 
         loginPanel.setLayout(new MigLayout(
-                "insets %d, gap %d, al left".formatted(GRID_PADDING, GRID_PADDING), // Layout Constraints
+                "insets %d, gap %d, al left".formatted(Constants.GRID_PADDING, Constants.GRID_PADDING), // Layout Constraints
                 "[fill, sg]", // Column constraints (fill makes components grow to row size, sg constrains each row/column to be the same size)
                 "[fill, sg][fill, sg][fill, sg][fill, sg]" // Row constraints
         ));
@@ -68,10 +69,10 @@ public class Home extends JPanel implements Parameters {
         //////// Registration Panel ////////
         ////////////////////////////////////
         RoundedPanel registerPanel = new RoundedPanel();
-        registerPanel.setBackground(pageColor);
+        registerPanel.setBackground(Constants.pageColor);
 
         JLabel registerHeader = new JLabel("Welcome! Please Register:");
-        registerHeader.setFont(headerFont);
+        registerHeader.setFont(Constants.headerFont);
         registerHeader.setForeground(Color.WHITE);
         registerHeader.setHorizontalAlignment(SwingConstants.LEFT);
 
@@ -82,14 +83,14 @@ public class Home extends JPanel implements Parameters {
         registerConfirmPassword = new RoundedPasswordField("Confirm Password", controller);
         registerConfirmPassword.setActionCommand("REGISTER");
 
-        RoundedButton registerButton = new RoundedButton("Register", lightPurpleButtonColor, Color.BLACK, controller);
+        RoundedButton registerButton = new RoundedButton("Register", Constants.lightPurpleButtonColor, Color.BLACK, controller);
 
         registerButton.setActionCommand("REGISTER");
 
 
 
         registerPanel.setLayout(new MigLayout(
-                "insets %d, gap %d, al left".formatted(GRID_PADDING, GRID_PADDING), // Layout Constraints
+                "insets %d, gap %d, al left".formatted(Constants.GRID_PADDING, Constants.GRID_PADDING), // Layout Constraints
                 "[fill, sg][fill, sg]", // Column constraints (fill makes components grow to row size, sg constrains each row/column to be the same size)
                 "[fill, sg][fill, sg][fill, sg][fill, sg]" // Row constraints
         ));
@@ -113,8 +114,8 @@ public class Home extends JPanel implements Parameters {
         authLayout.first(authPanel);
 
         // scaling solution from https://stackoverflow.com/questions/6714045/how-to-resize-jlabel-imageicon
-        ImageIcon imageIcon = Utilities.getImageIcon("dogs.png"); // load the image to a imageIcon
-        Image scaledImage = imageIcon.getImage().getScaledInstance(screenSize.width, (int) (screenSize.width*15.0/64.0),  Image.SCALE_SMOOTH); // scale it the smooth way
+        ImageIcon imageIcon = Utilities.getImageIcon("dogs.png"); // lad the image to a imageIcon
+        Image scaledImage = imageIcon.getImage().getScaledInstance(Constants.screenSize.width, (int) (Constants.screenSize.width*15.0/64.0),  Image.SCALE_SMOOTH); // scale it the smooth way
         imageIcon = new ImageIcon(scaledImage);  // transform it back
 
         JLabel dogImageLabel = new JLabel(imageIcon);
@@ -129,33 +130,5 @@ public class Home extends JPanel implements Parameters {
     public void hideAuthPanel() {
         //remove auth panel
         authPanel.setVisible(false);
-    }
-
-    public RoundedTextField getRegisterName() {
-        return registerName;
-    }
-
-    public RoundedTextField getRegisterEmail() {
-        return registerEmail;
-    }
-
-    public RoundedTextField getRegisterUsername() {
-        return registerUsername;
-    }
-
-    public RoundedPasswordField getRegisterPassword() {
-        return registerPassword;
-    }
-
-    public RoundedPasswordField getRegisterConfirmPassword() {
-        return registerConfirmPassword;
-    }
-
-    public RoundedTextField getLoginUsername() {
-        return loginUsername;
-    }
-
-    public RoundedPasswordField getLoginPassword() {
-        return loginPassword;
     }
 }

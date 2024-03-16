@@ -1,7 +1,7 @@
 package gui.components;
 
 import gui.Controller;
-import utilities.Parameters;
+import utilities.Constants;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,20 +11,20 @@ import java.awt.geom.RoundRectangle2D;
 
 // Author: Graywolf
 // Source: https://stackoverflow.com/questions/16213836/java-swing-jtextfield-set-placeholder
-public class RoundedTextField extends JFormattedTextField implements Parameters {
+public class RoundedTextField extends JFormattedTextField {
     private Shape shape;
     private Color color;
     private final String placeholder;
     public RoundedTextField(String placeholder, Controller controller) {
-        this.color = inputColor;
+        this.color = Constants.inputColor;
         this.placeholder = placeholder;
         this.setOpaque(false); // As suggested by @AVD in comment.
         this.addActionListener(controller);
         this.setForeground(Color.WHITE);
         this.setBackground(color);
         this.setCaretColor(Color.WHITE);
-        this.setBorder(componentInsets);
-        this.setFont(inputFont);
+        this.setBorder(Constants.componentInsets);
+        this.setFont(Constants.inputFont);
         this.setText(placeholder);
 
         JTextField textField = this;
@@ -80,7 +80,7 @@ public class RoundedTextField extends JFormattedTextField implements Parameters 
 
     public void setInvalid(String error) {
         //set a red placeholder error for 3 seconds before reverting to normal
-        this.setForeground(errorRed);
+        this.setForeground(Constants.errorRed);
         this.setText(error);
         RoundedTextField textField = this;
         new java.util.Timer().schedule(

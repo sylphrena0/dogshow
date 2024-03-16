@@ -9,7 +9,7 @@ import java.util.Objects;
 
 import static java.awt.Font.createFont;
 
-public class Utilities implements Parameters {
+public class Utilities {
 
     private Utilities() {
         throw new IllegalStateException("Utility class");
@@ -60,7 +60,7 @@ public class Utilities implements Parameters {
      * @return The percent of the screen height
      */
     public static int relativeHeight(double percent) {
-        return (int) (screenSize.height * percent / 100);
+        return (int) (Constants.screenSize.height * percent / 100);
     }
 
     /**
@@ -69,7 +69,7 @@ public class Utilities implements Parameters {
      * @return The percent of the screen width
      */
     public static int relativeWidth(double percent) {
-        return (int) (screenSize.width * percent / 100);
+        return (int) (Constants.screenSize.width * percent / 100);
     }
 
     /**

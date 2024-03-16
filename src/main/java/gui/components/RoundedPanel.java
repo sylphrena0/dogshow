@@ -1,6 +1,6 @@
 package gui.components;
 
-import utilities.Parameters;
+import utilities.Constants;
 import utilities.Utilities;
 
 import javax.swing.*;
@@ -9,21 +9,21 @@ import java.awt.*;
 // Author: b4rc0ll0
 // Source: https://www.codeproject.com/Articles/114959/Rounded-Border-JPanel-JPanel-graphics-improvements
 
-public class RoundedPanel extends JPanel implements Parameters {  // stroke size. it is recommended to set it to 1 for better view
+public class RoundedPanel extends JPanel {  // stroke size. it is recommended to set it to 1 for better view
     protected int strokeSize = 1; // sets if it drops shadow
     protected boolean highQuality = true; // sets if it has a High Quality view
     protected Dimension arcs = new Dimension(Utilities.relativeHeight(12), Utilities.relativeHeight(12)); // double values for Horizontal and Vertical radius of corner arcs
     private Color color;
     public RoundedPanel() {
         this.setOpaque(false);
-        this.color = pageColor;
+        this.color = Constants.pageColor;
     }
 
     public RoundedPanel(int arc, Color background) {
         this();
         this.arcs = new Dimension(arc, arc);
         this.color = background;
-        this.setBorder(componentInsets);
+        this.setBorder(Constants.componentInsets);
     }
 
     @Override
