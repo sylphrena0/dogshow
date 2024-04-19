@@ -20,6 +20,11 @@ This repository contains the source code for an application produced for the 202
 - Add unit and/or integration tests.
 - Publish artifacts with Workflows
 
+<br>
+
+![image](https://github.com/sylphrena0/dogshow/assets/54223569/8f85051c-1f7d-4352-bc62-81f4fb91cf3b)
+Fig. 1: Login screen for the application.
+
 <!--
 Build Instructions:
 jpackage --name DogShow --app-version 0.9.0 --input ./ --main-jar DogShow.jar --type deb --icon ../../../src/images/icon.png
