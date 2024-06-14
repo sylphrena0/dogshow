@@ -22,7 +22,7 @@ This repository contains the source code for an application produced for the 202
 
 <br>
 
-![image](https://github.com/sylphrena0/dogshow/assets/54223569/8f85051c-1f7d-4352-bc62-81f4fb91cf3b)
+![2024-06-14_17-00](https://github.com/sylphrena0/dogshow/assets/54223569/0beb50a9-917d-4a39-877e-3be5050532c3)
 Fig. 1: Login screen for the application.
 
 <!--
